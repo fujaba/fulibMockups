@@ -1,0 +1,53 @@
+plugins {
+	id 'java'
+	id 'maven-publish'
+	id 'com.jfrog.bintray' version '1.8.4'
+	id 'de.clashsoft.simple-publish' version '0.2.0'
+}
+
+// --------------- Info ---------------
+
+group = 'org.fulib'
+version = "git describe --tags".execute().text[1..-2] // strip v and \n
+description = 'Tools for generating HTML mockups and Web Apps.'
+
+publishInfo {
+	websiteUrl = 'https://www.fulib.org/'
+	issueTrackerUrl = 'https://github.com/fujaba/fulibMockups'
+	vcsUrl = 'https://github.com/fujaba/fulibMockups'
+	githubRepo = 'fujaba/fulibMockups'
+	labels = [ 'source', 'generator', 'html', 'mockups', 'webapp' ]
+
+	license {
+		shortName = 'BSD 3-Clause'
+		longName = 'BSD 3-Clause "New" or "Revised" License'
+		url = 'https://opensource.org/licenses/BSD-3-Clause'
+	}
+
+	developer {
+		id = 'Clashsoft'
+		name = 'Adrian Kunz'
+		email = 'clashsoft@hotmail.com'
+	}
+
+	developer {
+		id = 'azuendorf'
+		name = 'Albert Zündorf'
+		email = 'zuendorf@uni-kassel.de'
+	}
+}
+
+sourceCompatibility = 1.8
+
+// --------------- Dependencies ---------------
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	jcenter()
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/junit/junit
+	testCompile group: 'junit', name: 'junit', version: '4.12'
+}
