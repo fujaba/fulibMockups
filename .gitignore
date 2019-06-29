@@ -1,0 +1,17 @@
+/.idea/
+/.gradle/
+
+/build/
+/out/
+/temp/
+/data/
+
+hs_err_pid*
+
+*.iml
+
+src/*/scenarios/**/*.png
+src/*/scenarios/**/*.svg
+src/*/scenarios/**/*.yaml
+src/*/scenarios/**/*.html
+libs/fulib*.jar
