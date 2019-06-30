@@ -67,3 +67,6 @@ generateTestScenarioSource.args = [ '-m', testDir, '-t', testDir, 'src/test/scen
 
 sourceSets.main.java.srcDir(modelDir)
 sourceSets.test.java.srcDir(testDir)
+
+// include scenario files in jar artifact
+jar.from 'src/main/scenarios'
