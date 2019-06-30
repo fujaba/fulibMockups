@@ -54,3 +54,16 @@ dependencies {
 	// https://mvnrepository.com/artifact/junit/junit
 	testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+// --------------- FulibGradle Overrides ---------------
+
+// generate classes into build/generated-src instead of src/main/java
+
+final String modelDir = "$project.buildDir/generated-src/scenarios/main/"
+final String testDir = "$project.buildDir/generated-src/scenarios/test/"
+
+generateScenarioSource.args = [ '-m', modelDir, '-t', testDir, 'src/main/scenarios' ]
+generateTestScenarioSource.args = [ '-m', testDir, '-t', testDir, 'src/test/scenarios' ]
+
+sourceSets.main.java.srcDir(modelDir)
+sourceSets.test.java.srcDir(testDir)
