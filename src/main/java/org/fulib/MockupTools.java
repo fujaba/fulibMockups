@@ -5,6 +5,7 @@ import org.fulib.yaml.ReflectorMap;
 import org.fulib.yaml.YamlIdMap;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,6 +21,28 @@ public class MockupTools
 	public static final String DESCRIPTION = "description";
 	public static final String ID          = "id";
 	public static final String CONTENT     = "content";
+
+	// language=HTML
+	public static final String BOOTSTRAP = "<!-- Bootstrap CSS -->\n" + "<link rel=\"stylesheet\"\n"
+	                                       + "      href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
+	                                       + "      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
+	                                       + "      crossorigin=\"anonymous\">\n";
+
+	// language=JavaScript
+	public static final String SCRIPT_END = "var stepCount = 0;\n" + "\n"
+	                                        + "stepList.push('<h2 class=\\'row justify-content-center\\' style=\\'margin: 1rem\\'>The End</h2>');\n"
+	                                        + "\n"
+	                                        + "document.getElementById('thePanel').innerHTML = stepList[stepCount];\n"
+	                                        + "\n" + "const nextStep = function(event) {\n" + "\tif (event.ctrlKey) {\n"
+	                                        + "\t\tstepCount--;\n" + "\t} else {\n" + "\t\tstepCount++;\n" + "\t}\n"
+	                                        + "\tif (stepList.length > stepCount) {\n"
+	                                        + "\t\tdocument.getElementById('thePanel').innerHTML = stepList[stepCount];\n"
+	                                        + "\t}\n" + "};\n" + "\n"
+	                                        + "document.getElementById('thePanel').onclick = nextStep;\n";
+
+	public static final String SCRIPT_START   = "" + "<script>\n" + "   const stepList = [];\n\n";
+	public static final String ROOT_DIV       = "" + "<div id='thePanel'>\n" + "</div>\n\n";
+	public static final String SCRIPT_END_TAG = "</script>\n";
 
 	// =============== Static Fields ===============
 
@@ -46,28 +69,23 @@ public class MockupTools
 
 		this.reflectorMap = new ReflectorMap(packageName);
 
-		String bootstrap = "<!-- Bootstrap CSS -->\n" + "    <link rel=\"stylesheet\"\n"
-		                   + "          href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
-		                   + "          integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
-		                   + "          crossorigin=\"anonymous\">\n\n";
-
 		if (fileName.endsWith(".tables.html"))
 		{
-			this.generateTables(fileName, rootList, bootstrap);
+			this.generateTables(fileName, rootList);
 		}
 		else if (fileName.endsWith(".mockup.html"))
 		{
-			this.generateMockup(fileName, root, bootstrap);
+			this.generateMockup(fileName, root);
 		}
 		else
 		{
-			this.generateSingleScreen(fileName, root, bootstrap);
+			this.generateSingleScreen(fileName, root);
 		}
 
 		return 0;
 	}
 
-	private void generateTables(String fileName, Object[] rootList, String bootstrap)
+	private void generateTables(String fileName, Object[] rootList)
 	{
 		StringBuilder body = new StringBuilder();
 
@@ -151,7 +169,7 @@ public class MockupTools
 			body.append("<br>\n");
 		}
 
-		String content = bootstrap + String.format("<div class='container'>\n%s</div>\n", body.toString());
+		String content = BOOTSTRAP + String.format("<div class='container'>\n%s</div>\n", body.toString());
 		try
 		{
 			Files.write(Paths.get(fileName), content.getBytes(StandardCharsets.UTF_8));
@@ -179,61 +197,43 @@ public class MockupTools
 		return valueElem.getClass().getSimpleName();
 	}
 
-	private void generateMockup(String fileName, Object root, String bootstrap)
+	private void generateMockup(String fileName, Object root)
 	{
-		StringBuilder body = new StringBuilder();
-		body.append(bootstrap);
-
-		String rootDiv = "" + "<div id='thePanel'>\n" + "</div>\n\n";
-
-		body.append(rootDiv);
-
-		String scriptStart = "" + "<script>\n" + "   const stepList = [];\n\n";
-
-		body.append(scriptStart);
-
-		ArrayList<String> stepList = mapForStepLists.get(root);
-
-		if (stepList != null)
+		try (PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
 		{
-			for (String stepText : stepList)
+			writer.write(BOOTSTRAP);
+			writer.write(ROOT_DIV);
+			writer.write(SCRIPT_START);
+
+			final List<String> stepList = mapForStepLists.get(root);
+
+			if (stepList != null)
 			{
-				String[] lines = stepText.split("\n");
-				String firstLine = "   stepList.push(\"\" +\n";
-				body.append(firstLine);
-
-				for (String line : lines)
+				for (String stepText : stepList)
 				{
-					body.append("      \"").append(line).append("\\n\" +\n");
+					writer.write("   stepList.push(\"\" +\n");
+
+					for (String line : stepText.split("\n"))
+					{
+						writer.write("      \"");
+						writer.write(line); // TODO escape?
+						writer.write("\\n\" +\n");
+					}
+
+					writer.write("         \"\");\n\n");
 				}
-
-				body.append("         \"\");\n\n");
 			}
+
+			writer.write(SCRIPT_END);
+			writer.write(SCRIPT_END_TAG);
 		}
-
-		String scriptEnd = "" + "   var stepCount = 0;\n" + "\n"
-		                   + "   stepList.push(\"<h2 class='row justify-content-center' style='margin: 1rem'>The End</h2>\");\n"
-		                   + "\n" + "   document.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\n"
-		                   + "   const nextStep = function (event) {\n" + "        if (event.ctrlKey) {\n"
-		                   + "           stepCount--\n" + "        } else {\n" + "           stepCount++;\n"
-		                   + "        }\n" + "        if (stepList.length > stepCount) {\n"
-		                   + "            document.getElementById('thePanel').innerHTML = stepList[stepCount];\n"
-		                   + "        }\n" + "    }\n" + "\n"
-		                   + "    document.getElementById('thePanel').onclick = nextStep;\n" + "\n" + "</script>\n";
-
-		body.append(scriptEnd);
-
-		try
+		catch (IOException ex)
 		{
-			Files.write(Paths.get(fileName), body.toString().getBytes(StandardCharsets.UTF_8));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			ex.printStackTrace();
 		}
 	}
 
-	private void generateSingleScreen(String fileName, Object root, String bootstrap)
+	private void generateSingleScreen(String fileName, Object root)
 	{
 		String body = this.generateElement(root, "");
 
@@ -241,7 +241,7 @@ public class MockupTools
 
 		try
 		{
-			Files.write(Paths.get(fileName), (bootstrap + body).getBytes(StandardCharsets.UTF_8));
+			Files.write(Paths.get(fileName), (BOOTSTRAP + body).getBytes(StandardCharsets.UTF_8));
 		}
 		catch (IOException e)
 		{
@@ -257,14 +257,7 @@ public class MockupTools
 
 	public String generateElement(Object root)
 	{
-		String bootstrap = "<!-- Bootstrap CSS -->\n" + "    <link rel=\"stylesheet\"\n"
-		                   + "          href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
-		                   + "          integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
-		                   + "          crossorigin=\"anonymous\">\n\n";
-
-		String body = this.generateElement(root, "");
-
-		return bootstrap + body;
+		return BOOTSTRAP + this.generateElement(root, "");
 	}
 
 	public String generateElement(Object root, String indent)
