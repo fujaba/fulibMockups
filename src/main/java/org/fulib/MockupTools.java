@@ -136,8 +136,6 @@ public class MockupTools
 
 	public void dumpTables(String fileName, Object... rootList)
 	{
-		StringBuilder body = new StringBuilder();
-
 		Object firstRoot = rootList[0];
 		String packageName = firstRoot.getClass().getPackage().getName();
 		YamlIdMap idMap = new YamlIdMap(packageName);
@@ -209,23 +207,26 @@ public class MockupTools
 			oneTable.add(lineWithId);
 		}
 
-		for (ArrayList<String> table : tableMap.values())
+		try (final PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
 		{
-			for (String line : table)
-			{
-				body.append(line).append("\n");
-			}
-			body.append("<br>\n");
-		}
+			writer.write(BOOTSTRAP);
+			writer.write("<div class='container'>\n");
 
-		String content = BOOTSTRAP + String.format("<div class='container'>\n%s</div>\n", body.toString());
-		try
-		{
-			Files.write(Paths.get(fileName), content.getBytes(StandardCharsets.UTF_8));
+			for (List<String> table : tableMap.values())
+			{
+				for (String line : table)
+				{
+					writer.write(line);
+					writer.write('\n');
+				}
+				writer.write("<br>\n");
+			}
+
+			writer.write("</div>\n");
 		}
-		catch (IOException e)
+		catch (IOException ex)
 		{
-			e.printStackTrace();
+			ex.printStackTrace();
 		}
 	}
 
