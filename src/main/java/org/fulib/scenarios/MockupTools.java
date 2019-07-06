@@ -292,7 +292,7 @@ public class MockupTools
 		return writer.toString();
 	}
 
-	private void generateElement(Object root, String indent, StringWriter writer) throws IOException
+	private void generateElement(Object root, String indent, Writer writer) throws IOException
 	{
 		final Reflector reflector = this.getReflector(root);
 
@@ -311,9 +311,7 @@ public class MockupTools
 
 		writer.write(">\n");
 		writer.write(indent);
-		writer.write("   <div class='row justify-content-center'>\n");
-		writer.write(indent);
-		writer.write("      ");
+		writer.write("\t<div class='row justify-content-center'>\n");
 
 		// --- Description ---
 
@@ -322,7 +320,11 @@ public class MockupTools
 		{
 			for (String elem : description.toString().split("\\|"))
 			{
-				this.generateOneCell(root, indent, reflector, elem.trim(), writer);
+				writer.write(indent);
+				writer.write('\t');
+				writer.write('\t');
+				this.generateOneCell(root, reflector, elem.trim(), writer);
+				writer.write('\n');
 			}
 		}
 
@@ -337,14 +339,17 @@ public class MockupTools
 				final String elem = (String) elemReflector.getValue(elemObject, TEXT);
 				if (elem != null)
 				{
-					this.generateOneCell(root, indent, reflector, elem.trim(), writer);
+					writer.write(indent);
+					writer.write('\t');
+					writer.write('\t');
+					this.generateOneCell(root, reflector, elem.trim(), writer);
+					writer.write('\n');
 				}
 			}
 		}
 
-		writer.write("\n");
 		writer.write(indent);
-		writer.write("   </div>\n");
+		writer.write("\t</div>\n");
 
 		// --- Content ---
 
@@ -353,19 +358,19 @@ public class MockupTools
 		{
 			for (Object element : (Collection) content)
 			{
-				this.generateElement(element, indent + "   ", writer);
+				this.generateElement(element, indent + '\t', writer);
 			}
 		}
 		else if (content != null)
 		{
-			this.generateElement(content, indent + "   ", writer);
+			this.generateElement(content, indent + '\t', writer);
 		}
 
 		writer.write(indent);
 		writer.write("</div>\n");
 	}
 
-	private void generateOneCell(Object root, String indent, Reflector reflector, String rootDescription, Writer writer)
+	private void generateOneCell(Object root, Reflector reflector, String rootDescription, Writer writer)
 		throws IOException
 	{
 		if (rootDescription.startsWith("input "))
@@ -374,8 +379,7 @@ public class MockupTools
 			//            <input id="partyNameInput" placeholder="Name?" style="margin: 1rem"></input>
 			//        </div>
 
-			writer.write(indent);
-			writer.write("   <input ");
+			writer.write("<input ");
 			writer.write(COLS);
 			writer.write(" placeholder='");
 
@@ -398,7 +402,7 @@ public class MockupTools
 				writer.write("'");
 			}
 
-			writer.write(" style='margin: 1rem'></input>\n");
+			writer.write(" style='margin: 1rem'></input>");
 			return;
 		}
 		else if (rootDescription.startsWith("button "))
@@ -407,8 +411,7 @@ public class MockupTools
 			//            <button style="margin: 1rem">next</button>
 			//        </div>
 
-			writer.write(indent);
-			writer.write("   <div ");
+			writer.write("<div ");
 			writer.write(COLS);
 			writer.write("><button onclick='submit(");
 
@@ -420,7 +423,7 @@ public class MockupTools
 
 			writer.write(")' style='margin: 1rem'>");
 			writer.write(rootDescription.substring("button ".length()));
-			writer.write("</button></div>\n");
+			writer.write("</button></div>");
 
 			return;
 		}
@@ -429,7 +432,7 @@ public class MockupTools
 		writer.write(COLS);
 		writer.write(" style='margin: 1rem'>");
 		writer.write(rootDescription);
-		writer.write("</div>\n");
+		writer.write("</div>");
 	}
 
 	private void putToStepList(Object root, String body)
