@@ -347,19 +347,6 @@ public class MockupTools
 		writer.write("</div>\n");
 	}
 
-	private String generateOneCell(Object root, String indent, Reflector reflector, String rootDescription)
-	{
-		final StringWriter writer = new StringWriter();
-		try
-		{
-			this.generateOneCell(root, indent, reflector, rootDescription, writer);
-		}
-		catch (IOException ignored) // cannot happen with StringWriter
-		{
-		}
-		return writer.toString();
-	}
-
 	private void generateOneCell(Object root, String indent, Reflector reflector, String rootDescription, Writer writer)
 		throws IOException
 	{
