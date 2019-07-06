@@ -28,22 +28,7 @@ public class MockupTools
 	                                       + "      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
 	                                       + "      crossorigin=\"anonymous\">\n";
 
-	// language=JavaScript
-	public static final String SCRIPT_END = "var stepCount = 0;\n" + "\n"
-	                                        + "stepList.push('<h2 class=\\'row justify-content-center\\' style=\\'margin: 1rem\\'>The End</h2>');\n"
-	                                        + "\n"
-	                                        + "document.getElementById('thePanel').innerHTML = stepList[stepCount];\n"
-	                                        + "\n" + "const nextStep = function(event) {\n" + "\tif (event.ctrlKey) {\n"
-	                                        + "\t\tstepCount--;\n" + "\t} else {\n" + "\t\tstepCount++;\n" + "\t}\n"
-	                                        + "\tif (stepList.length > stepCount) {\n"
-	                                        + "\t\tdocument.getElementById('thePanel').innerHTML = stepList[stepCount];\n"
-	                                        + "\t}\n" + "};\n" + "\n"
-	                                        + "document.getElementById('thePanel').onclick = nextStep;\n";
-
-	public static final String SCRIPT_START   = "" + "<script>\n" + "   const stepList = [];\n\n";
-	public static final String ROOT_DIV       = "" + "<div id='thePanel'>\n" + "</div>\n\n";
-	public static final String SCRIPT_END_TAG = "</script>\n";
-	public static final String COLS           = "class='col col-lg-2 text-center'";
+	public static final String COLS = "class='col col-lg-2 text-center'";
 
 	// =============== Static Fields ===============
 
@@ -105,8 +90,8 @@ public class MockupTools
 		try (PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
 		{
 			writer.write(BOOTSTRAP);
-			writer.write(ROOT_DIV);
-			writer.write(SCRIPT_START);
+			writer.write("<div id='thePanel'>\n</div>\n\n");
+			writer.write("<script>\n   const stepList = [];\n\n");
 
 			final List<String> stepList = mapForStepLists.get(root);
 
@@ -127,8 +112,15 @@ public class MockupTools
 				}
 			}
 
-			writer.write(SCRIPT_END);
-			writer.write(SCRIPT_END_TAG);
+			// language=JavaScript
+			writer.write("var stepCount = 0;\n" + "\n"
+			             + "stepList.push('<h2 class=\\'row justify-content-center\\' style=\\'margin: 1rem\\'>The End</h2>');\n"
+			             + "\n" + "document.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\n"
+			             + "const nextStep = function(event) {\n" + "\tif (event.ctrlKey) {\n" + "\t\tstepCount--;\n"
+			             + "\t} else {\n" + "\t\tstepCount++;\n" + "\t}\n" + "\tif (stepList.length > stepCount) {\n"
+			             + "\t\tdocument.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\t}\n"
+			             + "};\n" + "\n" + "document.getElementById('thePanel').onclick = nextStep;\n");
+			writer.write("</script>\n");
 		}
 		catch (IOException ex)
 		{
