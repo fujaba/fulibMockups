@@ -130,75 +130,81 @@ public class MockupTools
 
 	public void dumpTables(String fileName, Object... rootList)
 	{
-		Object firstRoot = rootList[0];
-		String packageName = firstRoot.getClass().getPackage().getName();
-		YamlIdMap idMap = new YamlIdMap(packageName);
+		final Object firstRoot = rootList[0];
+		final String packageName = firstRoot.getClass().getPackage().getName();
+		final YamlIdMap idMap = new YamlIdMap(packageName);
+
 		idMap.encode(rootList);
 
-		LinkedHashMap<String, ArrayList<String>> tableMap = new LinkedHashMap<>();
+		final Map<String, List<String>> tableMap = new LinkedHashMap<>();
 
-		LinkedHashMap<String, Object> idObjMap = idMap.getObjIdMap();
-		for (Map.Entry<String, Object> entry : idObjMap.entrySet())
+		for (final Map.Entry<String, Object> entry : idMap.getObjIdMap().entrySet())
 		{
-			StringBuilder oneLine = new StringBuilder();
-			Object oneObject = entry.getValue();
-			String className = oneObject.getClass().getSimpleName();
-			Reflector reflector = idMap.getReflector(oneObject);
+			final Object oneObject = entry.getValue();
+			final String className = oneObject.getClass().getSimpleName();
+			final Reflector reflector = idMap.getReflector(oneObject);
 
-			ArrayList<String> oneTable = tableMap.get(className);
-			if (oneTable == null)
+			List<String> tableLines = tableMap.get(className);
+			if (tableLines == null)
 			{
-				oneTable = new ArrayList<>();
-				tableMap.put(className, oneTable);
-				oneTable.add(String.format(
-					"<div class='row justify-content-center '><div class='col text-center font-weight-bold'>%s</div></div>\n",
-					className));
+				tableLines = new ArrayList<>();
+				tableMap.put(className, tableLines);
 
-				StringBuilder colNames = new StringBuilder(); // "<div class='col text-center font-weight-bold border'>_id</div>";
+				tableLines.add("<div class='row justify-content-center '><div class='col text-center font-weight-bold'>"
+				             + className + "</div></div>\n");
+
+				final StringBuilder builder = new StringBuilder();
+				builder.append("<div class='row justify-content-center '>");
+
 				for (String property : reflector.getProperties())
 				{
-					colNames.append(
-						String.format("<div class='col text-center font-weight-bold border'>%s</div>", property));
+					builder.append("<div class='col text-center font-weight-bold border'>").append(property)
+					       .append("</div>");
 				}
 
-				String colLine = String.format("<div class='row justify-content-center '>%s</div>\n",
-				                               colNames.toString());
-				oneTable.add(colLine);
+				builder.append("</div>\n");
+				tableLines.add(builder.toString());
 			}
 
-			for (String property : reflector.getProperties())
-			{
-				Object value = reflector.getValue(oneObject, property);
+			final StringBuilder builder = new StringBuilder();
+			builder.append("<div class='row justify-content-center' name='");
+			builder.append(entry.getKey());
+			builder.append("'>");
 
-				Collection<Object> valueList = new ArrayList<>();
-				if (value instanceof Collection)
-				{
-					valueList = (Collection<Object>) value;
-				}
-				else
-				{
-					valueList.add(value);
-				}
-				StringBuilder valueString = new StringBuilder();
+			for (final String property : reflector.getProperties())
+			{
+				final Object value = reflector.getValue(oneObject, property);
+
+				final Collection<Object> valueList = value instanceof Collection ?
+					                                     (Collection<Object>) value :
+					                                     Collections.singletonList(value);
+
+				builder.append("<div class='col text-center  border'>");
+
 				for (Object valueElem : valueList)
 				{
-					String valueKey = idMap.getIdObjMap().get(valueElem);
-
+					final String valueKey = idMap.getIdObjMap().get(valueElem);
 					if (valueKey != null)
 					{
-						String valueName = this.getValueName(idMap, valueElem);
-						valueElem = String.format("<a href='#%s'>%s</a> ", valueKey, valueName);
+						final String valueName = this.getValueName(idMap, valueElem);
+						builder.append("<a href='#");
+						builder.append(valueKey);
+						builder.append("'>");
+						builder.append(valueName);
+						builder.append("</a> ");
 					}
-
-					valueString.append(valueElem);
+					else
+					{
+						builder.append(valueElem);
+					}
 				}
-				oneLine.append(String.format("<div class='col text-center  border'>%s</div>", valueString.toString()));
+
+				builder.append("</div>");
 			}
 
-			String lineWithId = String.format("<div class='row justify-content-center' name='%s'>" +
-			                                  // "<div class='col text-center border'><a name='%s'>%s</a></div>" +
-			                                  "%s</div>", entry.getKey(), oneLine.toString());
-			oneTable.add(lineWithId);
+			builder.append("</div>");
+
+			tableLines.add(builder.toString());
 		}
 
 		try (final PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
