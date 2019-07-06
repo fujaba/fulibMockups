@@ -20,6 +20,7 @@ public class MockupTools
 	public static final String DESCRIPTION = "description";
 	public static final String ID          = "id";
 	public static final String CONTENT     = "content";
+	public static final String TEXT        = "text";
 
 	// language=HTML
 	public static final String BOOTSTRAP = "<!-- Bootstrap CSS -->\n" + "<link rel=\"stylesheet\"\n"
@@ -42,6 +43,7 @@ public class MockupTools
 	public static final String SCRIPT_START   = "" + "<script>\n" + "   const stepList = [];\n\n";
 	public static final String ROOT_DIV       = "" + "<div id='thePanel'>\n" + "</div>\n\n";
 	public static final String SCRIPT_END_TAG = "</script>\n";
+	public static final String COLS           = "class='col col-lg-2 text-center'";
 
 	// =============== Static Fields ===============
 
@@ -49,8 +51,7 @@ public class MockupTools
 
 	// =============== Fields ===============
 
-	private             ReflectorMap reflectorMap;
-	public static final String       COLS = "class='col col-lg-2 text-center'";
+	private ReflectorMap reflectorMap;
 
 	// =============== Static Methods ===============
 
@@ -262,95 +263,86 @@ public class MockupTools
 
 	private String generateElement(Object root)
 	{
-		final StringWriter builder = new StringWriter();
+		final StringWriter writer = new StringWriter();
 		try
 		{
-			this.generateElement(root, "", builder);
+			this.generateElement(root, "", writer);
 		}
 		catch (IOException ignored) // cannot happen with StringWriter
 		{
 		}
-		return builder.toString();
+		return writer.toString();
 	}
 
 	private void generateElement(Object root, String indent, StringWriter writer) throws IOException
 	{
-		String containerClass = "";
-		if ("".equals(indent))
-		{
-			containerClass = "class='container'";
-		}
-
-		Reflector reflector = this.getReflector(root);
-		Collection<Object> content = null;
-		Object bareContent = reflector.getValue(root, CONTENT);
-		if (bareContent != null)
-		{
-			if (bareContent instanceof Collection)
-			{
-				content = (Collection<Object>) bareContent;
-			}
-			else
-			{
-				content = new ArrayList<>();
-				content.add(bareContent);
-			}
-		}
-
-		StringWriter contentBuf = new StringWriter();
-		if (content != null)
-		{
-			for (Object element : content)
-			{
-				this.generateElement(element, indent + "   ", contentBuf);
-			}
-		}
-
-		String rootId = reflector.getValue(root, ID).toString();
-
-		Object value = reflector.getValue(root, DESCRIPTION);
-		String rootDescription = value == null ? "" : value.toString();
-
-		StringBuilder cellList = new StringBuilder();
-
-		String[] split = rootDescription.split("\\|");
-
-		for (String elem : split)
-		{
-			String cell = this.generateOneCell(root, indent, reflector, elem.trim());
-			cellList.append(cell);
-		}
-
-		Object elementsValue = reflector.getValue(root, ELEMENTS);
-
-		Collection<Object> elements = elementsValue == null ? new ArrayList<>() : (Collection<Object>) elementsValue;
-
-		for (Object elemObject : elements)
-		{
-			Reflector elemReflector = this.getReflector(elemObject);
-			String elem = (String) elemReflector.getValue(elemObject, "text");
-			if (elem != null)
-			{
-				String cell = this.generateOneCell(root, indent, reflector, elem.trim());
-				cellList.append(cell);
-			}
-		}
+		final Reflector reflector = this.getReflector(root);
 
 		writer.write(indent);
 		writer.write("<div id='");
+
+		final String rootId = reflector.getValue(root, ID).toString();
 		writer.write(rootId);
+
 		writer.write("' ");
-		writer.write(containerClass);
+
+		if (indent.isEmpty())
+		{
+			writer.write("class='container'");
+		}
+
 		writer.write(">\n");
 		writer.write(indent);
 		writer.write("   <div class='row justify-content-center'>\n");
 		writer.write(indent);
 		writer.write("      ");
-		writer.write(cellList.toString());
+
+		// --- Description ---
+
+		final Object description = reflector.getValue(root, DESCRIPTION);
+		if (description != null)
+		{
+			for (String elem : description.toString().split("\\|"))
+			{
+				this.generateOneCell(root, indent, reflector, elem.trim(), writer);
+			}
+		}
+
+		// --- Elements ---
+
+		final Object elements = reflector.getValue(root, ELEMENTS);
+		if (elements instanceof Collection)
+		{
+			for (Object elemObject : (Collection) elements)
+			{
+				final Reflector elemReflector = this.getReflector(elemObject);
+				final String elem = (String) elemReflector.getValue(elemObject, TEXT);
+				if (elem != null)
+				{
+					this.generateOneCell(root, indent, reflector, elem.trim(), writer);
+				}
+			}
+		}
+
 		writer.write("\n");
 		writer.write(indent);
 		writer.write("   </div>\n");
-		writer.write(contentBuf.toString());
+
+		// --- Content ---
+
+		final Object content = reflector.getValue(root, CONTENT);
+		if (content instanceof Collection)
+		{
+			for (Object element : (Collection) content)
+			{
+				this.generateElement(element, indent + "   ", writer);
+			}
+		}
+		else if (content != null)
+		{
+			this.generateElement(content, indent + "   ", writer);
+		}
+
 		writer.write(indent);
 		writer.write("</div>\n");
 	}
@@ -368,8 +360,8 @@ public class MockupTools
 		return writer.toString();
 	}
 
-	private void generateOneCell(Object root, String indent, Reflector reflector, String rootDescription,
-		Writer writer) throws IOException
+	private void generateOneCell(Object root, String indent, Reflector reflector, String rootDescription, Writer writer)
+		throws IOException
 	{
 		if (rootDescription.startsWith("input "))
 		{
