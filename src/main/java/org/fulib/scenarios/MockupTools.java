@@ -1,4 +1,4 @@
-package org.fulib;
+package org.fulib.scenarios;
 
 import org.fulib.yaml.Reflector;
 import org.fulib.yaml.ReflectorMap;
