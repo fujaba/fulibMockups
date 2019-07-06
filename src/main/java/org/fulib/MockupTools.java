@@ -61,9 +61,8 @@ public class MockupTools
 
 	// =============== Methods ===============
 
-	public int dump(String fileName, Object... rootList)
+	public void dump(String fileName, Object... rootList)
 	{
-
 		Object root = rootList[0];
 		String packageName = root.getClass().getPackage().getName();
 
@@ -71,21 +70,71 @@ public class MockupTools
 
 		if (fileName.endsWith(".tables.html"))
 		{
-			this.generateTables(fileName, rootList);
+			this.dumpTables(fileName, rootList);
 		}
 		else if (fileName.endsWith(".mockup.html"))
 		{
-			this.generateMockup(fileName, root);
+			this.dumpMockup(fileName, root);
 		}
 		else
 		{
-			this.generateSingleScreen(fileName, root);
+			this.dumpScreen(fileName, root);
 		}
-
-		return 0;
 	}
 
-	private void generateTables(String fileName, Object[] rootList)
+	public void dumpScreen(String fileName, Object root)
+	{
+		String body = this.generateElement(root, "");
+
+		this.putToStepList(root, body);
+
+		try
+		{
+			Files.write(Paths.get(fileName), (BOOTSTRAP + body).getBytes(StandardCharsets.UTF_8));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void dumpMockup(String fileName, Object root)
+	{
+		try (PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
+		{
+			writer.write(BOOTSTRAP);
+			writer.write(ROOT_DIV);
+			writer.write(SCRIPT_START);
+
+			final List<String> stepList = mapForStepLists.get(root);
+
+			if (stepList != null)
+			{
+				for (String stepText : stepList)
+				{
+					writer.write("   stepList.push(\"\" +\n");
+
+					for (String line : stepText.split("\n"))
+					{
+						writer.write("      \"");
+						writer.write(line); // TODO escape?
+						writer.write("\\n\" +\n");
+					}
+
+					writer.write("         \"\");\n\n");
+				}
+			}
+
+			writer.write(SCRIPT_END);
+			writer.write(SCRIPT_END_TAG);
+		}
+		catch (IOException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void dumpTables(String fileName, Object... rootList)
 	{
 		StringBuilder body = new StringBuilder();
 
@@ -180,6 +229,18 @@ public class MockupTools
 		}
 	}
 
+	// --------------- Helper Methods ---------------
+
+	private Reflector getReflector(Object root)
+	{
+		if (this.reflectorMap == null)
+		{
+			String packageName = root.getClass().getPackage().getName();
+			this.reflectorMap = new ReflectorMap(packageName);
+		}
+		return this.reflectorMap.getReflector(root);
+	}
+
 	private String getValueName(YamlIdMap idMap, Object valueElem)
 	{
 		Object valueName = idMap.getReflector(valueElem).getValue(valueElem, "id");
@@ -197,70 +258,7 @@ public class MockupTools
 		return valueElem.getClass().getSimpleName();
 	}
 
-	private void generateMockup(String fileName, Object root)
-	{
-		try (PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
-		{
-			writer.write(BOOTSTRAP);
-			writer.write(ROOT_DIV);
-			writer.write(SCRIPT_START);
-
-			final List<String> stepList = mapForStepLists.get(root);
-
-			if (stepList != null)
-			{
-				for (String stepText : stepList)
-				{
-					writer.write("   stepList.push(\"\" +\n");
-
-					for (String line : stepText.split("\n"))
-					{
-						writer.write("      \"");
-						writer.write(line); // TODO escape?
-						writer.write("\\n\" +\n");
-					}
-
-					writer.write("         \"\");\n\n");
-				}
-			}
-
-			writer.write(SCRIPT_END);
-			writer.write(SCRIPT_END_TAG);
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace();
-		}
-	}
-
-	private void generateSingleScreen(String fileName, Object root)
-	{
-		String body = this.generateElement(root, "");
-
-		this.putToStepList(root, body);
-
-		try
-		{
-			Files.write(Paths.get(fileName), (BOOTSTRAP + body).getBytes(StandardCharsets.UTF_8));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	private void putToStepList(Object root, String body)
-	{
-		final List<String> stepList = mapForStepLists.computeIfAbsent(root, k -> new ArrayList<>());
-		stepList.add(body);
-	}
-
-	public String generateElement(Object root)
-	{
-		return BOOTSTRAP + this.generateElement(root, "");
-	}
-
-	public String generateElement(Object root, String indent)
+	private String generateElement(Object root, String indent)
 	{
 		String containerClass = "";
 		if ("".equals(indent))
@@ -330,16 +328,6 @@ public class MockupTools
 			cellList.toString(), contentBuf.toString());
 	}
 
-	private Reflector getReflector(Object root)
-	{
-		if (this.reflectorMap == null)
-		{
-			String packageName = root.getClass().getPackage().getName();
-			this.reflectorMap = new ReflectorMap(packageName);
-		}
-		return this.reflectorMap.getReflector(root);
-	}
-
 	private String generateOneCell(Object root, String indent, Reflector reflector, String rootDescription)
 	{
 		String cols = "class='col col-lg-2 text-center'";
@@ -395,5 +383,11 @@ public class MockupTools
 		}
 
 		return elem;
+	}
+
+	private void putToStepList(Object root, String body)
+	{
+		final List<String> stepList = mapForStepLists.computeIfAbsent(root, k -> new ArrayList<>());
+		stepList.add(body);
 	}
 }
