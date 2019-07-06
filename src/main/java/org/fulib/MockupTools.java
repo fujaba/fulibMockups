@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class MockupTools
@@ -130,6 +133,18 @@ public class MockupTools
 
 	public void dumpTables(String fileName, Object... rootList)
 	{
+		try (final Writer writer = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8))
+		{
+			this.dumpTables(writer, rootList);
+		}
+		catch (IOException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public void dumpTables(Writer writer, Object... rootList) throws IOException
+	{
 		final Object firstRoot = rootList[0];
 		final String packageName = firstRoot.getClass().getPackage().getName();
 		final YamlIdMap idMap = new YamlIdMap(packageName);
@@ -151,7 +166,7 @@ public class MockupTools
 				tableMap.put(className, tableLines);
 
 				tableLines.add("<div class='row justify-content-center '><div class='col text-center font-weight-bold'>"
-				             + className + "</div></div>\n");
+				               + className + "</div></div>\n");
 
 				final StringBuilder builder = new StringBuilder();
 				builder.append("<div class='row justify-content-center '>");
@@ -207,27 +222,20 @@ public class MockupTools
 			tableLines.add(builder.toString());
 		}
 
-		try (final PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
-		{
-			writer.write(BOOTSTRAP);
-			writer.write("<div class='container'>\n");
+		writer.write(BOOTSTRAP);
+		writer.write("<div class='container'>\n");
 
-			for (List<String> table : tableMap.values())
+		for (List<String> table : tableMap.values())
+		{
+			for (String line : table)
 			{
-				for (String line : table)
-				{
-					writer.write(line);
-					writer.write('\n');
-				}
-				writer.write("<br>\n");
+				writer.write(line);
+				writer.write('\n');
 			}
+			writer.write("<br>\n");
+		}
 
-			writer.write("</div>\n");
-		}
-		catch (IOException ex)
-		{
-			ex.printStackTrace();
-		}
+		writer.write("</div>\n");
 	}
 
 	// --------------- Helper Methods ---------------
