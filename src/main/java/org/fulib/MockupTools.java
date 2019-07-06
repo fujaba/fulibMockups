@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MockupTools
 {
@@ -151,88 +152,87 @@ public class MockupTools
 
 		idMap.encode(rootList);
 
-		final Map<String, List<String>> tableMap = new LinkedHashMap<>();
-
-		for (final Map.Entry<String, Object> entry : idMap.getObjIdMap().entrySet())
-		{
-			final Object oneObject = entry.getValue();
-			final String className = oneObject.getClass().getSimpleName();
-			final Reflector reflector = idMap.getReflector(oneObject);
-
-			List<String> tableLines = tableMap.get(className);
-			if (tableLines == null)
-			{
-				tableLines = new ArrayList<>();
-				tableMap.put(className, tableLines);
-
-				tableLines.add("<div class='row justify-content-center '><div class='col text-center font-weight-bold'>"
-				               + className + "</div></div>\n");
-
-				final StringBuilder builder = new StringBuilder();
-				builder.append("<div class='row justify-content-center '>");
-
-				for (String property : reflector.getProperties())
-				{
-					builder.append("<div class='col text-center font-weight-bold border'>").append(property)
-					       .append("</div>");
-				}
-
-				builder.append("</div>\n");
-				tableLines.add(builder.toString());
-			}
-
-			final StringBuilder builder = new StringBuilder();
-			builder.append("<div class='row justify-content-center' name='");
-			builder.append(entry.getKey());
-			builder.append("'>");
-
-			for (final String property : reflector.getProperties())
-			{
-				final Object value = reflector.getValue(oneObject, property);
-
-				final Collection<Object> valueList = value instanceof Collection ?
-					                                     (Collection<Object>) value :
-					                                     Collections.singletonList(value);
-
-				builder.append("<div class='col text-center  border'>");
-
-				for (Object valueElem : valueList)
-				{
-					final String valueKey = idMap.getIdObjMap().get(valueElem);
-					if (valueKey != null)
-					{
-						final String valueName = this.getValueName(idMap, valueElem);
-						builder.append("<a href='#");
-						builder.append(valueKey);
-						builder.append("'>");
-						builder.append(valueName);
-						builder.append("</a> ");
-					}
-					else
-					{
-						builder.append(valueElem);
-					}
-				}
-
-				builder.append("</div>");
-			}
-
-			builder.append("</div>");
-
-			tableLines.add(builder.toString());
-		}
+		final Map<Class<?>, List<Object>> groupedObjects = idMap.getObjIdMap().values().stream()
+		                                                        .collect(Collectors.groupingBy(Object::getClass));
 
 		writer.write(BOOTSTRAP);
 		writer.write("<div class='container'>\n");
 
-		for (List<String> table : tableMap.values())
+		for (final Map.Entry<Class<?>, List<Object>> entry : groupedObjects.entrySet())
 		{
-			for (String line : table)
-			{
-				writer.write(line);
-				writer.write('\n');
-			}
+			final String className = entry.getKey().getName();
+			final List<Object> objects = entry.getValue();
+
+			// --- Class Name ---
+
+			writer.write("<div class='row justify-content-center '><div class='col text-center font-weight-bold'>");
+			writer.write(className);
+			writer.write("</div></div>\n");
 			writer.write("<br>\n");
+
+			// --- Property Names ---
+
+			final Object firstObject = objects.get(0);
+			Reflector reflector = idMap.getReflector(firstObject);
+
+			writer.write("<div class='row justify-content-center '>");
+
+			for (String property : reflector.getProperties())
+			{
+				writer.write("<div class='col text-center font-weight-bold border'>");
+				writer.write(property);
+				writer.write("</div>");
+			}
+
+			writer.write("</div>\n");
+			writer.write("<br>\n");
+
+			// --- Instances ---
+
+			for (final Object oneObject : objects)
+			{
+				final String id = idMap.getIdObjMap().get(oneObject);
+
+				writer.write("<div class='row justify-content-center' name='");
+				writer.write(id);
+				writer.write("'>");
+
+				// --- Property Values ---
+
+				for (final String property : reflector.getProperties())
+				{
+					final Object value = reflector.getValue(oneObject, property);
+
+					final Collection<Object> valueList = value instanceof Collection ?
+						                                     (Collection<Object>) value :
+						                                     Collections.singletonList(value);
+
+					writer.write("<div class='col text-center  border'>");
+
+					for (Object valueElem : valueList)
+					{
+						final String valueKey = idMap.getIdObjMap().get(valueElem);
+						if (valueKey != null)
+						{
+							final String valueName = this.getValueName(idMap, valueElem);
+							writer.write("<a href='#");
+							writer.write(valueKey);
+							writer.write("'>");
+							writer.write(valueName);
+							writer.write("</a> ");
+						}
+						else
+						{
+							writer.write(valueElem.toString());
+						}
+					}
+
+					writer.write("</div>");
+				}
+
+				writer.write("</div>\n");
+				writer.write("<br>\n");
+			}
 		}
 
 		writer.write("</div>\n");
