@@ -225,9 +225,13 @@ public class MockupTools
 							writer.write(valueName);
 							writer.write("</a> ");
 						}
-						else
+						else if (valueElem != null)
 						{
 							writer.write(valueElem.toString());
+						}
+						else
+						{
+							writer.write("N/A");
 						}
 					}
 
