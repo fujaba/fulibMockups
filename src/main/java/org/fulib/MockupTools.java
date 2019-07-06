@@ -5,7 +5,6 @@ import org.fulib.yaml.ReflectorMap;
 import org.fulib.yaml.YamlIdMap;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -78,7 +77,7 @@ public class MockupTools
 
 		this.putToStepList(root, body);
 
-		try (final PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
+		try (final Writer writer = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8))
 		{
 			writer.write(BOOTSTRAP);
 			writer.write(body);
@@ -91,45 +90,50 @@ public class MockupTools
 
 	public void dumpMockup(String fileName, Object root)
 	{
-		try (PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
+		try (final Writer writer = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8))
 		{
-			writer.write(BOOTSTRAP);
-			writer.write("<div id='thePanel'>\n</div>\n\n");
-			writer.write("<script>\n   const stepList = [];\n\n");
-
-			final List<String> stepList = mapForStepLists.get(root);
-
-			if (stepList != null)
-			{
-				for (String stepText : stepList)
-				{
-					writer.write("   stepList.push(\"\" +\n");
-
-					for (String line : stepText.split("\n"))
-					{
-						writer.write("      \"");
-						writer.write(line); // TODO escape?
-						writer.write("\\n\" +\n");
-					}
-
-					writer.write("         \"\");\n\n");
-				}
-			}
-
-			// language=JavaScript
-			writer.write("var stepCount = 0;\n" + "\n"
-			             + "stepList.push('<h2 class=\\'row justify-content-center\\' style=\\'margin: 1rem\\'>The End</h2>');\n"
-			             + "\n" + "document.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\n"
-			             + "const nextStep = function(event) {\n" + "\tif (event.ctrlKey) {\n" + "\t\tstepCount--;\n"
-			             + "\t} else {\n" + "\t\tstepCount++;\n" + "\t}\n" + "\tif (stepList.length > stepCount) {\n"
-			             + "\t\tdocument.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\t}\n"
-			             + "};\n" + "\n" + "document.getElementById('thePanel').onclick = nextStep;\n");
-			writer.write("</script>\n");
+			this.dumpMockup(writer, root);
 		}
 		catch (IOException ex)
 		{
 			ex.printStackTrace();
 		}
+	}
+
+	public void dumpMockup(Writer writer, Object root) throws IOException
+	{
+		writer.write(BOOTSTRAP);
+		writer.write("<div id='thePanel'>\n</div>\n\n");
+		writer.write("<script>\n   const stepList = [];\n\n");
+
+		final List<String> stepList = mapForStepLists.get(root);
+		if (stepList != null)
+		{
+			for (String stepText : stepList)
+			{
+				writer.write("   stepList.push(\"\" +\n");
+
+				for (String line : stepText.split("\n"))
+				{
+					writer.write("      \"");
+					writer.write(line); // TODO escape?
+					writer.write("\\n\" +\n");
+				}
+
+				writer.write("         \"\");\n\n");
+			}
+		}
+
+		// language=JavaScript
+		writer.write("var stepCount = 0;\n" + "\n"
+		             + "stepList.push('<h2 class=\\'row justify-content-center\\' style=\\'margin: 1rem\\'>The End</h2>');\n"
+		             + "\n" + "document.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\n"
+		             + "const nextStep = function(event) {\n" + "\tif (event.ctrlKey) {\n" + "\t\tstepCount--;\n"
+		             + "\t} else {\n" + "\t\tstepCount++;\n" + "\t}\n" + "\tif (stepList.length > stepCount) {\n"
+		             + "\t\tdocument.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\t}\n" + "};\n"
+		             + "\n" + "document.getElementById('thePanel').onclick = nextStep;\n");
+
+		writer.write("</script>\n");
 	}
 
 	public void dumpTables(String fileName, Object... rootList)
