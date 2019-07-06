@@ -6,6 +6,8 @@ import org.fulib.yaml.YamlIdMap;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.*;
 
 public class MockupTools
@@ -349,13 +351,19 @@ public class MockupTools
 
 	private String generateOneCell(Object root, String indent, Reflector reflector, String rootDescription)
 	{
-		final StringBuilder builder = new StringBuilder();
-		this.generateOneCell(root, indent, reflector, rootDescription, builder);
-		return builder.toString();
+		final StringWriter writer = new StringWriter();
+		try
+		{
+			this.generateOneCell(root, indent, reflector, rootDescription, writer);
+		}
+		catch (IOException ignored) // cannot happen with StringWriter
+		{
+		}
+		return writer.toString();
 	}
 
 	private void generateOneCell(Object root, String indent, Reflector reflector, String rootDescription,
-		StringBuilder builder)
+		Writer writer) throws IOException
 	{
 		if (rootDescription.startsWith("input "))
 		{
@@ -363,31 +371,31 @@ public class MockupTools
 			//            <input id="partyNameInput" placeholder="Name?" style="margin: 1rem"></input>
 			//        </div>
 
-			builder.append(indent);
-			builder.append("   <input ");
-			builder.append(COLS);
-			builder.append(" placeholder='");
+			writer.write(indent);
+			writer.write("   <input ");
+			writer.write(COLS);
+			writer.write(" placeholder='");
 
 			if (rootDescription.startsWith("input prompt "))
 			{
-				builder.append(rootDescription, "input prompt ".length(), rootDescription.length());
+				writer.write(rootDescription, "input prompt ".length(), rootDescription.length());
 			}
 			else
 			{
-				builder.append(rootDescription, "input ".length(), rootDescription.length());
+				writer.write(rootDescription, "input ".length(), rootDescription.length());
 			}
 
-			builder.append("'");
+			writer.write("'");
 
 			final String value = (String) reflector.getValue(root, "value");
 			if (value != null)
 			{
-				builder.append(" value='");
-				builder.append(value);
-				builder.append("'");
+				writer.write(" value='");
+				writer.write(value);
+				writer.write("'");
 			}
 
-			builder.append(" style='margin: 1rem'></input>\n");
+			writer.write(" style='margin: 1rem'></input>\n");
 			return;
 		}
 		else if (rootDescription.startsWith("button "))
@@ -396,29 +404,29 @@ public class MockupTools
 			//            <button style="margin: 1rem">next</button>
 			//        </div>
 
-			builder.append(indent);
-			builder.append("   <div ");
-			builder.append(COLS);
-			builder.append("><button onclick='submit(");
+			writer.write(indent);
+			writer.write("   <div ");
+			writer.write(COLS);
+			writer.write("><button onclick='submit(");
 
 			final String action = (String) reflector.getValue(root, ACTION);
 			if (action != null)
 			{
-				builder.append(action);
+				writer.write(action);
 			}
 
-			builder.append(")' style='margin: 1rem'>");
-			builder.append(rootDescription, "button ".length(), rootDescription.length());
-			builder.append("</button></div>\n");
+			writer.write(")' style='margin: 1rem'>");
+			writer.write(rootDescription, "button ".length(), rootDescription.length());
+			writer.write("</button></div>\n");
 
 			return;
 		}
 
-		builder.append("<div ");
-		builder.append(COLS);
-		builder.append(" style='margin: 1rem'>");
-		builder.append(rootDescription);
-		builder.append("</div>\n");
+		writer.write("<div ");
+		writer.write(COLS);
+		writer.write(" style='margin: 1rem'>");
+		writer.write(rootDescription);
+		writer.write("</div>\n");
 	}
 
 	private void putToStepList(Object root, String body)
