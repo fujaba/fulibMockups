@@ -51,6 +51,7 @@ public class MockupTools
 	// =============== Fields ===============
 
 	private ReflectorMap reflectorMap;
+	public static final String COLS = "class='col col-lg-2 text-center'";
 
 	// =============== Static Methods ===============
 
@@ -331,59 +332,66 @@ public class MockupTools
 
 	private String generateOneCell(Object root, String indent, Reflector reflector, String rootDescription)
 	{
-		String cols = "class='col col-lg-2 text-center'";
-
-		String elem = String.format("<div %s style='margin: 1rem'>" + rootDescription + "</div>\n", cols);
-
-		if (rootDescription.startsWith("input"))
+		if (rootDescription.startsWith("input "))
 		{
 			//        <div class="row justify-content-center" style="margin: 1rem">
 			//            <input id="partyNameInput" placeholder="Name?" style="margin: 1rem"></input>
 			//        </div>
 
-			String prompt;
-			int pos = rootDescription.indexOf("prompt");
-			if (pos >= 0)
+			final StringBuilder builder = new StringBuilder();
+			builder.append(indent);
+			builder.append("   <input ");
+			builder.append(COLS);
+			builder.append(" placeholder='");
+
+			if (rootDescription.startsWith("input prompt "))
 			{
-				prompt = rootDescription.substring(pos + "prompt ".length());
+				builder.append(rootDescription, "input prompt ".length(), rootDescription.length());
 			}
 			else
 			{
-				prompt = rootDescription.substring("input ".length());
+				builder.append(rootDescription, "input ".length(), rootDescription.length());
 			}
 
-			String value = (String) reflector.getValue(root, "value");
-			if (value == null)
+			builder.append("'");
+
+			final String value = (String) reflector.getValue(root, "value");
+			if (value != null)
 			{
-				value = "";
-			}
-			else
-			{
-				value = String.format("value='%s'", value);
+				builder.append(" value='");
+				builder.append(value);
+				builder.append("'");
 			}
 
-			elem = String.format("" + indent + "   <input %s placeholder='%s' %s style='margin: 1rem'></input>\n", cols,
-			                     prompt, value);
+			builder.append(" style='margin: 1rem'></input>\n");
+			return builder.toString();
 		}
-		else if (rootDescription.startsWith("button"))
+		else if (rootDescription.startsWith("button "))
 		{
 			//        <div class="row justify-content-center" style="margin: 1rem">
 			//            <button style="margin: 1rem">next</button>
 			//        </div>
-			String text = rootDescription.substring("button ".length());
 
-			String action = (String) reflector.getValue(root, ACTION);
-			if (action == null)
+			final StringBuilder builder = new StringBuilder();
+			builder.append(indent);
+			builder.append("   <div ");
+			builder.append(COLS);
+			builder.append("><button onclick='submit(");
+
+			final String action = (String) reflector.getValue(root, ACTION);
+			if (action != null)
 			{
-				action = "";
+				builder.append(action);
 			}
 
-			elem = String.format(
-				indent + "   <div %s><button onclick='submit(%s)' style='margin: 1rem'>%s</button></div>\n", cols,
-				action, text);
+			builder.append(")' style='margin: 1rem'>");
+			builder.append(rootDescription, "button ".length(), rootDescription.length());
+			builder.append("</button></div>\n");
+
+			return builder.toString();
 		}
 
-		return elem;
+		return "<div " + COLS + " style='margin: 1rem'>" + rootDescription + "</div>\n";
 	}
 
 	private void putToStepList(Object root, String body)
