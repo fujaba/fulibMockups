@@ -164,32 +164,35 @@ public class MockupTools
 
 		for (final Map.Entry<Class<?>, List<Object>> entry : groupedObjects.entrySet())
 		{
-			final String className = entry.getKey().getName();
+			final String className = entry.getKey().getSimpleName();
 			final List<Object> objects = entry.getValue();
 
 			// --- Class Name ---
 
-			writer.write("<div class='row justify-content-center '><div class='col text-center font-weight-bold'>");
+			writer.write("\t<div class='row justify-content-center '>\n");
+
+			writer.write("\t\t<div class='col text-center font-weight-bold'>");
 			writer.write(className);
-			writer.write("</div></div>\n");
-			writer.write("<br>\n");
+			writer.write("</div>\n");
+
+			writer.write("\t</div>\n");
+			writer.write("\t<br>\n");
 
 			// --- Property Names ---
 
 			final Object firstObject = objects.get(0);
 			Reflector reflector = idMap.getReflector(firstObject);
 
-			writer.write("<div class='row justify-content-center '>");
+			writer.write("\t<div class='row justify-content-center '>\n");
 
 			for (String property : reflector.getProperties())
 			{
-				writer.write("<div class='col text-center font-weight-bold border'>");
+				writer.write("\t\t<div class='col text-center font-weight-bold border'>");
 				writer.write(property);
-				writer.write("</div>");
+				writer.write("</div>\n");
 			}
 
-			writer.write("</div>\n");
-			writer.write("<br>\n");
+			writer.write("\t</div>\n");
 
 			// --- Instances ---
 
@@ -197,9 +200,9 @@ public class MockupTools
 			{
 				final String id = idMap.getIdObjMap().get(oneObject);
 
-				writer.write("<div class='row justify-content-center' name='");
+				writer.write("\t<div class='row justify-content-center' id='");
 				writer.write(id);
-				writer.write("'>");
+				writer.write("'>\n");
 
 				// --- Property Values ---
 
@@ -211,7 +214,7 @@ public class MockupTools
 						                                     (Collection<Object>) value :
 						                                     Collections.singletonList(value);
 
-					writer.write("<div class='col text-center  border'>");
+					writer.write("\t\t<div class='col text-center border'>");
 
 					for (Object valueElem : valueList)
 					{
@@ -235,12 +238,13 @@ public class MockupTools
 						}
 					}
 
-					writer.write("</div>");
+					writer.write("</div>\n");
 				}
 
-				writer.write("</div>\n");
-				writer.write("<br>\n");
+				writer.write("\t</div>\n");
 			}
+
+			writer.write("\t<br>\n");
 		}
 
 		writer.write("</div>\n");
