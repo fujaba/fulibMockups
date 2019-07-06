@@ -349,13 +349,20 @@ public class MockupTools
 
 	private String generateOneCell(Object root, String indent, Reflector reflector, String rootDescription)
 	{
+		final StringBuilder builder = new StringBuilder();
+		this.generateOneCell(root, indent, reflector, rootDescription, builder);
+		return builder.toString();
+	}
+
+	private void generateOneCell(Object root, String indent, Reflector reflector, String rootDescription,
+		StringBuilder builder)
+	{
 		if (rootDescription.startsWith("input "))
 		{
 			//        <div class="row justify-content-center" style="margin: 1rem">
 			//            <input id="partyNameInput" placeholder="Name?" style="margin: 1rem"></input>
 			//        </div>
 
-			final StringBuilder builder = new StringBuilder();
 			builder.append(indent);
 			builder.append("   <input ");
 			builder.append(COLS);
@@ -381,7 +388,7 @@ public class MockupTools
 			}
 
 			builder.append(" style='margin: 1rem'></input>\n");
-			return builder.toString();
+			return;
 		}
 		else if (rootDescription.startsWith("button "))
 		{
@@ -389,7 +396,6 @@ public class MockupTools
 			//            <button style="margin: 1rem">next</button>
 			//        </div>
 
-			final StringBuilder builder = new StringBuilder();
 			builder.append(indent);
 			builder.append("   <div ");
 			builder.append(COLS);
@@ -405,10 +411,14 @@ public class MockupTools
 			builder.append(rootDescription, "button ".length(), rootDescription.length());
 			builder.append("</button></div>\n");
 
-			return builder.toString();
+			return;
 		}
 
-		return "<div " + COLS + " style='margin: 1rem'>" + rootDescription + "</div>\n";
+		builder.append("<div ");
+		builder.append(COLS);
+		builder.append(" style='margin: 1rem'>");
+		builder.append(rootDescription);
+		builder.append("</div>\n");
 	}
 
 	private void putToStepList(Object root, String body)
