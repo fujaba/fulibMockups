@@ -373,11 +373,11 @@ public class MockupTools
 
 			if (rootDescription.startsWith("input prompt "))
 			{
-				writer.write(rootDescription, "input prompt ".length(), rootDescription.length());
+				writer.write(rootDescription.substring("input prompt ".length()));
 			}
 			else
 			{
-				writer.write(rootDescription, "input ".length(), rootDescription.length());
+				writer.write(rootDescription.substring("input ".length()));
 			}
 
 			writer.write("'");
@@ -411,7 +411,7 @@ public class MockupTools
 			}
 
 			writer.write(")' style='margin: 1rem'>");
-			writer.write(rootDescription, "button ".length(), rootDescription.length());
+			writer.write(rootDescription.substring("button ".length()));
 			writer.write("</button></div>\n");
 
 			return;
