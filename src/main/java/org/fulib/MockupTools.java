@@ -262,12 +262,18 @@ public class MockupTools
 
 	private String generateElement(Object root)
 	{
-		final StringBuilder builder = new StringBuilder();
-		this.generateElement(root, builder, "");
+		final StringWriter builder = new StringWriter();
+		try
+		{
+			this.generateElement(root, "", builder);
+		}
+		catch (IOException ignored) // cannot happen with StringWriter
+		{
+		}
 		return builder.toString();
 	}
 
-	private void generateElement(Object root, StringBuilder builder, String indent)
+	private void generateElement(Object root, String indent, StringWriter writer) throws IOException
 	{
 		String containerClass = "";
 		if ("".equals(indent))
@@ -291,12 +297,12 @@ public class MockupTools
 			}
 		}
 
-		StringBuilder contentBuf = new StringBuilder();
+		StringWriter contentBuf = new StringWriter();
 		if (content != null)
 		{
 			for (Object element : content)
 			{
-				this.generateElement(element, contentBuf, indent + "   ");
+				this.generateElement(element, indent + "   ", contentBuf);
 			}
 		}
 
@@ -330,23 +336,23 @@ public class MockupTools
 			}
 		}
 
-		builder.append(indent);
-		builder.append("<div id='");
-		builder.append(rootId);
-		builder.append("' ");
-		builder.append(containerClass);
-		builder.append(">\n");
-		builder.append(indent);
-		builder.append("   <div class='row justify-content-center'>\n");
-		builder.append(indent);
-		builder.append("      ");
-		builder.append(cellList);
-		builder.append("\n");
-		builder.append(indent);
-		builder.append("   </div>\n");
-		builder.append(contentBuf);
-		builder.append(indent);
-		builder.append("</div>\n");
+		writer.write(indent);
+		writer.write("<div id='");
+		writer.write(rootId);
+		writer.write("' ");
+		writer.write(containerClass);
+		writer.write(">\n");
+		writer.write(indent);
+		writer.write("   <div class='row justify-content-center'>\n");
+		writer.write(indent);
+		writer.write("      ");
+		writer.write(cellList.toString());
+		writer.write("\n");
+		writer.write(indent);
+		writer.write("   </div>\n");
+		writer.write(contentBuf.toString());
+		writer.write(indent);
+		writer.write("</div>\n");
 	}
 
 	private String generateOneCell(Object root, String indent, Reflector reflector, String rootDescription)
