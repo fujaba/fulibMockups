@@ -6,9 +6,6 @@ import org.fulib.yaml.YamlIdMap;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class MockupTools
@@ -50,8 +47,8 @@ public class MockupTools
 
 	// =============== Fields ===============
 
-	private ReflectorMap reflectorMap;
-	public static final String COLS = "class='col col-lg-2 text-center'";
+	private             ReflectorMap reflectorMap;
+	public static final String       COLS = "class='col col-lg-2 text-center'";
 
 	// =============== Static Methods ===============
 
@@ -85,13 +82,14 @@ public class MockupTools
 
 	public void dumpScreen(String fileName, Object root)
 	{
-		String body = this.generateElement(root, "");
+		final String body = this.generateElement(root);
 
 		this.putToStepList(root, body);
 
-		try
+		try (final PrintWriter writer = new PrintWriter(fileName, "UTF-8"))
 		{
-			Files.write(Paths.get(fileName), (BOOTSTRAP + body).getBytes(StandardCharsets.UTF_8));
+			writer.write(BOOTSTRAP);
+			writer.write(body);
 		}
 		catch (IOException e)
 		{
@@ -260,7 +258,14 @@ public class MockupTools
 		return valueElem.getClass().getSimpleName();
 	}
 
-	private String generateElement(Object root, String indent)
+	private String generateElement(Object root)
+	{
+		final StringBuilder builder = new StringBuilder();
+		this.generateElement(root, builder, "");
+		return builder.toString();
+	}
+
+	private void generateElement(Object root, StringBuilder builder, String indent)
 	{
 		String containerClass = "";
 		if ("".equals(indent))
@@ -289,8 +294,7 @@ public class MockupTools
 		{
 			for (Object element : content)
 			{
-				String elementHtml = this.generateElement(element, indent + "   ");
-				contentBuf.append(elementHtml);
+				this.generateElement(element, contentBuf, indent + "   ");
 			}
 		}
 
@@ -324,10 +328,23 @@ public class MockupTools
 			}
 		}
 
-		return String.format(
-			"" + indent + "<div id='%s' %s>\n" + indent + "   <div class='row justify-content-center'>\n" + indent
-			+ "      %s\n" + indent + "   </div>\n" + "%s" + indent + "</div>\n", rootId, containerClass,
-			cellList.toString(), contentBuf.toString());
+		builder.append(indent);
+		builder.append("<div id='");
+		builder.append(rootId);
+		builder.append("' ");
+		builder.append(containerClass);
+		builder.append(">\n");
+		builder.append(indent);
+		builder.append("   <div class='row justify-content-center'>\n");
+		builder.append(indent);
+		builder.append("      ");
+		builder.append(cellList);
+		builder.append("\n");
+		builder.append(indent);
+		builder.append("   </div>\n");
+		builder.append(contentBuf);
+		builder.append(indent);
+		builder.append("</div>\n");
 	}
 
 	private String generateOneCell(Object root, String indent, Reflector reflector, String rootDescription)
