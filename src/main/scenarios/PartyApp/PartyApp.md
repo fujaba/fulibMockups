@@ -160,5 +160,5 @@ PartyApp has content peoplePage.
 
 ## Mockup
 
-![PartyApp](app00.mockup.html)
-![PartyApp](app00.tables.html)
+![PartyApp](app00-20.mockup.html)
+![PartyApp](app.tables.html)
