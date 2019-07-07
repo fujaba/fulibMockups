@@ -23,24 +23,24 @@ public class MockupTools
 {
 	// =============== Constants ===============
 
-	public static final String ELEMENTS = "elements";
-	public static final String ACTION   = "action";
+	private static final String ELEMENTS = "elements";
+	private static final String ACTION   = "action";
 
-	public static final String DESCRIPTION = "description";
-	public static final String ID          = "id";
-	public static final String CONTENT     = "content";
-	public static final String TEXT        = "text";
+	private static final String DESCRIPTION = "description";
+	private static final String ID          = "id";
+	private static final String CONTENT     = "content";
+	private static final String TEXT        = "text";
 
-	public static final Pattern SCREEN_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)\\.html");
-	public static final Pattern MOCKUP_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)-(\\d+)\\.mockup\\.html");
+	private static final Pattern SCREEN_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)\\.html");
+	private static final Pattern MOCKUP_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)-(\\d+)\\.mockup\\.html");
 
 	// language=HTML
-	public static final String BOOTSTRAP = "<!-- Bootstrap CSS -->\n" + "<link rel=\"stylesheet\"\n"
-	                                       + "      href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
-	                                       + "      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
-	                                       + "      crossorigin=\"anonymous\">\n";
+	private static final String BOOTSTRAP = "<!-- Bootstrap CSS -->\n" + "<link rel=\"stylesheet\"\n"
+	                                        + "      href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
+	                                        + "      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
+	                                        + "      crossorigin=\"anonymous\">\n";
 
-	public static final String COLS = "class='col col-lg-2 text-center'";
+	private static final String COLS = "class='col col-lg-2 text-center'";
 
 	// =============== Fields ===============
 
