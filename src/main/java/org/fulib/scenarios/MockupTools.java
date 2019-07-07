@@ -4,7 +4,10 @@ import org.fulib.yaml.Reflector;
 import org.fulib.yaml.ReflectorMap;
 import org.fulib.yaml.YamlIdMap;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -52,33 +55,39 @@ public class MockupTools
 
 	// =============== Methods ===============
 
+	/**
+	 * @param fileName
+	 * 	the target file name
+	 * @param rootList
+	 * 	the list of objects to process
+	 *
+	 * @deprecated use one of {@link #dumpScreen(String, Object)}, {@link #dumpMockup(String)}
+	 * or {@link #dumpTables(String, Object...)}.
+	 */
+	@Deprecated
 	public void dump(String fileName, Object... rootList)
 	{
-		Object root = rootList[0];
-		String packageName = root.getClass().getPackage().getName();
-
-		this.reflectorMap = new ReflectorMap(packageName);
-
 		if (fileName.endsWith(".tables.html"))
 		{
 			this.dumpTables(fileName, rootList);
 		}
 		else if (fileName.endsWith(".mockup.html"))
 		{
-			this.dumpMockup(fileName, root);
+			this.dumpMockup(fileName);
 		}
 		else
 		{
-			this.dumpScreen(fileName, root);
+			this.dumpScreen(fileName, rootList[0]);
 		}
 	}
+
+	// --------------- Single Screens ---------------
 
 	public void dumpScreen(String fileName, Object root)
 	{
 		try (final Writer writer = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8))
 		{
-			writer.write(BOOTSTRAP);
-			this.generateElement(root, "", writer);
+			this.dumpScreen(writer, root);
 		}
 		catch (IOException e)
 		{
@@ -86,7 +95,15 @@ public class MockupTools
 		}
 	}
 
-	public void dumpMockup(String fileName, Object root)
+	private void dumpScreen(Writer writer, Object root) throws IOException
+	{
+		writer.write(BOOTSTRAP);
+		this.generateElement(root, "", writer);
+	}
+
+	// --------------- Mockups ---------------
+
+	public void dumpMockup(String fileName)
 	{
 		final File[] stepFiles = this.getStepFiles(fileName);
 		if (stepFiles == null)
@@ -169,6 +186,8 @@ public class MockupTools
 
 		writer.write("</script>\n");
 	}
+
+	// --------------- Tables ---------------
 
 	public void dumpTables(String fileName, Object... rootList)
 	{
@@ -353,19 +372,6 @@ public class MockupTools
 		}
 
 		return valueElem.getClass().getSimpleName();
-	}
-
-	private String generateElement(Object root)
-	{
-		final StringWriter writer = new StringWriter();
-		try
-		{
-			this.generateElement(root, "", writer);
-		}
-		catch (IOException ignored) // cannot happen with StringWriter
-		{
-		}
-		return writer.toString();
 	}
 
 	private void generateElement(Object root, String indent, Writer writer) throws IOException
