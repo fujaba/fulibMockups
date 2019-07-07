@@ -110,6 +110,8 @@ public class MockupTools
 		// language=HTML
 		writer.write("<div id='thePanel'>\n</div>\n\n");
 		writer.write("<script>\n");
+		// language=JavaScript
+		writer.write("\tconst thePanel = document.getElementById('thePanel');\n");
 		writer.write("\tconst stepList = [\n");
 
 		for (final File stepFile : stepFiles)
@@ -158,13 +160,12 @@ public class MockupTools
 		writer.write("\t];\n");
 
 		// language=JavaScript
-		writer.write("\tvar stepCount = 0;\n" + "\t\n"
-		             + "\tdocument.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\t\n"
-		             + "\tconst nextStep = function(event) {\n" + "\t\tif (event.ctrlKey) {\n" + "\t\t\tstepCount--;\n"
-		             + "\t\t} else {\n" + "\t\t\tstepCount++;\n" + "\t\t}\n"
-		             + "\t\tif (stepList.length > stepCount) {\n"
-		             + "\t\t\tdocument.getElementById('thePanel').innerHTML = stepList[stepCount];\n" + "\t\t}\n"
-		             + "\t};\n" + "\t\n" + "\tdocument.getElementById('thePanel').onclick = nextStep;\n");
+		writer.write("\tvar stepCount = 0;\n" + "\t\n" + "\tthePanel.innerHTML = stepList[stepCount];\n"
+		             + "\tthePanel.onclick = nextStep;\n" + "\t\n" + "\tfunction nextStep(event) {\n"
+		             + "\t\tif (event && (event.ctrlKey || event.shiftKey)) {\n" + "\t\t\tif (stepCount > 0) {\n"
+		             + "\t\t\t\tstepCount--;\n" + "\t\t\t\tthePanel.innerHTML = stepList[stepCount];\n" + "\t\t\t}\n"
+		             + "\t\t} else if (stepCount + 1 < stepList.length) {\n" + "\t\t\tstepCount++;\n"
+		             + "\t\t\tthePanel.innerHTML = stepList[stepCount];\n" + "\t\t}\n" + "\t}\n");
 
 		writer.write("</script>\n");
 	}
