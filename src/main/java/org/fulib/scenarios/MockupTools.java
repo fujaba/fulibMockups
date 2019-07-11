@@ -27,6 +27,7 @@ public class MockupTools
 	private static final String ID          = "id";
 	private static final String CONTENT     = "content";
 	private static final String TEXT        = "text";
+	public static final  String ICARDS      = "icards";
 
 	private static final Pattern SCREEN_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)\\.html");
 	private static final Pattern MOCKUP_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)-(\\d+)\\.mockup\\.html");
@@ -38,7 +39,6 @@ public class MockupTools
 	                                        + "      crossorigin=\"anonymous\">\n";
 
 	private static final String COLS = "class='col col-lg-2 text-center'";
-	public static final String ICARDS = "icards";
 
 	// =============== Fields ===============
 
@@ -434,41 +434,44 @@ public class MockupTools
 		{
 			for (Object card : (Collection) cards)
 			{
-				Reflector cardReflector = this.getReflector(card);
-				String userKey = this.getUserKey(card);
-				String idLine = String.format(
-						"\t\t\t\t\t<div class='row justify-content-center text-center' style='margin: 1px'><u>%s: %s</u></div>\n",
-						userKey, card.getClass().getSimpleName());
-				for (String property : cardReflector.getProperties())
-				{
-					if ("line".equals(property)) continue;
-
-					Object propValue = cardReflector.getValue(card, property);
-					String valueKey = this.getUserKey(propValue);
-					String propLine = String.format("\t\t\t\t\t<div class='row justify-content-left ' style='margin: 1px'>%s: %s</div>\n",
-							property, valueKey);
-					idLine += propLine;
-				}
-
-				String rootDescription = String.format("\t\t\t\t<div class='border border-dark container'>\n" +
-								"%s" +
-								"\t\t\t\t</div>\n",
-						idLine);
+				final Reflector cardReflector = this.getReflector(card);
+				final String userKey = this.getUserKey(card);
 
 				writer.write(indent);
-				writer.write('\t');
-				writer.write('\t');
-				writer.write("<div class='col col-lg-3 text-center' style='margin: 1rem'>\n");
-				writer.write(rootDescription);
-				writer.write("\t\t\t</div>");
+				writer.write("\t\t<div class='col col-lg-3 text-center' style='margin: 1rem'>\n");
+				writer.write("\t\t\t<div class='border border-dark container'>\n");
+
+				writer.write("\t\t\t\t<div class='row justify-content-center text-center' style='margin: 1px'><u>");
+				writer.write(userKey);
+				writer.write(": ");
+				writer.write(card.getClass().getSimpleName());
+				writer.write("</u></div>\n");
+
+				for (String property : cardReflector.getProperties())
+				{
+					if ("line".equals(property))
+					{
+						continue;
+					}
+
+					final Object propValue = cardReflector.getValue(card, property);
+					final String valueKey = this.getUserKey(propValue);
+
+					writer.write("\t\t\t\t\t<div class='row justify-content-left ' style='margin: 1px'>");
+					writer.write(property);
+					writer.write(": ");
+					writer.write(valueKey);
+					writer.write("</div>\n");
+				}
+
+				writer.write("\t\t\t</div>\n");
+				writer.write("\t\t</div>");
 				writer.write('\n');
 			}
 		}
 
 		writer.write(indent);
 		writer.write("\t</div>\n");
-
-
 
 		// --- Content ---
 
