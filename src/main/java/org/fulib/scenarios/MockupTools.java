@@ -11,14 +11,16 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MockupTools
 {
-	// =============== Constants ===============
 
 	private static final String ELEMENTS = "elements";
 	private static final String ACTION   = "action";
@@ -27,7 +29,8 @@ public class MockupTools
 	private static final String ID          = "id";
 	private static final String CONTENT     = "content";
 	private static final String TEXT        = "text";
-	public static final  String ICARDS      = "icards";
+	private static final String ICARDS      = "icards";
+	private static final String NAME        = "name";
 
 	private static final Pattern SCREEN_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)\\.html");
 	private static final Pattern MOCKUP_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)-(\\d+)\\.mockup\\.html");
@@ -357,19 +360,56 @@ public class MockupTools
 
 	private String getValueName(YamlIdMap idMap, Object valueElem)
 	{
-		Object valueName = idMap.getReflector(valueElem).getValue(valueElem, "id");
-		if (valueName != null)
+		final Reflector reflector = idMap.getReflector(valueElem);
+		final String id = this.getUserKey(reflector);
+		if (id != null)
 		{
-			return "" + valueName;
-		}
-
-		valueName = idMap.getReflector(valueElem).getValue(valueElem, "name");
-		if (valueName != null)
-		{
-			return "" + valueName;
+			return id;
 		}
 
 		return valueElem.getClass().getSimpleName();
+	}
+
+	private String getUserKey(Object card)
+	{
+		if (card == null)
+		{
+			return "N/A";
+		}
+		if (card instanceof Collection)
+		{
+			return ((Collection<?>) card).stream().map(this::getUserKey).collect(Collectors.joining(", "));
+		}
+
+		if (card.getClass().getName().startsWith("java/"))
+		{
+			return card.toString();
+		}
+
+		final String id = this.getUserKey(card, this.getReflector(card));
+		if (id != null)
+		{
+			return id;
+		}
+
+		return card.toString();
+	}
+
+	private String getUserKey(Object card, Reflector reflector)
+	{
+		Object userKey = reflector.getValue(card, ID);
+		if (userKey != null)
+		{
+			return userKey.toString();
+		}
+
+		userKey = reflector.getValue(card, NAME);
+		if (userKey != null)
+		{
+			return userKey.toString();
+		}
+
+		return null;
 	}
 
 	private void generateElement(Object root, String indent, Writer writer) throws IOException
@@ -490,39 +530,6 @@ public class MockupTools
 
 		writer.write(indent);
 		writer.write("</div>\n");
-	}
-
-	private String getUserKey(Object card)
-	{
-		if (card == null) return "N/A";
-		if (card instanceof String) return card.toString();
-		if (card instanceof Integer) return card.toString();
-      if (card instanceof Double) return card.toString();
-
-		if (card instanceof Collection) {
-			ArrayList<String> list = new ArrayList<>();
-			for (Object oneValue : ((Collection) card))
-			{
-				String oneKey = getUserKey(oneValue);
-				list.add(oneKey);
-			}
-
-			String join = String.join(", ", list);
-			return join;
-		}
-
-		Reflector reflector = this.getReflector(card);
-		Object userKey = reflector.getValue(card, ID);
-		if (userKey != null) {
-			return userKey.toString();
-		}
-
-		userKey = reflector.getValue(card, "name");
-		if (userKey != null) {
-			return userKey.toString();
-		}
-
-		return card.toString();
 	}
 
 	private void generateOneCell(Object root, Reflector reflector, String rootDescription, Writer writer)
