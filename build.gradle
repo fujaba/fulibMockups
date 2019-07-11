@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '0.5.0'
+	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '[0.5.0,)'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibYaml
 	compile group: 'org.fulib', name: 'fulibYaml', version: '1.0.+'
@@ -72,6 +72,7 @@ final String testDir = "$project.buildDir/generated-src/scenarios/test/"
 
 generateScenarioSource.args = [ '-m', modelDir, '-t', testDir, 'src/main/scenarios' ]
 generateTestScenarioSource.args = [ '-m', testDir, '-t', testDir, 'src/test/scenarios' ]
+generateScenarioSource.args '--class-diagram-svg'
 
 sourceSets.main.java.srcDir(modelDir)
 sourceSets.test.java.srcDir(testDir)

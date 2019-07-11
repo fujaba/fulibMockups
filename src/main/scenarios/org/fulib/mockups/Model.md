@@ -16,6 +16,8 @@ with description "P1",   "P2",
 with content     c1, c2, c1, c2.
 
 There is a WebApp
-with id          "App",
+with id          App,
 with description "Desc.",
 with content     p1, p2.
+
+![App](app.html)

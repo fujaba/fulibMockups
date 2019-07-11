@@ -11,10 +11,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -41,6 +38,7 @@ public class MockupTools
 	                                        + "      crossorigin=\"anonymous\">\n";
 
 	private static final String COLS = "class='col col-lg-2 text-center'";
+	public static final String ICARDS = "icards";
 
 	// =============== Fields ===============
 
@@ -430,8 +428,47 @@ public class MockupTools
 			}
 		}
 
+		// --- Cards ---
+		final Object cards = reflector.getValue(root, ICARDS);
+		if (cards instanceof Collection)
+		{
+			for (Object card : (Collection) cards)
+			{
+				Reflector cardReflector = this.getReflector(card);
+				String userKey = this.getUserKey(card);
+				String idLine = String.format(
+						"\t\t\t\t\t<div class='row justify-content-center text-center' style='margin: 1px'><u>%s: %s</u></div>\n",
+						userKey, card.getClass().getSimpleName());
+				for (String property : cardReflector.getProperties())
+				{
+					if ("line".equals(property)) continue;
+
+					Object propValue = cardReflector.getValue(card, property);
+					String valueKey = this.getUserKey(propValue);
+					String propLine = String.format("\t\t\t\t\t<div class='row justify-content-left ' style='margin: 1px'>%s: %s</div>\n",
+							property, valueKey);
+					idLine += propLine;
+				}
+
+				String rootDescription = String.format("\t\t\t\t<div class='border border-dark container'>\n" +
+								"%s" +
+								"\t\t\t\t</div>\n",
+						idLine);
+
+				writer.write(indent);
+				writer.write('\t');
+				writer.write('\t');
+				writer.write("<div class='col col-lg-3 text-center' style='margin: 1rem'>\n");
+				writer.write(rootDescription);
+				writer.write("\t\t\t</div>");
+				writer.write('\n');
+			}
+		}
+
 		writer.write(indent);
 		writer.write("\t</div>\n");
+
+
 
 		// --- Content ---
 
@@ -450,6 +487,39 @@ public class MockupTools
 
 		writer.write(indent);
 		writer.write("</div>\n");
+	}
+
+	private String getUserKey(Object card)
+	{
+		if (card == null) return "N/A";
+		if (card instanceof String) return card.toString();
+		if (card instanceof Integer) return card.toString();
+      if (card instanceof Double) return card.toString();
+
+		if (card instanceof Collection) {
+			ArrayList<String> list = new ArrayList<>();
+			for (Object oneValue : ((Collection) card))
+			{
+				String oneKey = getUserKey(oneValue);
+				list.add(oneKey);
+			}
+
+			String join = String.join(", ", list);
+			return join;
+		}
+
+		Reflector reflector = this.getReflector(card);
+		Object userKey = reflector.getValue(card, ID);
+		if (userKey != null) {
+			return userKey.toString();
+		}
+
+		userKey = reflector.getValue(card, "name");
+		if (userKey != null) {
+			return userKey.toString();
+		}
+
+		return card.toString();
 	}
 
 	private void generateOneCell(Object root, Reflector reflector, String rootDescription, Writer writer)
