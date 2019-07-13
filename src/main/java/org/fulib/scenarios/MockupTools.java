@@ -82,6 +82,26 @@ public class MockupTools
 		}
 	}
 
+
+	public void dumpToString(String fileName, Object... rootList)
+	{
+		try (final Writer writer = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8))
+		{
+			for (Object obj : rootList)
+			{
+				if (obj == null) {
+					continue;
+				}
+				writer.write(obj.toString());
+				writer.write('\n');
+			}
+		}
+		catch (IOException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
 	// --------------- Single Screens ---------------
 
 	public void dumpScreen(String fileName, Object root)

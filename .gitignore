@@ -15,3 +15,4 @@ src/*/scenarios/**/*.svg
 src/*/scenarios/**/*.yaml
 src/*/scenarios/**/*.html
 libs/fulib*.jar
+*.txt

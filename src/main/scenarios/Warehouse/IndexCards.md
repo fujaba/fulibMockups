@@ -35,6 +35,7 @@ and with content products-line, palettes-line.
 
 There is a Page with id desk1 and with content bricks-section and stock-section.
 
+// ![Area51,desk1](out.txt)
 ![Area51](area51cards.svg) 
 ![desk1](area51cards.html) 
 ![Area51](area51.tables.html) 
