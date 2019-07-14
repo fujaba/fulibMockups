@@ -11,10 +11,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -224,6 +221,18 @@ public class MockupTools
 
 	public void dumpTables(Writer writer, Object... rootList) throws IOException
 	{
+		ArrayList flatList = new ArrayList();
+		for (Object obj : rootList)
+		{
+			if (obj instanceof Collection) {
+				flatList.addAll((Collection) obj);
+			}
+			else {
+				flatList.add(obj);
+			}
+		}
+
+		rootList = flatList.toArray();
 		final Object firstRoot = rootList[0];
 		final String packageName = firstRoot.getClass().getPackage().getName();
 		final YamlIdMap idMap = new YamlIdMap(packageName);
@@ -381,13 +390,18 @@ public class MockupTools
 	private String getValueName(YamlIdMap idMap, Object valueElem)
 	{
 		final Reflector reflector = idMap.getReflector(valueElem);
-		final String id = this.getUserKey(reflector);
+		final String id = this.getUserKey(valueElem);
 		if (id != null)
 		{
 			return id;
 		}
 
-		return valueElem.getClass().getSimpleName();
+		String yamlId = idMap.getIdObjMap().get(valueElem);
+		if (yamlId == null) {
+			yamlId = valueElem.getClass().getSimpleName();
+		}
+
+		return yamlId;
 	}
 
 	private String getUserKey(Object card)
