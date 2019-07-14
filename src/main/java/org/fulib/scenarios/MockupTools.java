@@ -410,6 +410,11 @@ public class MockupTools
 		{
 			return "N/A";
 		}
+		if (card instanceof String || card instanceof Integer || card instanceof Double
+			|| card instanceof Long) {
+			return card.toString();
+		}
+
 		if (card instanceof Collection)
 		{
 			return ((Collection<?>) card).stream().map(this::getUserKey).collect(Collectors.joining(", "));
@@ -426,7 +431,7 @@ public class MockupTools
 			return id;
 		}
 
-		return card.toString();
+		return null;
 	}
 
 	private String getUserKey(Object card, Reflector reflector)
