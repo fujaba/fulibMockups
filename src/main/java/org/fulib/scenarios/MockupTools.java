@@ -113,7 +113,7 @@ public class MockupTools
 		}
 	}
 
-	private void dumpScreen(Writer writer, Object root) throws IOException
+	public void dumpScreen(Writer writer, Object root) throws IOException
 	{
 		writer.write(BOOTSTRAP);
 		this.generateElement(root, "", writer);
