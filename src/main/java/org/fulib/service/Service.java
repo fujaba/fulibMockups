@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.fulib.scenarios.MockupTools;
+import org.fulib.yaml.StrUtil;
 import org.fulib.yaml.YamlIdMap;
 
 import java.io.*;
@@ -91,12 +92,14 @@ public class Service
    {
       try
       {
+         param = StrUtil.downFirstChar(param);
          Method method = webApp.getClass().getMethod(param);
          method.invoke(webApp);
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         System.err.println("could not find page method " + param);
+         // e.printStackTrace();
       }
    }
 
@@ -139,6 +142,9 @@ public class Service
                   Integer value = Integer.valueOf(params.get(i));
                   actualParamsList.add(value);
                }
+               else if (paramTypeName.equals("java.lang.String")){
+                  actualParamsList.add(params.get(i));
+               }
                else {
                   System.out.println("Do not know how to handle param of type " + paramTypeName);
                }
@@ -147,7 +153,7 @@ public class Service
             try
             {
                method.invoke(webApp, actualParamsList.toArray());
-               break;
+               return;
             }
             catch (IllegalAccessException e)
             {
@@ -159,6 +165,8 @@ public class Service
             }
          }
       }
+
+      System.err.println("could not find action method " + cmdName);
    }
 
 
