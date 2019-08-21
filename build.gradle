@@ -54,10 +54,10 @@ dependencies {
 	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '[0.6.0,)'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibYaml
-	implementation 'org.fulib:fulibYaml:19.10.+'
+	implementation group: 'org.fulib', name: 'fulibYaml', version: '[1.0,)'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibTools
-	testCompile 'org.fulib:fulibTools:19.10.+'
+	testCompile group: 'org.fulib', name: 'fulibTools', version: '[1.0,)'
 
 	// https://mvnrepository.com/artifact/junit/junit
 	testCompile group: 'junit', name: 'junit', version: '4.12'
