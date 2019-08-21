@@ -3,7 +3,7 @@ plugins {
 	id 'maven-publish'
 	id 'com.jfrog.bintray' version '1.8.4'
 	id 'de.clashsoft.simple-publish' version '0.2.0'
-	id 'org.fulib.fulibGradle' version '0.1.0'
+	id 'org.fulib.fulibGradle' version '0.2.0'
 }
 
 // --------------- Info ---------------
@@ -67,12 +67,19 @@ dependencies {
 
 // generate classes into build/generated-src instead of src/main/java
 
-final String modelDir = "$project.buildDir/generated-src/scenarios/main/"
-final String testDir = "$project.buildDir/generated-src/scenarios/test/"
-
-generateScenarioSource.args = [ '-m', modelDir, '-t', testDir, 'src/main/scenarios' ]
-generateTestScenarioSource.args = [ '-m', testDir, '-t', testDir, 'src/test/scenarios' ]
-generateScenarioSource.args '--class-diagram-svg'
+final File modelDir = file "$project.buildDir/generated-src/scenarios/main/"
+final File testDir = file "$project.buildDir/generated-src/scenarios/test/"
 
 sourceSets.main.java.srcDir(modelDir)
 sourceSets.test.java.srcDir(testDir)
+
+generateScenarioSource {
+	modelDirectory = modelDir
+	testDirectory = testDir
+	classDiagramSVG = true
+}
+
+generateTestScenarioSource {
+	modelDirectory = testDir
+	testDirectory = testDir
+}
