@@ -1,6 +1,4 @@
-
 package org.fulib.scenarios;
-
 
 import org.fulib.yaml.Reflector;
 import org.fulib.yaml.ReflectorMap;
@@ -38,51 +36,35 @@ public class MockupTools
 	private static final String BOOTSTRAP = "<!-- Bootstrap CSS -->\n" + "<link rel=\"stylesheet\"\n"
 	                                        + "      href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
 	                                        + "      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
-	                                        + "      crossorigin=\"anonymous\">\n" +
-			"\n" +
-			"<script>\n" +
-			"    function handler (response) {\n" +
-			"        console.log(response);\n" +
-			"        document.documentElement.innerHTML = response;\n" +
-			"    }\n" +
-			"\n" +
-			"    function submit(cmd) {\n" +
-			"        if (cmd) {\n" +
-			"            const words = cmd.split(' ');\n" +
-			"            // collect actual parameters\n" +
-			"            var request = {};\n" +
-			"            request['_cmd'] = words[0];\n" +
-			"\n" +
-			"            for (var i = 1; i < words.length - 1; i++) {\n" +
-			"                const divElem = document.getElementById(words[i]);\n" +
-			"                const subDiv = divElem.getElementsByTagName('div')[0];\n" +
-			"                const inputElem = subDiv.getElementsByTagName('input')[0];\n" +
-			"                const subSubDiv = subDiv.getElementsByTagName('div')[0];\n" +
-			"                var value = words[i];\n" +
-			"                if (inputElem) {\n" +
-			"                    value = inputElem.value;\n" +
-			"                }\n" +
-			"                else if (subSubDiv) {\n" +
-			"                    value = subSubDiv.textContent;\n" +
-			"                }\n" +
-			"                request[words[i]] = value;\n" +
-			"            }\n" +
-			"            request['_newPage'] = words[words.length-1];\n" +
-			"            const requestString = JSON.stringify(request);\n" +
-			"            const httpRequest = new XMLHttpRequest();\n" +
-			"            httpRequest.overrideMimeType('application/json');\n" +
-			"            httpRequest.addEventListener('load', function() {\n" +
-			"                handler(this.responseText);\n" +
-			"            });\n" +
-			"            httpRequest.open('POST', '/cmd', true);\n" +
-			"            httpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n" +
-			"            httpRequest.send(requestString);\n" +
-			"        }\n" +
-			"    }\n" +
-			"</script>\n\n";
+	                                        + "      crossorigin=\"anonymous\">\n" + "\n" + "<script>\n"
+	                                        + "\tfunction handler(response) {\n" + "\t\tconsole.log(response);\n"
+	                                        + "\t\tdocument.documentElement.innerHTML = response;\n" + "\t}\n" + "\n"
+	                                        + "\tfunction submit(cmd) {\n" + "\t\tif (cmd) {\n"
+	                                        + "\t\t\tconst words = cmd.split(' ');\n"
+	                                        + "\t\t\tconst request = { _cmd: words[0], _newPage: words[words.length - 1]};\n"
+	                                        + "\n" + "\t\t\t// collect actual parameters\n"
+	                                        + "\t\t\tfor (let i = 1; i < words.length - 1; i++) {\n"
+	                                        + "\t\t\t\tconst divElem = document.getElementById(words[i]);\n"
+	                                        + "\t\t\t\tconst subDiv = divElem.getElementsByTagName('div')[0];\n"
+	                                        + "\t\t\t\tconst inputElem = subDiv.getElementsByTagName('input')[0];\n"
+	                                        + "\t\t\t\tconst subSubDiv = subDiv.getElementsByTagName('div')[0];\n"
+	                                        + "\t\t\t\tlet value = words[i];\n" + "\t\t\t\tif (inputElem) {\n"
+	                                        + "\t\t\t\t\tvalue = inputElem.value;\n"
+	                                        + "\t\t\t\t} else if (subSubDiv) {\n"
+	                                        + "\t\t\t\t\tvalue = subSubDiv.textContent;\n" + "\t\t\t\t}\n"
+	                                        + "\t\t\t\trequest[words[i]] = value;\n" + "\t\t\t}\n" + "\n"
+	                                        + "\t\t\tconst requestString = JSON.stringify(request);\n"
+	                                        + "\t\t\tconst httpRequest = new XMLHttpRequest();\n" + "\n"
+	                                        + "\t\t\thttpRequest.overrideMimeType('application/json');\n"
+	                                        + "\t\t\thttpRequest.addEventListener('load', function() {\n"
+	                                        + "\t\t\t\thandler(this.responseText);\n" + "\t\t\t});\n"
+	                                        + "\t\t\thttpRequest.open('POST', '/cmd', true);\n"
+	                                        + "\t\t\thttpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n"
+	                                        + "\t\t\thttpRequest.send(requestString);\n" + "\t\t}\n" + "\t}\n"
+	                                        + "</script>\n";
 
-	private static final String COLS = "class='col col-lg-2 text-center'";
-	public static final String TABLES = "tables";
+	private static final String COLS   = "class='col col-lg-2 text-center'";
+	private static final String TABLES = "tables";
 
 	// =============== Fields ===============
 
@@ -90,9 +72,9 @@ public class MockupTools
 
 	// =============== Static Methods ===============
 
-	public static org.fulib.scenarios.MockupTools htmlTool()
+	public static MockupTools htmlTool()
 	{
-		return new org.fulib.scenarios.MockupTools();
+		return new MockupTools();
 	}
 
 	// =============== Methods ===============
@@ -123,14 +105,14 @@ public class MockupTools
 		}
 	}
 
-
 	public void dumpToString(String fileName, Object... rootList)
 	{
 		try (final Writer writer = Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8))
 		{
 			for (Object obj : rootList)
 			{
-				if (obj == null) {
+				if (obj == null)
+				{
 					continue;
 				}
 				writer.write(obj.toString());
@@ -190,8 +172,8 @@ public class MockupTools
 		writer.write("<div id='thePanel'>\n</div>\n\n");
 		writer.write("<script>\n");
 		// language=JavaScript
-		writer.write("    const thePanel = document.getElementById('thePanel');\n");
-		writer.write("    const stepList = [\n");
+		writer.write("\tconst thePanel = document.getElementById('thePanel');\n");
+		writer.write("\tconst stepList = [\n");
 
 		for (final File stepFile : stepFiles)
 		{
@@ -236,15 +218,15 @@ public class MockupTools
 		// language=HTML
 		writer.write("<h2 class='row justify-content-center' style='margin: 1rem'>The End</h2>\n");
 		writer.write("`\n");
-		writer.write("    ];\n");
+		writer.write("\t];\n");
 
 		// language=JavaScript
-		writer.write("    var stepCount = 0;\n" + "    \n" + "    thePanel.innerHTML = stepList[stepCount];\n"
-		             + "    thePanel.onclick = nextStep;\n" + "    \n" + "    function nextStep(event) {\n"
-		             + "        if (event && (event.ctrlKey || event.shiftKey)) {\n" + "            if (stepCount > 0) {\n"
-		             + "                stepCount--;\n" + "                thePanel.innerHTML = stepList[stepCount];\n" + "            }\n"
-		             + "        } else if (stepCount + 1 < stepList.length) {\n" + "            stepCount++;\n"
-		             + "            thePanel.innerHTML = stepList[stepCount];\n" + "        }\n" + "    }\n");
+		writer.write("var stepCount = 0;\n" + "thePanel.innerHTML = stepList[stepCount];\n" + "\n"
+		             + "thePanel.onclick = nextStep;" + "\n" + "\n" + "function nextStep(event) {" + "\n"
+		             + "\tif (event && (event.ctrlKey || event.shiftKey)) {" + "\n" + "\t\tif (stepCount > 0) {" + "\n"
+		             + "\t\t\tstepCount--;" + "\n" + "\t\t\tthePanel.innerHTML = stepList[stepCount];" + "\n" + "\t\t}"
+		             + "\n" + "\t} else if (stepCount + 1 < stepList.length) {" + "\n" + "\t\tstepCount++;" + "\n"
+		             + "\t\tthePanel.innerHTML = stepList[stepCount];" + "\n" + "\t}" + "\n" + "}");
 
 		writer.write("</script>\n");
 	}
@@ -267,18 +249,20 @@ public class MockupTools
 	{
 		writer.write(BOOTSTRAP);
 
-		dumpPlainTables(writer, rootList);
+		this.dumpPlainTables(writer, rootList);
 	}
 
 	private void dumpPlainTables(Writer writer, Object... rootList) throws IOException
 	{
-		ArrayList flatList = new ArrayList();
+		ArrayList<Object> flatList = new ArrayList<>();
 		for (Object obj : rootList)
 		{
-			if (obj instanceof Collection) {
+			if (obj instanceof Collection)
+			{
 				flatList.addAll((Collection) obj);
 			}
-			else {
+			else
+			{
 				flatList.add(obj);
 			}
 		}
@@ -302,30 +286,30 @@ public class MockupTools
 
 			// --- Class Name ---
 
-			writer.write("    <div class='row justify-content-center '>\n");
+			writer.write("\t<div class='row justify-content-center '>\n");
 
-			writer.write("        <div class='col text-center font-weight-bold'>");
+			writer.write("\t\t<div class='col text-center font-weight-bold'>");
 			writer.write(className);
 			writer.write("</div>\n");
 
-			writer.write("    </div>\n");
-			writer.write("    <br>\n");
+			writer.write("\t</div>\n");
+			writer.write("\t<br>\n");
 
 			// --- Property Names ---
 
 			final Object firstObject = objects.get(0);
 			Reflector reflector = idMap.getReflector(firstObject);
 
-			writer.write("    <div class='row justify-content-center '>\n");
+			writer.write("\t<div class='row justify-content-center '>\n");
 
 			for (String property : reflector.getProperties())
 			{
-				writer.write("        <div class='col text-center font-weight-bold border'>");
+				writer.write("\t\t<div class='col text-center font-weight-bold border'>");
 				writer.write(property);
 				writer.write("</div>\n");
 			}
 
-			writer.write("    </div>\n");
+			writer.write("\t</div>\n");
 
 			// --- Instances ---
 
@@ -333,7 +317,7 @@ public class MockupTools
 			{
 				final String id = idMap.getIdObjMap().get(oneObject);
 
-				writer.write("    <div class='row justify-content-center' id='");
+				writer.write("\t<div class='row justify-content-center' id='");
 				writer.write(id);
 				writer.write("'>\n");
 
@@ -347,7 +331,7 @@ public class MockupTools
 						                                     (Collection<Object>) value :
 						                                     Collections.singletonList(value);
 
-					writer.write("        <div class='col text-center border'>");
+					writer.write("\t\t<div class='col text-center border'>");
 
 					for (Object valueElem : valueList)
 					{
@@ -374,10 +358,10 @@ public class MockupTools
 					writer.write("</div>\n");
 				}
 
-				writer.write("    </div>\n");
+				writer.write("\t</div>\n");
 			}
 
-			writer.write("    <br>\n");
+			writer.write("\t<br>\n");
 		}
 
 		writer.write("</div>\n");
@@ -439,19 +423,19 @@ public class MockupTools
 
 	private String getValueName(YamlIdMap idMap, Object valueElem)
 	{
-		final Reflector reflector = idMap.getReflector(valueElem);
 		final String id = this.getUserKey(valueElem);
 		if (id != null)
 		{
 			return id;
 		}
 
-		String yamlId = idMap.getIdObjMap().get(valueElem);
-		if (yamlId == null) {
-			yamlId = valueElem.getClass().getSimpleName();
+		final String yamlId = idMap.getIdObjMap().get(valueElem);
+		if (yamlId != null)
+		{
+			return yamlId;
 		}
 
-		return yamlId;
+		return valueElem.getClass().getSimpleName();
 	}
 
 	private String getUserKey(Object card)
@@ -460,8 +444,8 @@ public class MockupTools
 		{
 			return "N/A";
 		}
-		if (card instanceof String || card instanceof Integer || card instanceof Double
-			|| card instanceof Long) {
+		if (card instanceof String || card instanceof Integer || card instanceof Double || card instanceof Long)
+		{
 			return card.toString();
 		}
 
@@ -475,13 +459,7 @@ public class MockupTools
 			return card.toString();
 		}
 
-		final String id = this.getUserKey(card, this.getReflector(card));
-		if (id != null)
-		{
-			return id;
-		}
-
-		return null;
+		return this.getUserKey(card, this.getReflector(card));
 	}
 
 	private String getUserKey(Object card, Reflector reflector)
@@ -520,7 +498,7 @@ public class MockupTools
 
 		writer.write(">\n");
 		writer.write(indent);
-		writer.write("    <div class='row justify-content-center'>\n");
+		writer.write("\t<div class='row justify-content-center'>\n");
 
 		// --- Description ---
 
@@ -567,10 +545,10 @@ public class MockupTools
 				final String userKey = this.getUserKey(card);
 
 				writer.write(indent);
-				writer.write("        <div class='col col-lg-3 text-center' style='margin: 1rem'>\n");
-				writer.write("            <div class='border border-dark container'>\n");
+				writer.write("\t\t<div class='col col-lg-3 text-center' style='margin: 1rem'>\n");
+				writer.write("\t\t\t<div class='border border-dark container'>\n");
 
-				writer.write("                <div class='row justify-content-center text-center' style='margin: 1px'><u>");
+				writer.write("\t\t\t\t<div class='row justify-content-center text-center' style='margin: 1px'><u>");
 				writer.write(userKey);
 				writer.write(": ");
 				writer.write(card.getClass().getSimpleName());
@@ -586,21 +564,21 @@ public class MockupTools
 					final Object propValue = cardReflector.getValue(card, property);
 					final String valueKey = this.getUserKey(propValue);
 
-					writer.write("                    <div class='row justify-content-left ' style='margin: 1px'>");
+					writer.write("\t\t\t\t\t<div class='row justify-content-left ' style='margin: 1px'>");
 					writer.write(property);
 					writer.write(": ");
 					writer.write(valueKey);
 					writer.write("</div>\n");
 				}
 
-				writer.write("            </div>\n");
-				writer.write("        </div>");
+				writer.write("\t\t\t</div>\n");
+				writer.write("\t\t</div>");
 				writer.write('\n');
 			}
 		}
 
 		writer.write(indent);
-		writer.write("    </div>\n");
+		writer.write("\t</div>\n");
 
 		// --- Content ---
 
@@ -620,7 +598,8 @@ public class MockupTools
 		// --- tables ---
 		Collection<Object> tables = (Collection<Object>) reflector.getValue(root, TABLES);
 
-		if (tables != null && tables.size() > 0) {
+		if (tables != null && !tables.isEmpty())
+		{
 			this.dumpPlainTables(writer, tables);
 		}
 
@@ -675,10 +654,12 @@ public class MockupTools
 
 			final String action = (String) reflector.getValue(root, ACTION);
 
-			if (action != null) {
+			if (action != null)
+			{
 				writer.write(action);
 			}
-			else {
+			else
+			{
 				String buttonName = rootDescription.substring("button ".length());
 				writer.write(buttonName);
 			}
