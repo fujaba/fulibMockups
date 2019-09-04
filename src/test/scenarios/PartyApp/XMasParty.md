@@ -3,7 +3,7 @@
 There are Participants
 	with name Albert, Nata, Xavier.
 
-There is the Party.
+There is a Party.
 The Party
 	has name X-Mas Party
 and has location SE-Lab

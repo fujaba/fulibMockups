@@ -60,7 +60,7 @@ There is a Page with id itemsPage
 
 There is a PartyService with id partyMan.
 
-There is a Party theParty.
+There is the Party theParty.
 
 ## Scenario
 
@@ -100,7 +100,7 @@ We write "Albert" into value of personNameField.
 // Click calls addPerson on partyMan ...
 We call buildPerson on partyMan with currentParty theParty
 and with pname "Albert".
-BuildPerson creates a Participant newPerson  with name pname.
+BuildPerson creates the Participant newPerson with name pname.
 TheParty has participants newPerson.
 BuildPerson answers with newPerson.
 
