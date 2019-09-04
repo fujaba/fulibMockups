@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '[0.6.0,)'
+	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '[0.8.1,)'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibYaml
 	implementation group: 'org.fulib', name: 'fulibYaml', version: '[1.0,)'
