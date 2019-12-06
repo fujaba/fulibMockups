@@ -33,10 +33,14 @@ public class MockupTools
 	private static final Pattern MOCKUP_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)-(\\d+)\\.mockup\\.html");
 
 	// language=HTML
-	private static final String BOOTSTRAP = "<!-- Bootstrap CSS -->\n" + "<link rel=\"stylesheet\"\n"
-	                                        + "      href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
-	                                        + "      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
-	                                        + "      crossorigin=\"anonymous\">\n";
+	private static final String HTML_HEADER =
+		"<!doctype html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "\t<!-- Required meta tags -->\n"
+		+ "\t<meta charset=\"utf-8\">\n"
+		+ "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n" + "\n"
+		+ "\t<!-- Bootstrap CSS -->\n"
+		+ "\t<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
+		+ "\t      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n"
+		+ "\n" + "\t<title>Mockup</title>\n" + "</head>\n" + "<body>\n";
 
 	// language=HTML
 	private static final String BUTTON_HANDLER =
@@ -137,7 +141,7 @@ public class MockupTools
 
 	public void dumpScreen(Writer writer, Object root) throws IOException
 	{
-		writer.write(BOOTSTRAP);
+		writer.write(HTML_HEADER);
 		this.generateElement(root, "", writer);
 	}
 
@@ -163,7 +167,7 @@ public class MockupTools
 
 	public void dumpMockup(Writer writer, File... stepFiles) throws IOException
 	{
-		writer.write(BOOTSTRAP);
+		writer.write(HTML_HEADER);
 		// language=HTML
 		writer.write("<div id='thePanel'>\n</div>\n\n");
 		writer.write("<script>\n");
@@ -189,9 +193,9 @@ public class MockupTools
 
 				final char[] buf = new char[8192];
 				int read = reader.read(buf);
-				final int bootstrapLen = BOOTSTRAP.length();
+				final int bootstrapLen = HTML_HEADER.length();
 
-				if (read > bootstrapLen && BOOTSTRAP.equals(new String(buf, 0, bootstrapLen)))
+				if (read > bootstrapLen && HTML_HEADER.equals(new String(buf, 0, bootstrapLen)))
 				{
 					writer.write(buf, bootstrapLen, read - bootstrapLen);
 				}
@@ -245,7 +249,7 @@ public class MockupTools
 
 	public void dumpTables(Writer writer, Object... rootList) throws IOException
 	{
-		writer.write(BOOTSTRAP);
+		writer.write(HTML_HEADER);
 
 		this.dumpPlainTables(writer, rootList);
 	}
