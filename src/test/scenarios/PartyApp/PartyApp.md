@@ -118,7 +118,7 @@ We call buildPerson on partyMan with currentParty theParty
 and with pname "Carli".
 ![theParty](theParty.svg)
 
-We write carliLine into content of peoplePage.
+We add carliLine to content of peoplePage.
 PartyApp has content peoplePage.
 ![PartyApp](app10.html)
 
@@ -149,7 +149,7 @@ We write "Carli" into value of itemOwnerField.
 ![PartyApp](app17.html)
 
 There is a Content with id wineLine and with description "Wine | 10.00 Euro | Carli".
-We write wineLine into content of itemsPage.
+We add wineLine to content of itemsPage.
 PartyApp has content itemsPage.
 ![PartyApp](app18.html)
 
