@@ -36,32 +36,28 @@ public class MockupTools
 	private static final String BOOTSTRAP = "<!-- Bootstrap CSS -->\n" + "<link rel=\"stylesheet\"\n"
 	                                        + "      href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
 	                                        + "      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\"\n"
-	                                        + "      crossorigin=\"anonymous\">\n" + "\n" + "<script>\n"
-	                                        + "\tfunction handler(response) {\n" + "\t\tconsole.log(response);\n"
-	                                        + "\t\tdocument.documentElement.innerHTML = response;\n" + "\t}\n" + "\n"
-	                                        + "\tfunction submit(cmd) {\n" + "\t\tif (cmd) {\n"
-	                                        + "\t\t\tconst words = cmd.split(' ');\n"
-	                                        + "\t\t\tconst request = { _cmd: words[0], _newPage: words[words.length - 1]};\n"
-	                                        + "\n" + "\t\t\t// collect actual parameters\n"
-	                                        + "\t\t\tfor (let i = 1; i < words.length - 1; i++) {\n"
-	                                        + "\t\t\t\tconst divElem = document.getElementById(words[i]);\n"
-	                                        + "\t\t\t\tconst subDiv = divElem.getElementsByTagName('div')[0];\n"
-	                                        + "\t\t\t\tconst inputElem = subDiv.getElementsByTagName('input')[0];\n"
-	                                        + "\t\t\t\tconst subSubDiv = subDiv.getElementsByTagName('div')[0];\n"
-	                                        + "\t\t\t\tlet value = words[i];\n" + "\t\t\t\tif (inputElem) {\n"
-	                                        + "\t\t\t\t\tvalue = inputElem.value;\n"
-	                                        + "\t\t\t\t} else if (subSubDiv) {\n"
-	                                        + "\t\t\t\t\tvalue = subSubDiv.textContent;\n" + "\t\t\t\t}\n"
-	                                        + "\t\t\t\trequest[words[i]] = value;\n" + "\t\t\t}\n" + "\n"
-	                                        + "\t\t\tconst requestString = JSON.stringify(request);\n"
-	                                        + "\t\t\tconst httpRequest = new XMLHttpRequest();\n" + "\n"
-	                                        + "\t\t\thttpRequest.overrideMimeType('application/json');\n"
-	                                        + "\t\t\thttpRequest.addEventListener('load', function() {\n"
-	                                        + "\t\t\t\thandler(this.responseText);\n" + "\t\t\t});\n"
-	                                        + "\t\t\thttpRequest.open('POST', '/cmd', true);\n"
-	                                        + "\t\t\thttpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n"
-	                                        + "\t\t\thttpRequest.send(requestString);\n" + "\t\t}\n" + "\t}\n"
-	                                        + "</script>\n";
+	                                        + "      crossorigin=\"anonymous\">\n";
+
+	// language=HTML
+	private static final String BUTTON_HANDLER =
+		"<script>\n" + "\tfunction handler(response) {\n" + "\t\tconsole.log(response);\n"
+		+ "\t\tdocument.documentElement.innerHTML = response;\n" + "\t}\n" + "\n" + "\tfunction submit(cmd) {\n"
+		+ "\t\tif (cmd) {\n" + "\t\t\tconst words = cmd.split(' ');\n"
+		+ "\t\t\tconst request = { _cmd: words[0], _newPage: words[words.length - 1]};\n" + "\n"
+		+ "\t\t\t// collect actual parameters\n" + "\t\t\tfor (let i = 1; i < words.length - 1; i++) {\n"
+		+ "\t\t\t\tconst divElem = document.getElementById(words[i]);\n"
+		+ "\t\t\t\tconst subDiv = divElem.getElementsByTagName('div')[0];\n"
+		+ "\t\t\t\tconst inputElem = subDiv.getElementsByTagName('input')[0];\n"
+		+ "\t\t\t\tconst subSubDiv = subDiv.getElementsByTagName('div')[0];\n" + "\t\t\t\tlet value = words[i];\n"
+		+ "\t\t\t\tif (inputElem) {\n" + "\t\t\t\t\tvalue = inputElem.value;\n" + "\t\t\t\t} else if (subSubDiv) {\n"
+		+ "\t\t\t\t\tvalue = subSubDiv.textContent;\n" + "\t\t\t\t}\n" + "\t\t\t\trequest[words[i]] = value;\n"
+		+ "\t\t\t}\n" + "\n" + "\t\t\tconst requestString = JSON.stringify(request);\n"
+		+ "\t\t\tconst httpRequest = new XMLHttpRequest();\n" + "\n"
+		+ "\t\t\thttpRequest.overrideMimeType('application/json');\n"
+		+ "\t\t\thttpRequest.addEventListener('load', function() {\n" + "\t\t\t\thandler(this.responseText);\n"
+		+ "\t\t\t});\n" + "\t\t\thttpRequest.open('POST', '/cmd', true);\n"
+		+ "\t\t\thttpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n"
+		+ "\t\t\thttpRequest.send(requestString);\n" + "\t\t}\n" + "\t}\n" + "</script>\n";
 
 	private static final String COLS   = "class='col col-lg-2 text-center'";
 	private static final String TABLES = "tables";
@@ -229,6 +225,8 @@ public class MockupTools
 		             + "\t\tthePanel.innerHTML = stepList[stepCount];" + "\n" + "\t}" + "\n" + "}");
 
 		writer.write("</script>\n");
+
+		writer.write(BUTTON_HANDLER);
 	}
 
 	// --------------- Tables ---------------
