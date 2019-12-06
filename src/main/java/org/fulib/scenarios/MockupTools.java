@@ -216,7 +216,7 @@ public class MockupTools
 		writer.write("/* end */\n");
 		writer.write('`');
 		// language=HTML
-		writer.write("<h2 class='row justify-content-center' style='margin: 1rem'>The End</h2>\n");
+		writer.write("<h2 class='row justify-content-center m-3'>The End</h2>\n");
 		writer.write("`\n");
 		writer.write("\t];\n");
 
@@ -491,11 +491,11 @@ public class MockupTools
 		final String rootId = reflector.getValue(root, ID).toString();
 		writer.write(rootId);
 
-		writer.write("' ");
+		writer.write("'");
 
 		if (indent.isEmpty())
 		{
-			writer.write("class='container'");
+			writer.write(" class='container'");
 		}
 
 		writer.write(">\n");
@@ -547,10 +547,10 @@ public class MockupTools
 				final String userKey = this.getUserKey(card);
 
 				writer.write(indent);
-				writer.write("\t\t<div class='col col-lg-3 text-center' style='margin: 1rem'>\n");
+				writer.write("\t\t<div class='col col-lg-3 text-center m-3'>\n");
 				writer.write("\t\t\t<div class='border border-dark container'>\n");
 
-				writer.write("\t\t\t\t<div class='row justify-content-center text-center' style='margin: 1px'><u>");
+				writer.write("\t\t\t\t<div class='row justify-content-center text-center m-1'><u>");
 				writer.write(userKey);
 				writer.write(": ");
 				writer.write(card.getClass().getSimpleName());
@@ -566,7 +566,7 @@ public class MockupTools
 					final Object propValue = cardReflector.getValue(card, property);
 					final String valueKey = this.getUserKey(propValue);
 
-					writer.write("\t\t\t\t\t<div class='row justify-content-left ' style='margin: 1px'>");
+					writer.write("\t\t\t\t\t<div class='row justify-content-left m-1'>");
 					writer.write(property);
 					writer.write(": ");
 					writer.write(valueKey);
