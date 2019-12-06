@@ -616,9 +616,11 @@ public class MockupTools
 			//            <input id="partyNameInput" placeholder="Name?" style="margin: 1rem"></input>
 			//        </div>
 
-			writer.write("<input ");
+			writer.write("<div ");
 			writer.write(COLS);
-			writer.write(" placeholder='");
+			writer.write('>');
+
+			writer.write("<input class='form-control m-3' placeholder='");
 
 			if (rootDescription.startsWith("input prompt "))
 			{
@@ -639,18 +641,17 @@ public class MockupTools
 				writer.write("'");
 			}
 
-			writer.write(" style='margin: 1rem'></input>");
+			writer.write('>');
+			writer.write("</div>");
 			return;
 		}
 		else if (rootDescription.startsWith("button "))
 		{
-			//        <div class="row justify-content-center" style="margin: 1rem">
-			//            <button style="margin: 1rem">next</button>
-			//        </div>
-
 			writer.write("<div ");
 			writer.write(COLS);
-			writer.write("><button onclick='submit(\"");
+			writer.write('>');
+
+			writer.write("<button class='btn btn-outline-secondary m-3' onclick='submit(\"");
 
 			final String action = (String) reflector.getValue(root, ACTION);
 
@@ -664,9 +665,10 @@ public class MockupTools
 				writer.write(buttonName);
 			}
 
-			writer.write("\")' style='margin: 1rem'>");
+			writer.write("\")'>");
 			writer.write(rootDescription.substring("button ".length()));
-			writer.write("</button></div>");
+			writer.write("</button>");
+			writer.write("</div>");
 
 			return;
 		}
