@@ -46,18 +46,17 @@ repositories {
 	mavenLocal()
 	mavenCentral()
 	jcenter()
-
-	maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 dependencies {
-	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '[0.8.1,)'
+	// https://mvnrepository.com/artifact/org.fulib/fulibScenarios
+	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '1.0.0'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibYaml
-	implementation group: 'org.fulib', name: 'fulibYaml', version: '[1.0,)'
+	implementation group: 'org.fulib', name: 'fulibYaml', version: '1.1.0'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibTools
-	testCompile group: 'org.fulib', name: 'fulibTools', version: '[1.0,)'
+	testCompile group: 'org.fulib', name: 'fulibTools', version: '1.1.0'
 
 	// https://mvnrepository.com/artifact/junit/junit
 	testCompile group: 'junit', name: 'junit', version: '4.12'
