@@ -63,7 +63,6 @@ public class MockupTools
 		+ "\t\t\thttpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n"
 		+ "\t\t\thttpRequest.send(requestString);\n" + "\t\t}\n" + "\t}\n" + "</script>\n";
 
-	private static final String COLS   = "class='col col-lg-2 text-center'";
 	private static final String TABLES = "tables";
 
 	// =============== Fields ===============
@@ -509,11 +508,7 @@ public class MockupTools
 		{
 			for (String elem : description.toString().split("\\|"))
 			{
-				writer.write(indent);
-				writer.write('\t');
-				writer.write('\t');
-				this.generateOneCell(root, reflector, elem.trim(), writer);
-				writer.write('\n');
+				this.generateCell(indent, writer, root, reflector, elem);
 			}
 		}
 
@@ -528,11 +523,7 @@ public class MockupTools
 				final String elem = (String) elemReflector.getValue(elemObject, TEXT);
 				if (elem != null)
 				{
-					writer.write(indent);
-					writer.write('\t');
-					writer.write('\t');
-					this.generateOneCell(elemObject, elemReflector, elem.trim(), writer);
-					writer.write('\n');
+					this.generateCell(indent, writer, elemObject, elemReflector, elem);
 				}
 			}
 		}
@@ -609,20 +600,25 @@ public class MockupTools
 		writer.write("</div>\n");
 	}
 
-	private void generateOneCell(Object root, Reflector reflector, String rootDescription, Writer writer)
+	private void generateCell(String indent, Writer writer, Object elemObject, Reflector elemReflector, String elem)
+		throws IOException
+	{
+		writer.write(indent);
+		writer.write("\t\t<div class='col col-lg-2 text-center m-3'>\n");
+		writer.write(indent);
+		writer.write("\t\t\t");
+		this.generateContent(elemObject, elemReflector, elem.trim(), writer);
+		writer.write('\n');
+		writer.write(indent);
+		writer.write("\t\t</div>\n");
+	}
+
+	private void generateContent(Object root, Reflector reflector, String rootDescription, Writer writer)
 		throws IOException
 	{
 		if (rootDescription.startsWith("input "))
 		{
-			//        <div class="row justify-content-center" style="margin: 1rem">
-			//            <input id="partyNameInput" placeholder="Name?" style="margin: 1rem"></input>
-			//        </div>
-
-			writer.write("<div ");
-			writer.write(COLS);
-			writer.write('>');
-
-			writer.write("<input class='form-control m-3' placeholder='");
+			writer.write("<input class='form-control' placeholder='");
 
 			if (rootDescription.startsWith("input prompt "))
 			{
@@ -644,16 +640,10 @@ public class MockupTools
 			}
 
 			writer.write('>');
-			writer.write("</div>");
-			return;
 		}
 		else if (rootDescription.startsWith("button "))
 		{
-			writer.write("<div ");
-			writer.write(COLS);
-			writer.write('>');
-
-			writer.write("<button class='btn btn-outline-secondary m-3' onclick='submit(\"");
+			writer.write("<button class='btn btn-outline-secondary' onclick='submit(\"");
 
 			final String action = (String) reflector.getValue(root, ACTION);
 
@@ -670,15 +660,10 @@ public class MockupTools
 			writer.write("\")'>");
 			writer.write(rootDescription.substring("button ".length()));
 			writer.write("</button>");
-			writer.write("</div>");
-
-			return;
 		}
-
-		writer.write("<div ");
-		writer.write(COLS);
-		writer.write(" style='margin: 1rem'>");
-		writer.write(rootDescription);
-		writer.write("</div>");
+		else
+		{
+			writer.write(rootDescription);
+		}
 	}
 }
