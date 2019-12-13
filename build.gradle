@@ -66,8 +66,8 @@ dependencies {
 
 // generate classes into build/generated-src instead of src/main/java
 
-final File modelDir = file "$project.buildDir/generated-src/scenarios/main/"
-final File testDir = file "$project.buildDir/generated-src/scenarios/test/"
+final File modelDir = file "$project.buildDir/generated/sources/scenarios/main/"
+final File testDir = file "$project.buildDir/generated/sources/scenarios/test/"
 
 sourceSets.main.java.srcDir(modelDir)
 sourceSets.test.java.srcDir(testDir)
