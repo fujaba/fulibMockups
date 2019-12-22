@@ -1,0 +1,236 @@
+- c1: 	ClassModel
+  classes: 	sprite2 	content3 	element4 	page5 	spriteBoard6 	webApp7 	
+  defaultPropertyStyle: 	POJO
+  defaultRoleType: 	"java.util.ArrayList<%s>"
+  mainJavaDir: 	"src/gen/java"
+  packageName: 	org.fulib.mockups
+  packageSrcFolder: 	"src/gen/java/org/fulib/mockups"
+
+- sprite2: 	Clazz
+  attributes: 	id8 	icon9 	x10 	y11 	
+  model: 	c1
+  modified: 	false
+  name: 	Sprite
+  propertyStyle: 	POJO
+
+- content3: 	Clazz
+  attributes: 	id12 	description13 	value14 	
+  model: 	c1
+  modified: 	false
+  name: 	Content
+  propertyStyle: 	POJO
+  roles: 	elements15 	
+
+- element4: 	Clazz
+  attributes: 	id16 	text17 	
+  model: 	c1
+  modified: 	false
+  name: 	Element
+  propertyStyle: 	POJO
+
+- page5: 	Clazz
+  attributes: 	id18 	description19 	
+  model: 	c1
+  modified: 	false
+  name: 	Page
+  propertyStyle: 	POJO
+  roles: 	content20 	
+
+- spriteBoard6: 	Clazz
+  attributes: 	id21 	
+  model: 	c1
+  modified: 	false
+  name: 	SpriteBoard
+  propertyStyle: 	POJO
+  roles: 	content22 	
+
+- webApp7: 	Clazz
+  attributes: 	id23 	description24 	
+  model: 	c1
+  modified: 	false
+  name: 	WebApp
+  propertyStyle: 	POJO
+  roles: 	content25 	
+
+- id8: 	Attribute
+  clazz: 	sprite2
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- icon9: 	Attribute
+  clazz: 	sprite2
+  modified: 	false
+  name: 	icon
+  propertyStyle: 	POJO
+  type: 	String
+
+- x10: 	Attribute
+  clazz: 	sprite2
+  modified: 	false
+  name: 	x
+  propertyStyle: 	POJO
+  type: 	int
+
+- y11: 	Attribute
+  clazz: 	sprite2
+  modified: 	false
+  name: 	y
+  propertyStyle: 	POJO
+  type: 	int
+
+- id12: 	Attribute
+  clazz: 	content3
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- description13: 	Attribute
+  clazz: 	content3
+  modified: 	false
+  name: 	description
+  propertyStyle: 	POJO
+  type: 	String
+
+- value14: 	Attribute
+  clazz: 	content3
+  modified: 	false
+  name: 	value
+  propertyStyle: 	POJO
+  type: 	String
+
+- elements15: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	content3
+  modified: 	false
+  name: 	elements
+  other: 	a26
+  roleType: 	"java.util.ArrayList<%s>"
+
+- id16: 	Attribute
+  clazz: 	element4
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- text17: 	Attribute
+  clazz: 	element4
+  modified: 	false
+  name: 	text
+  propertyStyle: 	POJO
+  type: 	String
+
+- id18: 	Attribute
+  clazz: 	page5
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- description19: 	Attribute
+  clazz: 	page5
+  modified: 	false
+  name: 	description
+  propertyStyle: 	POJO
+  type: 	String
+
+- content20: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	page5
+  modified: 	false
+  name: 	content
+  other: 	a27
+  roleType: 	"java.util.ArrayList<%s>"
+
+- id21: 	Attribute
+  clazz: 	spriteBoard6
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- content22: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	spriteBoard6
+  modified: 	false
+  name: 	content
+  other: 	a28
+  roleType: 	"java.util.ArrayList<%s>"
+
+- id23: 	Attribute
+  clazz: 	webApp7
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- description24: 	Attribute
+  clazz: 	webApp7
+  modified: 	false
+  name: 	description
+  propertyStyle: 	POJO
+  type: 	String
+
+- content25: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	webApp7
+  modified: 	false
+  name: 	content
+  other: 	a29
+  roleType: 	"java.util.ArrayList<%s>"
+
+- a26: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	element30
+  modified: 	false
+  other: 	elements15
+
+- a27: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	object31
+  modified: 	false
+  other: 	content20
+
+- a28: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	sprite32
+  modified: 	false
+  other: 	content22
+
+- a29: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	page33
+  modified: 	false
+  other: 	content25
+
+- element30: 	Clazz
+  modified: 	false
+  name: 	Element
+  roles: 	a26 	
+
+- object31: 	Clazz
+  modified: 	false
+  name: 	Object
+  roles: 	a27 	
+
+- sprite32: 	Clazz
+  modified: 	false
+  name: 	Sprite
+  roles: 	a28 	
+
+- page33: 	Clazz
+  modified: 	false
+  name: 	Page
+  roles: 	a29 	
+

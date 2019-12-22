@@ -16,3 +16,9 @@ src/*/scenarios/**/*.yaml
 src/*/scenarios/**/*.html
 libs/fulib*.jar
 *.txt
+
+src/test/java/PartyApp/
+
+src/test/java/Warehouse/
+
+*.svg

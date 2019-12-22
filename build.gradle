@@ -10,14 +10,14 @@ plugins {
 
 group = 'org.fulib'
 version = "git describe --tags".execute().text[1..-2] // strip v and \n
-description = 'Tools for generating HTML mockups and Web Apps.'
+description = 'Tools for generating HTML org.fulib.mockups and Web Apps.'
 
 publishInfo {
 	websiteUrl = 'https://www.fulib.org/'
 	issueTrackerUrl = 'https://github.com/fujaba/fulibMockups'
 	vcsUrl = 'https://github.com/fujaba/fulibMockups'
 	githubRepo = 'fujaba/fulibMockups'
-	labels = [ 'source', 'generator', 'html', 'mockups', 'webapp' ]
+	labels = [ 'source', 'generator', 'html', 'org.fulib.mockups', 'webapp' ]
 
 	license {
 		shortName = 'BSD 3-Clause'
@@ -66,8 +66,8 @@ dependencies {
 
 // generate classes into build/generated-src instead of src/main/java
 
-final File modelDir = file "$project.buildDir/generated-src/scenarios/main/"
-final File testDir = file "$project.buildDir/generated-src/scenarios/test/"
+final File modelDir = file "src/gen/java/"
+final File testDir = file "src/test/java/"
 
 sourceSets.main.java.srcDir(modelDir)
 sourceSets.test.java.srcDir(testDir)

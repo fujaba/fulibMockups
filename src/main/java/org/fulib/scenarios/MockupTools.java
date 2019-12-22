@@ -40,6 +40,7 @@ public class MockupTools
 		+ "\t<!-- Bootstrap CSS -->\n"
 		+ "\t<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
 		+ "\t      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n"
+		+ "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n"
 		+ "\n" + "\t<title>Mockup</title>\n" + "</head>\n" + "<body>\n";
 
 	// language=HTML
@@ -485,18 +486,17 @@ public class MockupTools
 		final Reflector reflector = this.getReflector(root);
 
 		writer.write(indent);
-		writer.write("<div id='");
-
 		final String rootId = reflector.getValue(root, ID).toString();
-		writer.write(rootId);
 
-		writer.write("'");
-
-		if (indent.isEmpty())
-		{
-			writer.write(" class='container'");
+		if (root.getClass().getName().endsWith("Sprite")) {
+			generateSprite(root, writer, reflector, rootId);
+			return;
 		}
 
+		writer.write("<div id='");
+		writer.write(rootId);
+		writer.write("'");
+		writer.write(" class='container'");
 		writer.write(">\n");
 		writer.write(indent);
 		writer.write("\t<div class='row justify-content-center'>\n");
@@ -598,6 +598,22 @@ public class MockupTools
 
 		writer.write(indent);
 		writer.write("</div>\n");
+	}
+
+	private void generateSprite(Object root, Writer writer, Reflector reflector, String rootId) throws IOException
+	{
+		String iconName = (String) reflector.getValue(root, "icon");
+
+		int x = 20 * (Integer) reflector.getValue(root, "x");
+		int y = 20 * (Integer) reflector.getValue(root, "y");
+		String style = String.format("style='position: absolute; left: %dpx; top: %dpx'", x, y);
+
+		String iconEntry = String.format(
+				"<i id='%s' class='fa fa-%s' %s></i>\n",
+				rootId,
+				iconName,
+				style);
+		writer.write(iconEntry);
 	}
 
 	private void generateCell(String indent, Writer writer, Object elemObject, Reflector elemReflector, String elem)
