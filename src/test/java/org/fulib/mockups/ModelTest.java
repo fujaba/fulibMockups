@@ -64,7 +64,7 @@ public class ModelTest
       mainBoard.setId("mainBoard");
       Content headLine = new Content();
       headLine.setId("headLine");
-      headLine.setDescription("Two sprites");
+      headLine.setDescription("button move car");
       mainPage.withContent(headLine, mainBoard);
       Sprite car1 = new Sprite();
       Sprite home2 = new Sprite();

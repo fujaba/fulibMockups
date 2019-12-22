@@ -39,7 +39,7 @@ There is a page with id mainPage.
 ShroomApp has content mainPage.
 
 There is a SpriteBoard with id mainBoard.
-There is a Content with id headLine and with description "Two sprites".
+There is a Content with id headLine and with description "button move car".
 MainPage has content headLine and mainBoard.
 There are sprites with id car1, home2
 and with icon car and home
