@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.fulib.scenarios.MockupTools;
+import org.fulib.service.Service;
 import org.junit.Test;
 import org.fulib.FulibTools;
 
@@ -36,10 +37,10 @@ public class ModelTest
       s2.setId("s2");
       s1.setIcon("car");
       s2.setIcon("home");
-      s1.setX(4);
-      s2.setX(16);
-      s1.setY(12);
-      s2.setY(6);
+      s1.setX(4.0);
+      s2.setX(16.0);
+      s1.setY(12.0);
+      s2.setY(6.0);
       Page p1 = new Page();
       Page p2 = new Page();
       p1.setId("p1");
@@ -72,13 +73,18 @@ public class ModelTest
       home2.setId("home2");
       car1.setIcon("car");
       home2.setIcon("home");
-      car1.setX(4);
-      home2.setX(16);
-      car1.setY(12);
-      home2.setY(6);
+      car1.setX(4.0);
+      home2.setX(16.0);
+      car1.setY(12.0);
+      home2.setY(6.0);
       mainBoard.withContent(car1, home2);
       FulibTools.objectDiagrams().dumpSVG("src/main/scenarios/org/fulib/mockups/shroomwars.svg", shroomApp);
       MockupTools.htmlTool().dump("src/main/scenarios/org/fulib/mockups/shroomwars.html", shroomApp);
+   }
+
+   public static void main(String[] args)
+   {
+      Service.main(new String[]{WebApp.class.getName()});
    }
 
 }

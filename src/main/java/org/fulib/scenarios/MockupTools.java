@@ -33,32 +33,50 @@ public class MockupTools
 	private static final Pattern MOCKUP_FILE_NAME_PATTERN = Pattern.compile(".*?(\\d+)-(\\d+)\\.mockup\\.html");
 
 	// language=HTML
-	private static final String HTML_HEADER =
-		"<!doctype html>\n" + "<html lang=\"en\">\n" + "<head>\n" + "\t<!-- Required meta tags -->\n"
-		+ "\t<meta charset=\"utf-8\">\n"
-		+ "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n" + "\n"
-		+ "\t<!-- Bootstrap CSS -->\n"
-		+ "\t<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n"
-		+ "\t      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n"
-		+ "\t<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n"
-		+ "\n" + "\t<title>Mockup</title>\n" + "</head>\n" + "<body>\n";
+	private static final String HTML_HEADER = "" +
+			"<!doctype html>\n" +
+			"<html lang=\"en\">\n" +
+			"<head>\n" +
+			"\t<!-- Required meta tags -->\n" +
+			"\t<meta charset=\"utf-8\">\n" +
+			"\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n" + "\n" +
+			"\t<!-- Bootstrap CSS -->\n" +
+			"\t<link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\"\n" +
+			"\t      integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n" +
+			"\t<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n" + "\n" +
+			"\t<title>Mockup</title>\n" + "</head>\n" +
+			"<body>\n";
+
+	private static final String HML_FOOTER = "" +
+			"</body>\n" +
+			"</html>\n";
 
 	// language=HTML
-	private static final String BUTTON_HANDLER =
-		"<script>\n" + "\tfunction handler(response) {\n" + "\t\tconsole.log(response);\n"
-		+ "\t\tdocument.documentElement.innerHTML = response;\n" + "\t}\n" + "\n" + "\tfunction submit(cmd) {\n"
+	private static final String BUTTON_HANDLER = "" +
+			"<script>\n" +
+			"'use strict;'\n" +
+			"	function handler(response) {\n" +
+			"		console.log(response);\n"
+		+ "\t\tdocument.documentElement.innerHTML = response;\n" +
+			"\t}\n" + "\n" +
+			"\tfunction submit(cmd) {\n"
 		+ "\t\tif (cmd) {\n" + "\t\t\tconst words = cmd.split(' ');\n"
 		+ "\t\t\tconst request = { _cmd: words[0], _newPage: words[words.length - 1]};\n" + "\n"
-		+ "\t\t\t// collect actual parameters\n" + "\t\t\tfor (let i = 1; i < words.length - 1; i++) {\n"
+		+ "\t\t\t// collect actual parameters\n" +
+			"\t\t\tvar i;\n" +
+			"\t\t\tfor (i = 1; i < words.length - 1; i++) {\n"
 		+ "\t\t\t\tconst divElem = document.getElementById(words[i]);\n"
 		+ "\t\t\t\tconst subDiv = divElem.getElementsByTagName('div')[0];\n"
 		+ "\t\t\t\tconst inputElem = subDiv.getElementsByTagName('input')[0];\n"
-		+ "\t\t\t\tconst subSubDiv = subDiv.getElementsByTagName('div')[0];\n" + "\t\t\t\tlet value = words[i];\n"
-		+ "\t\t\t\tif (inputElem) {\n" + "\t\t\t\t\tvalue = inputElem.value;\n" + "\t\t\t\t} else if (subSubDiv) {\n"
+		+ "\t\t\t\tconst subSubDiv = subDiv.getElementsByTagName('div')[0];\n" +
+			"\t\t\t\tvar value = words[i];\n"
+		+ "\t\t\t\tif (inputElem) {\n" +
+			"\t\t\t\t\tvalue = inputElem.value;\n" +
+			"\t\t\t\t} else if (subSubDiv) {\n"
 		+ "\t\t\t\t\tvalue = subSubDiv.textContent;\n" + "\t\t\t\t}\n" + "\t\t\t\trequest[words[i]] = value;\n"
 		+ "\t\t\t}\n" + "\n" + "\t\t\tconst requestString = JSON.stringify(request);\n"
-		+ "\t\t\tconst httpRequest = new XMLHttpRequest();\n" + "\n"
-		+ "\t\t\thttpRequest.overrideMimeType('application/json');\n"
+		+ "\t\t\tconst httpRequest = new XMLHttpRequest();\n" + "\n" +
+			"\t\t\thttpRequest.overrideMimeType('application/json');\n"
 		+ "\t\t\thttpRequest.addEventListener('load', function() {\n" + "\t\t\t\thandler(this.responseText);\n"
 		+ "\t\t\t});\n" + "\t\t\thttpRequest.open('POST', '/cmd', true);\n"
 		+ "\t\t\thttpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n"
@@ -143,6 +161,8 @@ public class MockupTools
 	{
 		writer.write(HTML_HEADER);
 		this.generateElement(root, "", writer);
+		writer.write(BUTTON_HANDLER);
+		writer.write(HML_FOOTER);
 	}
 
 	// --------------- Mockups ---------------
@@ -602,18 +622,28 @@ public class MockupTools
 
 	private void generateSprite(Object root, Writer writer, Reflector reflector, String rootId) throws IOException
 	{
-		String iconName = (String) reflector.getValue(root, "icon");
+		try
+		{
+			String iconName = (String) reflector.getValue(root, "icon");
 
-		int x = 20 * (Integer) reflector.getValue(root, "x");
-		int y = 20 * (Integer) reflector.getValue(root, "y");
-		String style = String.format("style='position: absolute; left: %dpx; top: %dpx'", x, y);
+			double x = 20 * (Double) reflector.getValue(root, "x");
+			long xLong = Math.round(x);
+			double y = 20 * (Double) reflector.getValue(root, "y");
+			long yLong = Math.round(y);
 
-		String iconEntry = String.format(
-				"<i id='%s' class='fa fa-%s' %s></i>\n",
-				rootId,
-				iconName,
-				style);
-		writer.write(iconEntry);
+			String style = String.format("style='position: absolute; left: %dpx; top: %dpx'", xLong, yLong);
+
+			String iconEntry = String.format(
+					"<i id='%s' class='fa fa-%s' %s></i>\n",
+					rootId,
+					iconName,
+					style);
+			writer.write(iconEntry);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void generateCell(String indent, Writer writer, Object elemObject, Reflector elemReflector, String elem)

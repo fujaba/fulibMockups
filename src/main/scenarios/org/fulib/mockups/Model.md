@@ -13,8 +13,8 @@ with value       "v1",   "v2".
 There is a SpriteBoard with id b1.
 There are sprites with id s1, s2
 and with icon car and home
-and with x 4 and 16
-and with y 12 and 6. 
+and with x 4.0 and 16.0
+and with y 12.0 and 6.0.
 
 There are Pages
 with id          p1,     p2,
@@ -43,8 +43,8 @@ There is a Content with id headLine and with description "button move car".
 MainPage has content headLine and mainBoard.
 There are sprites with id car1, home2
 and with icon car and home
-and with x 4 and 16
-and with y 12 and 6.
+and with x 4.0 and 16.0
+and with y 12.0 and 6.0.
 
 MainBoard has content car1 and home2.
 

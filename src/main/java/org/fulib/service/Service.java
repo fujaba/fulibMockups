@@ -18,35 +18,41 @@ import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Service
-{
+public class Service {
    private HttpServer server;
    private ExecutorService executor;
    private Object webApp;
+   private int port;
 
-
-   public static void main(String[] args)
-   {
-      String webAppClassName = "webapp.WebApp";
-      if (args != null && args.length > 0) {
-         webAppClassName = args[0];
-      }
-      new Service().start(webAppClassName);
-
+   public Service setPort(int port) {
+      this.port = port;
+      return this;
    }
 
-   private void start(String webAppClassName)
-   {
-      try
-      {
+   public static void main(String[] args) {
+      String webAppClassName = "webapp.WebApp";
+      int portParameter = 6677;
+      if (args != null && args.length > 0) {
+         webAppClassName = args[0];
+         if (args.length > 1) {
+            portParameter = Integer.parseInt(args[1]);
+         }
+      }
+
+      new Service().setPort(portParameter)
+            .start(webAppClassName);
+   }
+
+   public Service start(String webAppClassName) {
+      try {
          Class<?> webAppClass = this.getClass().getClassLoader().loadClass(webAppClassName);
-         webApp = webAppClass.newInstance();
+         webApp = webAppClass.getConstructor().newInstance();
          Method init = webAppClass.getMethod("init");
          init.invoke(webApp);
 
          idMap = new YamlIdMap(webApp.getClass().getPackage().getName());
 
-         server = HttpServer.create(new InetSocketAddress(6677), 0);
+         server = HttpServer.create(new InetSocketAddress(this.port), 0);
          executor = Executors.newSingleThreadExecutor();
          server.setExecutor(executor);
 
@@ -60,12 +66,18 @@ public class Service
          cmdContext.setHandler(x -> handleCmd(x));
 
          server.start();
-         System.out.println("Server is listening on port 6677" );
+         System.out.println(String.format("Server is listening on port %s", this.port) );
       }
-      catch (Exception e)
-      {
+      catch (Exception e) {
          e.printStackTrace();
       }
+
+      return this;
+   }
+
+   public Service stop() {
+      this.server.stop(1);
+      return this;
    }
 
    private YamlIdMap idMap;
@@ -245,8 +257,9 @@ public class Service
       {
          byte[] bytes = page.getBytes();
          x.sendResponseHeaders(200, bytes.length);
-         x.getResponseBody().write(bytes);
-         x.getResponseBody().close();
+         OutputStream responseBody = x.getResponseBody();
+         responseBody.write(bytes);
+         responseBody.close();
       }
       catch (IOException e)
       {

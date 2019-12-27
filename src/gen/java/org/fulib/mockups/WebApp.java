@@ -1,9 +1,51 @@
 package org.fulib.mockups;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class WebApp  
 {
+   public void init() {
+      WebApp shroomApp = this;
+      shroomApp.setId("ShroomApp");
+      shroomApp.setDescription("Shroom Wars");
+      Page mainPage = new Page();
+      mainPage.setId("mainPage");
+      shroomApp.withContent(mainPage);
+      SpriteBoard mainBoard = new SpriteBoard();
+      mainBoard.setId("mainBoard");
+      Content headLine = new Content();
+      headLine.setId("headLine");
+      headLine.setDescription("button move car");
+      mainPage.withContent(headLine, mainBoard);
+      Sprite car1 = new Sprite();
+      Sprite home2 = new Sprite();
+      car1.setId("car1");
+      home2.setId("home2");
+      car1.setIcon("car");
+      home2.setIcon("home");
+      car1.setX(4);
+      home2.setX(16);
+      car1.setY(12);
+      home2.setY(6);
+      mainBoard.withContent(car1, home2);
+   }
+
+   public void move() {
+      ArrayList<Page> pages = this.getContent();
+      Page root = pages.get(0);
+      ArrayList<Object> rootContent = root.getContent();
+      SpriteBoard mainBoard = (SpriteBoard) rootContent.get(1);
+      ArrayList<Sprite> sprites = mainBoard.getContent();
+      Sprite car = sprites.get(0);
+      car.setX(car.getX()+1);
+      car.setY(car.getY()-1);
+      LocalDateTime now = LocalDateTime.now();
+      String info = String.format("moved car to %.2f, %.2f %s", car.getX(), car.getY(), now.toString());
+      System.out.println(info);
+   }
 
    public static final String PROPERTY_id = "id";
 

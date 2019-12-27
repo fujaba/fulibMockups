@@ -71,14 +71,14 @@
   modified: 	false
   name: 	x
   propertyStyle: 	POJO
-  type: 	int
+  type: 	double
 
 - y11: 	Attribute
   clazz: 	sprite2
   modified: 	false
   name: 	y
   propertyStyle: 	POJO
-  type: 	int
+  type: 	double
 
 - id12: 	Attribute
   clazz: 	content3

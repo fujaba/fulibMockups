@@ -22,3 +22,5 @@ src/test/java/PartyApp/
 src/test/java/Warehouse/
 
 *.svg
+
+spritemockup.html

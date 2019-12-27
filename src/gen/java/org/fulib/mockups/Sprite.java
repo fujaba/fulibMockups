@@ -45,46 +45,6 @@ public class Sprite
       return this;
    }
 
-   public static final String PROPERTY_x = "x";
-
-   private int x;
-
-   public int getX()
-   {
-      return x;
-   }
-
-   public Sprite setX(int value)
-   {
-      if (value != this.x)
-      {
-         int oldValue = this.x;
-         this.x = value;
-         firePropertyChange("x", oldValue, value);
-      }
-      return this;
-   }
-
-   public static final String PROPERTY_y = "y";
-
-   private int y;
-
-   public int getY()
-   {
-      return y;
-   }
-
-   public Sprite setY(int value)
-   {
-      if (value != this.y)
-      {
-         int oldValue = this.y;
-         this.y = value;
-         firePropertyChange("y", oldValue, value);
-      }
-      return this;
-   }
-
    protected PropertyChangeSupport listeners = null;
 
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
@@ -133,6 +93,46 @@ public class Sprite
          listeners.removePropertyChangeListener(propertyName, listener);
       }
       return true;
+   }
+
+   public static final String PROPERTY_x = "x";
+
+   private double x;
+
+   public double getX()
+   {
+      return x;
+   }
+
+   public Sprite setX(double value)
+   {
+      if (value != this.x)
+      {
+         double oldValue = this.x;
+         this.x = value;
+         firePropertyChange("x", oldValue, value);
+      }
+      return this;
+   }
+
+   public static final String PROPERTY_y = "y";
+
+   private double y;
+
+   public double getY()
+   {
+      return y;
+   }
+
+   public Sprite setY(double value)
+   {
+      if (value != this.y)
+      {
+         double oldValue = this.y;
+         this.y = value;
+         firePropertyChange("y", oldValue, value);
+      }
+      return this;
    }
 
    @Override
