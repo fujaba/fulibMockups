@@ -47,7 +47,7 @@ public class MockupGUITests
          String newValue = newLeft.getValue();
 
          assertThat(oldValue, is("80px"));
-         assertThat(newValue, is("100px"));
+         assertThat("100px".compareTo(newValue) < 0, is(true));
       }
       catch (InterruptedException e)
       {
@@ -76,6 +76,6 @@ public class MockupGUITests
       assertThat(text, containsString("</html>"));
 
       Files.write(Paths.get("./spritemockup.html"), text.getBytes());
-      System.out.println(text);
+      // System.out.println(text);
    }
 }

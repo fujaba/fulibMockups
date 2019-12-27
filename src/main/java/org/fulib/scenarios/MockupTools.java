@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -52,35 +53,38 @@ public class MockupTools
 			"</html>\n";
 
 	// language=HTML
-	private static final String BUTTON_HANDLER = "" +
+	private static final String JAVASCRIPT_CODE = "" +
 			"<script>\n" +
 			"'use strict;'\n" +
 			"	function handler(response) {\n" +
-			"		console.log(response);\n"
-		+ "\t\tdocument.documentElement.innerHTML = response;\n" +
-			"\t}\n" + "\n" +
-			"\tfunction submit(cmd) {\n"
-		+ "\t\tif (cmd) {\n" + "\t\t\tconst words = cmd.split(' ');\n"
-		+ "\t\t\tconst request = { _cmd: words[0], _newPage: words[words.length - 1]};\n" + "\n"
-		+ "\t\t\t// collect actual parameters\n" +
-			"\t\t\tvar i;\n" +
+			"		console.log(response);\n" +
+			"		document.documentElement.innerHTML = response;\n" +
+			"	}\n" +
+			"\n" +
+			"	function submit(cmd) {\n" +
+			"		if (cmd) {\n" + "\t\t\tconst words = cmd.split(' ');\n" +
+			"			const request = { _cmd: words[0], _newPage: words[words.length - 1]};\n" +
+			"\n" +
+			"			// collect actual parameters\n" +
+			"			var i;\n" +
 			"\t\t\tfor (i = 1; i < words.length - 1; i++) {\n"
-		+ "\t\t\t\tconst divElem = document.getElementById(words[i]);\n"
-		+ "\t\t\t\tconst subDiv = divElem.getElementsByTagName('div')[0];\n"
-		+ "\t\t\t\tconst inputElem = subDiv.getElementsByTagName('input')[0];\n"
-		+ "\t\t\t\tconst subSubDiv = subDiv.getElementsByTagName('div')[0];\n" +
+			+ "\t\t\t\tconst divElem = document.getElementById(words[i]);\n"
+			+ "\t\t\t\tconst subDiv = divElem.getElementsByTagName('div')[0];\n"
+			+ "\t\t\t\tconst inputElem = subDiv.getElementsByTagName('input')[0];\n"
+			+ "\t\t\t\tconst subSubDiv = subDiv.getElementsByTagName('div')[0];\n" +
 			"\t\t\t\tvar value = words[i];\n"
-		+ "\t\t\t\tif (inputElem) {\n" +
+			+ "\t\t\t\tif (inputElem) {\n" +
 			"\t\t\t\t\tvalue = inputElem.value;\n" +
 			"\t\t\t\t} else if (subSubDiv) {\n"
-		+ "\t\t\t\t\tvalue = subSubDiv.textContent;\n" + "\t\t\t\t}\n" + "\t\t\t\trequest[words[i]] = value;\n"
-		+ "\t\t\t}\n" + "\n" + "\t\t\tconst requestString = JSON.stringify(request);\n"
-		+ "\t\t\tconst httpRequest = new XMLHttpRequest();\n" + "\n" +
+			+ "\t\t\t\t\tvalue = subSubDiv.textContent;\n" + "\t\t\t\t}\n" + "\t\t\t\trequest[words[i]] = value;\n"
+			+ "\t\t\t}\n" + "\n" + "\t\t\tconst requestString = JSON.stringify(request);\n"
+			+ "\t\t\tconst httpRequest = new XMLHttpRequest();\n" + "\n" +
 			"\t\t\thttpRequest.overrideMimeType('application/json');\n"
-		+ "\t\t\thttpRequest.addEventListener('load', function() {\n" + "\t\t\t\thandler(this.responseText);\n"
-		+ "\t\t\t});\n" + "\t\t\thttpRequest.open('POST', '/cmd', true);\n"
-		+ "\t\t\thttpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n"
-		+ "\t\t\thttpRequest.send(requestString);\n" + "\t\t}\n" + "\t}\n" + "</script>\n";
+			+ "\t\t\thttpRequest.addEventListener('load', function() {\n" + "\t\t\t\thandler(this.responseText);\n"
+			+ "\t\t\t});\n" + "\t\t\thttpRequest.open('POST', '/cmd', true);\n"
+			+ "\t\t\thttpRequest.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n"
+			+ "\t\t\thttpRequest.send(requestString);\n" + "\t\t}\n" + "\t}\n" +
+			"</script>\n";
 
 	private static final String TABLES = "tables";
 
@@ -161,9 +165,11 @@ public class MockupTools
 	{
 		writer.write(HTML_HEADER);
 		this.generateElement(root, "", writer);
-		writer.write(BUTTON_HANDLER);
+		writer.write(JAVASCRIPT_CODE);
+		this.generateLoopCode(writer, root);
 		writer.write(HML_FOOTER);
 	}
+
 
 	// --------------- Mockups ---------------
 
@@ -242,15 +248,15 @@ public class MockupTools
 
 		// language=JavaScript
 		writer.write("var stepCount = 0;\n" + "thePanel.innerHTML = stepList[stepCount];\n" + "\n"
-		             + "thePanel.onclick = nextStep;" + "\n" + "\n" + "function nextStep(event) {" + "\n"
-		             + "\tif (event && (event.ctrlKey || event.shiftKey)) {" + "\n" + "\t\tif (stepCount > 0) {" + "\n"
-		             + "\t\t\tstepCount--;" + "\n" + "\t\t\tthePanel.innerHTML = stepList[stepCount];" + "\n" + "\t\t}"
-		             + "\n" + "\t} else if (stepCount + 1 < stepList.length) {" + "\n" + "\t\tstepCount++;" + "\n"
-		             + "\t\tthePanel.innerHTML = stepList[stepCount];" + "\n" + "\t}" + "\n" + "}");
+				+ "thePanel.onclick = nextStep;" + "\n" + "\n" + "function nextStep(event) {" + "\n"
+				+ "\tif (event && (event.ctrlKey || event.shiftKey)) {" + "\n" + "\t\tif (stepCount > 0) {" + "\n"
+				+ "\t\t\tstepCount--;" + "\n" + "\t\t\tthePanel.innerHTML = stepList[stepCount];" + "\n" + "\t\t}"
+				+ "\n" + "\t} else if (stepCount + 1 < stepList.length) {" + "\n" + "\t\tstepCount++;" + "\n"
+				+ "\t\tthePanel.innerHTML = stepList[stepCount];" + "\n" + "\t}" + "\n" + "}");
 
 		writer.write("</script>\n");
 
-		writer.write(BUTTON_HANDLER);
+		writer.write(JAVASCRIPT_CODE);
 	}
 
 	// --------------- Tables ---------------
@@ -297,7 +303,7 @@ public class MockupTools
 		idMap.encode(rootList);
 
 		final Map<Class<?>, List<Object>> groupedObjects = idMap.getObjIdMap().values().stream()
-		                                                        .collect(Collectors.groupingBy(Object::getClass));
+				.collect(Collectors.groupingBy(Object::getClass));
 
 		writer.write("<div class='container'>\n");
 
@@ -350,8 +356,8 @@ public class MockupTools
 					final Object value = reflector.getValue(oneObject, property);
 
 					final Collection<Object> valueList = value instanceof Collection ?
-						                                     (Collection<Object>) value :
-						                                     Collections.singletonList(value);
+							(Collection<Object>) value :
+							Collections.singletonList(value);
 
 					writer.write("\t\t<div class='col text-center border'>");
 
@@ -647,7 +653,7 @@ public class MockupTools
 	}
 
 	private void generateCell(String indent, Writer writer, Object elemObject, Reflector elemReflector, String elem)
-		throws IOException
+			throws IOException
 	{
 		writer.write(indent);
 		writer.write("\t\t<div class='col col-lg-2 text-center m-3'>\n");
@@ -660,7 +666,7 @@ public class MockupTools
 	}
 
 	private void generateContent(Object root, Reflector reflector, String rootDescription, Writer writer)
-		throws IOException
+			throws IOException
 	{
 		if (rootDescription.startsWith("input "))
 		{
@@ -710,6 +716,38 @@ public class MockupTools
 		else
 		{
 			writer.write(rootDescription);
+		}
+	}
+
+	private static final String RELOAD_CODE = "" +
+			"<script>\n" +
+			"	function loop() {\n" +
+			"		console.log('calling loop');\n" +
+			"		submit('loop');\n" +
+			"	}\n" +
+			"	setInterval(loop, 500);\n" +
+			"</script>\n";
+
+	private void generateLoopCode(Writer writer, Object root) throws IOException
+	{
+		Reflector reflector = this.getReflector(root);
+		Object loopIsActive = reflector.getValue(root, "loopIsActive");
+//		// and the loopIsActive flag is raised
+//		if (loopIsActive == null || (Boolean) loopIsActive == false) {
+//			return;
+//		}
+		// we have a loop method
+		Method[] methods = root.getClass().getMethods();
+
+		for (Method method : methods)
+		{
+			String methodName = method.getName();
+			if (method.getName().startsWith("loop"))
+			{
+				// yes, generate reload
+				writer.write(RELOAD_CODE);
+				return;
+			}
 		}
 	}
 }
