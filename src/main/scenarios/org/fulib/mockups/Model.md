@@ -31,7 +31,7 @@ B1 has content s1 and s2.
 p1 has content c1 and board.
 p2 has content c2 and board.
 
-There is a WebApp
+There is a HomeAndCarSpritesApp
 with id          ShroomApp,
 with description "Shroom Wars".
 

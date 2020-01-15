@@ -25,7 +25,7 @@ public class MockupGUITests
    @Test
    public void testMockupIsWellFormed() throws IOException
    {
-      WebApp webApp = new WebApp();
+      HomeAndCarSpritesApp webApp = new HomeAndCarSpritesApp();
       webApp.init();
       StringWriter stringWriter = new StringWriter();
       MockupTools.htmlTool().dumpScreen(stringWriter, webApp);
@@ -43,12 +43,12 @@ public class MockupGUITests
    public void testHtmlUnitOnSprites() throws IOException
    {
       // start server
-      Service spriteService = new Service().setPort(6678).start(WebApp.class.getName());
+      Service spriteService = new Service().setPort(55567).start(HomeAndCarSpritesApp.class.getName());
 
       // use it
       WebClient webClient = new WebClient(BrowserVersion.CHROME);
       try {
-         HtmlPage page = webClient.getPage("http://localhost:6678/");
+         HtmlPage page = webClient.getPage("http://localhost:55567/");
          DomElement car1 = page.getElementById("car1");
          StyleElement left = car1.getStyleElement("left");
          String oldValue = left.getValue();
@@ -58,7 +58,7 @@ public class MockupGUITests
 
          Thread.sleep(2000);
 
-         HtmlPage resultPage = webClient.getPage("http://localhost:6678/");
+         HtmlPage resultPage = webClient.getPage("http://localhost:55567/");
          DomElement resultCar = resultPage.getElementById("car1");
          StyleElement newLeft = resultCar.getStyleElement("left");
          String newValue = newLeft.getValue();

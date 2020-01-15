@@ -1,5 +1,5 @@
 - c1: 	ClassModel
-  classes: 	sprite2 	content3 	element4 	page5 	spriteBoard6 	webApp7 	
+  classes: 	sprite2 	content3 	element4 	homeAndCarSpritesApp5 	page6 	spriteBoard7 	webApp8 	
   defaultPropertyStyle: 	POJO
   defaultRoleType: 	"java.util.ArrayList<%s>"
   mainJavaDir: 	"src/gen/java"
@@ -7,230 +7,258 @@
   packageSrcFolder: 	"src/gen/java/org/fulib/mockups"
 
 - sprite2: 	Clazz
-  attributes: 	id8 	icon9 	x10 	y11 	
+  attributes: 	id9 	icon10 	x11 	y12 	
   model: 	c1
   modified: 	false
   name: 	Sprite
   propertyStyle: 	POJO
 
 - content3: 	Clazz
-  attributes: 	id12 	description13 	value14 	
+  attributes: 	id13 	description14 	value15 	
   model: 	c1
   modified: 	false
   name: 	Content
   propertyStyle: 	POJO
-  roles: 	elements15 	
+  roles: 	elements16 	
 
 - element4: 	Clazz
-  attributes: 	id16 	text17 	
+  attributes: 	id17 	text18 	
   model: 	c1
   modified: 	false
   name: 	Element
   propertyStyle: 	POJO
 
-- page5: 	Clazz
-  attributes: 	id18 	description19 	
+- homeAndCarSpritesApp5: 	Clazz
+  attributes: 	id19 	description20 	content21 	
+  model: 	c1
+  modified: 	false
+  name: 	HomeAndCarSpritesApp
+  propertyStyle: 	POJO
+
+- page6: 	Clazz
+  attributes: 	id22 	description23 	
   model: 	c1
   modified: 	false
   name: 	Page
   propertyStyle: 	POJO
-  roles: 	content20 	
+  roles: 	content24 	
 
-- spriteBoard6: 	Clazz
-  attributes: 	id21 	
+- spriteBoard7: 	Clazz
+  attributes: 	id25 	
   model: 	c1
   modified: 	false
   name: 	SpriteBoard
   propertyStyle: 	POJO
-  roles: 	content22 	
+  roles: 	content26 	
 
-- webApp7: 	Clazz
-  attributes: 	id23 	description24 	
+- webApp8: 	Clazz
+  attributes: 	id27 	description28 	
   model: 	c1
   modified: 	false
   name: 	WebApp
   propertyStyle: 	POJO
-  roles: 	content25 	
+  roles: 	content29 	
 
-- id8: 	Attribute
+- id9: 	Attribute
   clazz: 	sprite2
   modified: 	false
   name: 	id
   propertyStyle: 	POJO
   type: 	String
 
-- icon9: 	Attribute
+- icon10: 	Attribute
   clazz: 	sprite2
   modified: 	false
   name: 	icon
   propertyStyle: 	POJO
   type: 	String
 
-- x10: 	Attribute
+- x11: 	Attribute
   clazz: 	sprite2
   modified: 	false
   name: 	x
   propertyStyle: 	POJO
   type: 	double
 
-- y11: 	Attribute
+- y12: 	Attribute
   clazz: 	sprite2
   modified: 	false
   name: 	y
   propertyStyle: 	POJO
   type: 	double
 
-- id12: 	Attribute
+- id13: 	Attribute
   clazz: 	content3
   modified: 	false
   name: 	id
   propertyStyle: 	POJO
   type: 	String
 
-- description13: 	Attribute
+- description14: 	Attribute
   clazz: 	content3
   modified: 	false
   name: 	description
   propertyStyle: 	POJO
   type: 	String
 
-- value14: 	Attribute
+- value15: 	Attribute
   clazz: 	content3
   modified: 	false
   name: 	value
   propertyStyle: 	POJO
   type: 	String
 
-- elements15: 	AssocRole
+- elements16: 	AssocRole
   aggregation: 	false
   cardinality: 	42
   clazz: 	content3
   modified: 	false
   name: 	elements
-  other: 	a26
+  other: 	a30
   roleType: 	"java.util.ArrayList<%s>"
 
-- id16: 	Attribute
+- id17: 	Attribute
   clazz: 	element4
   modified: 	false
   name: 	id
   propertyStyle: 	POJO
   type: 	String
 
-- text17: 	Attribute
+- text18: 	Attribute
   clazz: 	element4
   modified: 	false
   name: 	text
   propertyStyle: 	POJO
   type: 	String
 
-- id18: 	Attribute
-  clazz: 	page5
+- id19: 	Attribute
+  clazz: 	homeAndCarSpritesApp5
   modified: 	false
   name: 	id
   propertyStyle: 	POJO
   type: 	String
 
-- description19: 	Attribute
-  clazz: 	page5
+- description20: 	Attribute
+  clazz: 	homeAndCarSpritesApp5
   modified: 	false
   name: 	description
   propertyStyle: 	POJO
   type: 	String
 
-- content20: 	AssocRole
-  aggregation: 	false
-  cardinality: 	42
-  clazz: 	page5
+- content21: 	Attribute
+  clazz: 	homeAndCarSpritesApp5
   modified: 	false
   name: 	content
-  other: 	a27
-  roleType: 	"java.util.ArrayList<%s>"
+  propertyStyle: 	POJO
+  type: 	Page
 
-- id21: 	Attribute
-  clazz: 	spriteBoard6
+- id22: 	Attribute
+  clazz: 	page6
   modified: 	false
   name: 	id
   propertyStyle: 	POJO
   type: 	String
 
-- content22: 	AssocRole
-  aggregation: 	false
-  cardinality: 	42
-  clazz: 	spriteBoard6
-  modified: 	false
-  name: 	content
-  other: 	a28
-  roleType: 	"java.util.ArrayList<%s>"
-
-- id23: 	Attribute
-  clazz: 	webApp7
-  modified: 	false
-  name: 	id
-  propertyStyle: 	POJO
-  type: 	String
-
-- description24: 	Attribute
-  clazz: 	webApp7
+- description23: 	Attribute
+  clazz: 	page6
   modified: 	false
   name: 	description
   propertyStyle: 	POJO
   type: 	String
 
-- content25: 	AssocRole
+- content24: 	AssocRole
   aggregation: 	false
   cardinality: 	42
-  clazz: 	webApp7
+  clazz: 	page6
   modified: 	false
   name: 	content
-  other: 	a29
+  other: 	a31
   roleType: 	"java.util.ArrayList<%s>"
 
-- a26: 	AssocRole
+- id25: 	Attribute
+  clazz: 	spriteBoard7
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- content26: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	spriteBoard7
+  modified: 	false
+  name: 	content
+  other: 	a32
+  roleType: 	"java.util.ArrayList<%s>"
+
+- id27: 	Attribute
+  clazz: 	webApp8
+  modified: 	false
+  name: 	id
+  propertyStyle: 	POJO
+  type: 	String
+
+- description28: 	Attribute
+  clazz: 	webApp8
+  modified: 	false
+  name: 	description
+  propertyStyle: 	POJO
+  type: 	String
+
+- content29: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	webApp8
+  modified: 	false
+  name: 	content
+  other: 	a33
+  roleType: 	"java.util.ArrayList<%s>"
+
+- a30: 	AssocRole
   aggregation: 	false
   cardinality: 	1
-  clazz: 	element30
+  clazz: 	element34
   modified: 	false
-  other: 	elements15
+  other: 	elements16
 
-- a27: 	AssocRole
+- a31: 	AssocRole
   aggregation: 	false
   cardinality: 	1
-  clazz: 	object31
+  clazz: 	object35
   modified: 	false
-  other: 	content20
+  other: 	content24
 
-- a28: 	AssocRole
+- a32: 	AssocRole
   aggregation: 	false
   cardinality: 	1
-  clazz: 	sprite32
+  clazz: 	sprite36
   modified: 	false
-  other: 	content22
+  other: 	content26
 
-- a29: 	AssocRole
+- a33: 	AssocRole
   aggregation: 	false
   cardinality: 	1
-  clazz: 	page33
+  clazz: 	page37
   modified: 	false
-  other: 	content25
+  other: 	content29
 
-- element30: 	Clazz
+- element34: 	Clazz
   modified: 	false
   name: 	Element
-  roles: 	a26 	
+  roles: 	a30 	
 
-- object31: 	Clazz
+- object35: 	Clazz
   modified: 	false
   name: 	Object
-  roles: 	a27 	
+  roles: 	a31 	
 
-- sprite32: 	Clazz
+- sprite36: 	Clazz
   modified: 	false
   name: 	Sprite
-  roles: 	a28 	
+  roles: 	a32 	
 
-- page33: 	Clazz
+- page37: 	Clazz
   modified: 	false
   name: 	Page
-  roles: 	a29 	
+  roles: 	a33 	
 

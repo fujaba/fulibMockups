@@ -55,12 +55,12 @@ public class ModelTest
       b1.withContent(s1, s2);
       p1.withContent(c1, "board");
       p2.withContent(c2, "board");
-      WebApp shroomApp = new WebApp();
+      HomeAndCarSpritesApp shroomApp = new HomeAndCarSpritesApp();
       shroomApp.setId("ShroomApp");
       shroomApp.setDescription("Shroom Wars");
       Page mainPage = new Page();
       mainPage.setId("mainPage");
-      shroomApp.withContent(mainPage);
+      shroomApp.setContent(mainPage);
       SpriteBoard mainBoard = new SpriteBoard();
       mainBoard.setId("mainBoard");
       Content headLine = new Content();
