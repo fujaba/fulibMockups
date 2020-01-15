@@ -23,6 +23,23 @@ import static org.junit.Assert.assertThat;
 public class MockupGUITests
 {
    @Test
+   public void testMockupIsWellFormed() throws IOException
+   {
+      WebApp webApp = new WebApp();
+      webApp.init();
+      StringWriter stringWriter = new StringWriter();
+      MockupTools.htmlTool().dumpScreen(stringWriter, webApp);
+      String text = stringWriter.toString();
+
+      assertThat(text, containsString("<html"));
+      assertThat(text, containsString("</html>"));
+
+      Files.write(Paths.get("./spritemockup.html"), text.getBytes());
+      // System.out.println(text);
+   }
+
+
+   @Test
    public void testHtmlUnitOnSprites() throws IOException
    {
       // start server
@@ -49,8 +66,7 @@ public class MockupGUITests
          assertThat(oldValue, is("80px"));
          assertThat("100px".compareTo(newValue) < 0, is(true));
       }
-      catch (InterruptedException e)
-      {
+      catch (InterruptedException e) {
          e.printStackTrace();
       }
       finally {
@@ -58,24 +74,5 @@ public class MockupGUITests
          webClient.close();
          spriteService.stop();
       }
-
-   }
-
-
-
-   @Test
-   public void testMockupIsWellFormed() throws IOException
-   {
-      WebApp webApp = new WebApp();
-      webApp.init();
-      StringWriter stringWriter = new StringWriter();
-      MockupTools.htmlTool().dumpScreen(stringWriter, webApp);
-      String text = stringWriter.toString();
-
-      assertThat(text, containsString("<html"));
-      assertThat(text, containsString("</html>"));
-
-      Files.write(Paths.get("./spritemockup.html"), text.getBytes());
-      // System.out.println(text);
    }
 }
