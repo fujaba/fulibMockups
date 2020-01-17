@@ -1,4 +1,6 @@
 package org.fulib.mockups;
+import org.fulib.service.Service;
+
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
@@ -7,6 +9,11 @@ import java.util.ArrayList;
 public class HomeAndCarSpritesApp  
 {
    private Sprite car1;
+
+   public static void main(String[] args)
+   {
+      Service spriteService = new Service().setPort(55556).start(HomeAndCarSpritesApp.class.getName());
+   }
 
    public void init() {
       HomeAndCarSpritesApp shroomApp = this;
@@ -53,16 +60,17 @@ public class HomeAndCarSpritesApp
       System.out.println(info);
    }
 
-   private double delta = 0.1;
+   private double delta = 0.2;
+
    public void loop() {
       double oldX = car1.getX();
       System.out.println(String.format("loop has been called %.2f", oldX));
 
-      if (oldX > 18) {
+      if (oldX >= 18) {
          delta = -0.1;
       }
-      if (oldX < 1) {
-         delta = 0.1;
+      if (oldX <= 1) {
+         delta = 0.2;
       }
       car1.setX(oldX + delta);
    }
