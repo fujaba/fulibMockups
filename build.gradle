@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'maven-publish'
 	// https://plugins.gradle.org/plugin/com.jfrog.bintray
-	id 'com.jfrog.bintray' version '1.8.4'
+	id 'com.jfrog.bintray' version '1.8.5'
 	// https://plugins.gradle.org/plugin/de.clashsoft.simple-publish
 	id 'de.clashsoft.simple-publish' version '0.6.0'
 	// https://plugins.gradle.org/plugin/org.fulib.fulibGradle
