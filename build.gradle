@@ -4,7 +4,7 @@ plugins {
 	// https://plugins.gradle.org/plugin/com.jfrog.bintray
 	id 'com.jfrog.bintray' version '1.8.4'
 	// https://plugins.gradle.org/plugin/de.clashsoft.simple-publish
-	id 'de.clashsoft.simple-publish' version '0.2.0'
+	id 'de.clashsoft.simple-publish' version '0.6.0'
 	// https://plugins.gradle.org/plugin/org.fulib.fulibGradle
 	id 'org.fulib.fulibGradle' version '0.2.0'
 }
@@ -17,14 +17,11 @@ description = 'Tools for generating HTML mockups and Web Apps.'
 
 publishInfo {
 	websiteUrl = 'https://www.fulib.org/'
-	issueTrackerUrl = 'https://github.com/fujaba/fulibMockups'
-	vcsUrl = 'https://github.com/fujaba/fulibMockups'
 	githubRepo = 'fujaba/fulibMockups'
 	labels = [ 'source', 'generator', 'html', 'mockups', 'webapp' ]
 
 	license {
-		shortName = 'BSD 3-Clause'
-		longName = 'BSD 3-Clause "New" or "Revised" License'
+		name = 'BSD 3-Clause'
 		url = 'https://opensource.org/licenses/BSD-3-Clause'
 	}
 
