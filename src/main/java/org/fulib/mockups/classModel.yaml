@@ -1,0 +1,162 @@
+- c: 	ClassModel
+  classes: 	content 	element 	page 	webApp
+  defaultCollectionType: 	c1
+  defaultPropertyStyle: 	Bean
+  defaultRoleType: 	"java.util.ArrayList<%s>"
+  mainJavaDir: 	"src/main/java"
+  packageName: 	org.fulib.mockups
+  packageSrcFolder: 	"src/main/java/org/fulib/mockups"
+
+- content: 	Clazz
+  attributes: 	content_id 	content_description 	content_value 	content_elements
+  model: 	c
+  modified: 	false
+  name: 	Content
+  propertyStyle: 	Bean
+
+- element: 	Clazz
+  attributes: 	element_id 	element_text
+  model: 	c
+  modified: 	false
+  name: 	Element
+  propertyStyle: 	Bean
+
+- page: 	Clazz
+  attributes: 	page_id 	page_description 	page_content
+  model: 	c
+  modified: 	false
+  name: 	Page
+  propertyStyle: 	Bean
+
+- webApp: 	Clazz
+  attributes: 	webApp_id 	webApp_description 	webApp_content
+  model: 	c
+  modified: 	false
+  name: 	WebApp
+  propertyStyle: 	Bean
+
+- c1: 	CollectionType
+  implClass: 	class java.util.ArrayList
+  implTemplate: 	"java.util.ArrayList<%s>"
+  itf: 	org.fulib.classmodel.CollectionInterface.List
+  qualifiedImplName: 	java.util.ArrayList
+  simpleImplName: 	ArrayList
+
+- content_id: 	Attribute
+  clazz: 	content
+  id: 	Content_id
+  modified: 	false
+  name: 	id
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- content_description: 	Attribute
+  clazz: 	content
+  id: 	Content_description
+  modified: 	false
+  name: 	description
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- content_value: 	Attribute
+  clazz: 	content
+  id: 	Content_value
+  modified: 	false
+  name: 	value
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- content_elements: 	Attribute
+  clazz: 	content
+  collectionType: 	c3
+  id: 	Content_elements
+  modified: 	false
+  name: 	elements
+  propertyStyle: 	Bean
+  type: 	Element
+  typeSignature: 	Element
+
+- element_id: 	Attribute
+  clazz: 	element
+  id: 	Element_id
+  modified: 	false
+  name: 	id
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- element_text: 	Attribute
+  clazz: 	element
+  id: 	Element_text
+  modified: 	false
+  name: 	text
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- page_id: 	Attribute
+  clazz: 	page
+  id: 	Page_id
+  modified: 	false
+  name: 	id
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- page_description: 	Attribute
+  clazz: 	page
+  id: 	Page_description
+  modified: 	false
+  name: 	description
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- page_content: 	Attribute
+  clazz: 	page
+  collectionType: 	c3
+  id: 	Page_content
+  modified: 	false
+  name: 	content
+  propertyStyle: 	Bean
+  type: 	Content
+  typeSignature: 	Content
+
+- webApp_id: 	Attribute
+  clazz: 	webApp
+  id: 	WebApp_id
+  modified: 	false
+  name: 	id
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- webApp_description: 	Attribute
+  clazz: 	webApp
+  id: 	WebApp_description
+  modified: 	false
+  name: 	description
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- webApp_content: 	Attribute
+  clazz: 	webApp
+  collectionType: 	c3
+  id: 	WebApp_content
+  modified: 	false
+  name: 	content
+  propertyStyle: 	Bean
+  type: 	Page
+  typeSignature: 	Page
+
+- c3: 	CollectionType
+  implClass: 	class java.util.LinkedHashSet
+  implTemplate: 	"java.util.LinkedHashSet<%s>"
+  itf: 	org.fulib.classmodel.CollectionInterface.Set
+  qualifiedImplName: 	java.util.LinkedHashSet
+  simpleImplName: 	LinkedHashSet
+

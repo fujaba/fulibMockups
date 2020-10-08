@@ -1,0 +1,47 @@
+<svg width="521px" height="111px"
+ viewBox="0.00 0.00 521.00 111.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0) translate(4 107)">
+<title>org.fulib.mockups</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-107 517,-107 517,4 -4,4"/>
+<!-- Content -->
+<g id="node1" class="node">
+<title>Content</title>
+<polygon fill="none" stroke="black" points="8.5,-76.5 8.5,-98.5 117.5,-98.5 117.5,-76.5 8.5,-76.5"/>
+<text text-anchor="start" x="40.83" y="-82.9" font-family="Times,serif" font-size="14.00">Content</text>
+<polygon fill="none" stroke="black" points="8.5,-3.5 8.5,-76.5 117.5,-76.5 117.5,-3.5 8.5,-3.5"/>
+<text text-anchor="start" x="11.5" y="-60.9" font-family="Times,serif" font-size="14.00">id :String</text>
+<text text-anchor="start" x="11.5" y="-44.1" font-family="Times,serif" font-size="14.00">description :String</text>
+<text text-anchor="start" x="11.5" y="-27.3" font-family="Times,serif" font-size="14.00">value :String</text>
+<text text-anchor="start" x="11.5" y="-10.5" font-family="Times,serif" font-size="14.00">elements :Element</text>
+</g>
+<!-- Element -->
+<g id="node2" class="node">
+<title>Element</title>
+<polygon fill="none" stroke="black" points="151.5,-59.5 151.5,-81.5 219.5,-81.5 219.5,-59.5 151.5,-59.5"/>
+<text text-anchor="start" x="162.17" y="-65.9" font-family="Times,serif" font-size="14.00">Element</text>
+<polygon fill="none" stroke="black" points="151.5,-20.5 151.5,-59.5 219.5,-59.5 219.5,-20.5 151.5,-20.5"/>
+<text text-anchor="start" x="154.5" y="-43.9" font-family="Times,serif" font-size="14.00">id :String</text>
+<text text-anchor="start" x="154.5" y="-27.1" font-family="Times,serif" font-size="14.00">text :String</text>
+</g>
+<!-- Page -->
+<g id="node3" class="node">
+<title>Page</title>
+<polygon fill="none" stroke="black" points="253.5,-68.5 253.5,-90.5 362.5,-90.5 362.5,-68.5 253.5,-68.5"/>
+<text text-anchor="start" x="294.39" y="-74.9" font-family="Times,serif" font-size="14.00">Page</text>
+<polygon fill="none" stroke="black" points="253.5,-12.5 253.5,-68.5 362.5,-68.5 362.5,-12.5 253.5,-12.5"/>
+<text text-anchor="start" x="256.5" y="-52.9" font-family="Times,serif" font-size="14.00">id :String</text>
+<text text-anchor="start" x="256.5" y="-36.1" font-family="Times,serif" font-size="14.00">description :String</text>
+<text text-anchor="start" x="256.5" y="-19.3" font-family="Times,serif" font-size="14.00">content :Content</text>
+</g>
+<!-- WebApp -->
+<g id="node4" class="node">
+<title>WebApp</title>
+<polygon fill="none" stroke="black" points="396.5,-68.5 396.5,-90.5 505.5,-90.5 505.5,-68.5 396.5,-68.5"/>
+<text text-anchor="start" x="425.73" y="-74.9" font-family="Times,serif" font-size="14.00">WebApp</text>
+<polygon fill="none" stroke="black" points="396.5,-12.5 396.5,-68.5 505.5,-68.5 505.5,-12.5 396.5,-12.5"/>
+<text text-anchor="start" x="399.5" y="-52.9" font-family="Times,serif" font-size="14.00">id :String</text>
+<text text-anchor="start" x="399.5" y="-36.1" font-family="Times,serif" font-size="14.00">description :String</text>
+<text text-anchor="start" x="399.5" y="-19.3" font-family="Times,serif" font-size="14.00">content :Page</text>
+</g>
+</g>
+</svg>
