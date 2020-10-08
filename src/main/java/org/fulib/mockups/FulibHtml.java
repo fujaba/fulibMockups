@@ -1,10 +1,9 @@
 package org.fulib.mockups;
 
-import org.fulib.yaml.Reflector;
+import org.fulib.mockups.model.Ui;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 
-import java.util.Collection;
 import java.util.Map;
 
 public class FulibHtml
@@ -13,7 +12,7 @@ public class FulibHtml
 
 	private Map<String, String> params;
 
-	public static String get(Object page, Map<String, String> params)
+	public static String get(Ui page, Map<String, String> params)
 	{
 		return new FulibHtml().setParams(params).html(page);
 	}
@@ -24,7 +23,7 @@ public class FulibHtml
 		return this;
 	}
 
-	private String html(Object page)
+	private String html(Ui page)
 	{
 		final String content = getContent(page);
 
@@ -39,12 +38,9 @@ public class FulibHtml
 		return st.render();
 	}
 
-	private String getBlock(Object currentObject)
+	private String getBlock(Ui currentObject)
 	{
-		final Reflector reflector = new Reflector().setClazz(currentObject.getClass());
-
-		final Object obj = reflector.getValue(currentObject, "description");
-		final String description = obj != null ? obj.toString() : "";
+		final String description = currentObject.getDescription();
 		final StringBuilder html = new StringBuilder();
 
 		for (String div : description.split("\n|\\|\\|"))
@@ -129,19 +125,14 @@ public class FulibHtml
 		return text.toString();
 	}
 
-	private String getContent(Object page)
+	private String getContent(Ui page)
 	{
-		final Reflector reflector = new Reflector().setClazz(page.getClass());
-		final Object currentObject = reflector.getValue(page, "content");
 		final StringBuilder buf = new StringBuilder();
 
-		if (currentObject instanceof Collection)
+		for (Ui kid : page.getContent())
 		{
-			for (Object kid : (Collection<?>) currentObject)
-			{
-				String kidHtml = getBlock(kid);
-				buf.append(kidHtml).append("\n");
-			}
+			String kidHtml = getBlock(kid);
+			buf.append(kidHtml).append("\n");
 		}
 
 		return buf.toString();

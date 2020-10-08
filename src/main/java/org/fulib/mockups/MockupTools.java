@@ -2,14 +2,14 @@ package org.fulib.mockups;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import org.fulib.mockups.model.Parameter;
+import org.fulib.mockups.model.Ui;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,28 +20,12 @@ public class MockupTools
 		return new MockupTools();
 	}
 
-	public void dump(String file, Object page)
+	public void dump(String file, Ui page)
 	{
 		final Map<String, String> params = new LinkedHashMap<>();
-
-		try
+		for (Parameter param : page.getParameters())
 		{
-			final Method getParameters = page.getClass().getMethod("getParameters");
-			final Collection<?> paramSet = (Collection<?>) getParameters.invoke(page);
-			if (paramSet != null)
-			{
-				for (Object param : paramSet)
-				{
-					final Class<?> clazz = param.getClass();
-					final String key = (String) clazz.getMethod("getKey").invoke(param);
-					final String value = (String) clazz.getMethod("getValue").invoke(param);
-					params.put(key, value);
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+			params.put(param.getKey(), param.getValue());
 		}
 
 		final String html = FulibHtml.get(page, params);
