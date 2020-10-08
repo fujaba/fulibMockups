@@ -23,7 +23,7 @@ public class MockupTool
 			params.put(param.getKey(), param.getValue());
 		}
 
-		final String html = FulibHtml.get(page, params);
+		final String html = UiRenderer.render(page, params);
 
 		final Path path = Paths.get(file);
 		try

@@ -6,18 +6,18 @@ import org.stringtemplate.v4.STGroupFile;
 
 import java.util.Map;
 
-public class FulibHtml
+public class UiRenderer
 {
-	private static final STGroupFile HTML_TEMPLATES = new STGroupFile(FulibHtml.class.getResource("html.stg"));
+	private static final STGroupFile HTML_TEMPLATES = new STGroupFile(UiRenderer.class.getResource("html.stg"));
 
 	private Map<String, String> params;
 
-	public static String get(Ui page, Map<String, String> params)
+	public static String render(Ui page, Map<String, String> params)
 	{
-		return new FulibHtml().setParams(params).html(page);
+		return new UiRenderer().setParams(params).html(page);
 	}
 
-	private FulibHtml setParams(Map<String, String> params)
+	private UiRenderer setParams(Map<String, String> params)
 	{
 		this.params = params;
 		return this;
