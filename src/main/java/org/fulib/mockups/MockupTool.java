@@ -13,13 +13,8 @@ import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MockupTools
+public class MockupTool
 {
-	public static MockupTools htmlTool()
-	{
-		return new MockupTools();
-	}
-
 	public void dump(String file, Ui page)
 	{
 		final Map<String, String> params = new LinkedHashMap<>();
