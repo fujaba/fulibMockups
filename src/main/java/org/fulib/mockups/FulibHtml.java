@@ -9,7 +9,8 @@ import java.util.Map;
 
 public class FulibHtml
 {
-	private STGroupFile group;
+	private static final STGroupFile HTML_TEMPLATES = new STGroupFile(FulibHtml.class.getResource("html.stg"));
+
 	private Map<String, String> params;
 
 	public static String get(Object page, Map<String, String> params)
@@ -25,8 +26,6 @@ public class FulibHtml
 
 	private String html(Object page)
 	{
-		group = new STGroupFile(this.getClass().getResource("html.stg"), "UTF-8", '{', '}');
-
 		final String content = getContent(page);
 
 		return getPage(content);
@@ -34,7 +33,7 @@ public class FulibHtml
 
 	private String getPage(String content)
 	{
-		final ST st = group.getInstanceOf("page");
+		final ST st = HTML_TEMPLATES.getInstanceOf("page");
 		st.add("root", "root");
 		st.add("content", content);
 		return st.render();
@@ -51,7 +50,7 @@ public class FulibHtml
 		for (String div : description.split("\n|\\|\\|"))
 		{
 			final String text = getDivContent(div);
-			final ST st = group.getInstanceOf("div");
+			final ST st = HTML_TEMPLATES.getInstanceOf("div");
 			st.add("type", "line");
 			st.add("offset", "0");
 			st.add("content", text);
@@ -77,7 +76,7 @@ public class FulibHtml
 					target = words[2];
 				}
 				// button(text, target)
-				ST st = group.getInstanceOf("button");
+				ST st = HTML_TEMPLATES.getInstanceOf("button");
 				st.add("text", buttonText);
 				st.add("target", target);
 				text.append(st.render()).append(" ");
@@ -91,7 +90,7 @@ public class FulibHtml
 					value = tokens[2];
 				}
 				// hidden(name, value)
-				ST st = group.getInstanceOf("hidden");
+				ST st = HTML_TEMPLATES.getInstanceOf("hidden");
 				st.add("name", tokens[1]);
 				st.add("value", value);
 				text.append(st.render()).append(" ");
@@ -104,7 +103,7 @@ public class FulibHtml
 				String prompt = elem.substring(pos + inputName.length()).trim();
 				String value = params.get(inputName);
 				// input(id, prompt, value)
-				ST st = group.getInstanceOf("input");
+				ST st = HTML_TEMPLATES.getInstanceOf("input");
 				st.add("id", inputName);
 				st.add("prompt", prompt);
 				st.add("value", value);
@@ -114,7 +113,7 @@ public class FulibHtml
 			{
 				String[] tokens = elem.split(" ");
 				// cell(text)
-				ST st = group.getInstanceOf("cell");
+				ST st = HTML_TEMPLATES.getInstanceOf("cell");
 				st.add("text", tokens[1]);
 				text.append(st.render()).append(" ");
 			}

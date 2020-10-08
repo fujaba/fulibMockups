@@ -1,4 +1,4 @@
-
+delimiters "{", "}"
 
 page(root, content) ::=
 <<
