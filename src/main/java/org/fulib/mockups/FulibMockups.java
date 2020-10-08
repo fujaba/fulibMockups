@@ -1,7 +1,5 @@
 package org.fulib.mockups;
 
-import org.fulib.scenarios.MockupTools;
-
 public class FulibMockups
 {
 	public static MockupTool mockupTool()
@@ -9,8 +7,8 @@ public class FulibMockups
 		return new MockupTool();
 	}
 
-	public static MockupTools htmlTool()
+	public static HtmlTool htmlTool()
 	{
-		return new MockupTools();
+		return new HtmlTool();
 	}
 }
