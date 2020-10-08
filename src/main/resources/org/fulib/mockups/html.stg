@@ -1,17 +1,15 @@
 delimiters "{", "}"
 
-page(root, content) ::=
-<<
+page(root, content) ::= <<
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
     <style>
-
-        body\{
+        body \{
             font-family: "Arial Narrow", Arial, sans-serif;
         }
 
-        p\{
+        p \{
             margin: 3px;
         }
 
@@ -20,8 +18,7 @@ page(root, content) ::=
           width: 80px;
         }
 
-
-        .line\{
+        .line \{
             width: 98%;
             margin: 6px;
             padding: 4px;
@@ -29,8 +26,7 @@ page(root, content) ::=
             text-align: center;
         }
 
-
-        .lane\{
+        .lane \{
             width: 98%;
             margin: 6px;
             padding: 3px;
@@ -38,21 +34,20 @@ page(root, content) ::=
             float: left;
         }
 
-        .msgs\{
+        .msgs \{
             width: 98%;
             margin: 6px;
             padding: 4px;
             float: left;
         }
 
-        .box\{
+        .box \{
             position: relative;
             margin: 6px;
             padding: 3px;
             float: left;
             border: 1px solid black;
             max-width: 200px;
-
         }
     </style>
 </head>
@@ -96,7 +91,6 @@ label(id, content) ::= <<
 
 >>
 
-
 pre(id, content) ::= <<
 <pre id={id}>
 {content}
@@ -104,15 +98,9 @@ pre(id, content) ::= <<
 
 >>
 
-
 line(id, content) ::= <<
 <p id="{id}">
     {content}
 </p>
 
 >>
-
-
-
-
-
