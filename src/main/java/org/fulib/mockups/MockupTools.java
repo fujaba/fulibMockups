@@ -43,6 +43,7 @@ public class MockupTools
 
 		// TODO produce svg, too
 		Configuration.browserSize = "400x600";
+		Configuration.headless = true;
 		Configuration.reportsFolder = ".";
 		try
 		{
