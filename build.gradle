@@ -50,7 +50,7 @@ repositories {
 
 dependencies {
 	// https://mvnrepository.com/artifact/org.fulib/fulibScenarios
-	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '1.5.1'
+	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '1.6.0-alpha.2'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibYaml
 	implementation group: 'org.fulib', name: 'fulibYaml', version: '1.4.0'
@@ -83,6 +83,9 @@ generateScenarioSource {
 }
 
 generateTestScenarioSource {
+	dependsOn 'classes'
+	classpath = sourceSets.main.output
+	imports 'org.fulib.mockups.model'
 	modelDirectory = testDir
 	testDirectory = testDir
 }
