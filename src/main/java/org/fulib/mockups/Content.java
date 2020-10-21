@@ -1,11 +1,11 @@
 package org.fulib.mockups;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.Objects;
 import java.util.Collections;
 import java.util.Collection;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Content
 {
@@ -16,7 +16,7 @@ public class Content
    private String id;
    private String description;
    private String value;
-   private Set<Element> elements;
+   private List<Element> elements;
    protected PropertyChangeSupport listeners;
 
    public String getId()
@@ -73,16 +73,16 @@ public class Content
       return this;
    }
 
-   public Set<Element> getElements()
+   public List<Element> getElements()
    {
-      return this.elements != null ? Collections.unmodifiableSet(this.elements) : Collections.emptySet();
+      return this.elements != null ? Collections.unmodifiableList(this.elements) : Collections.emptyList();
    }
 
    public Content withElements(Element value)
    {
       if (this.elements == null)
       {
-         this.elements = new LinkedHashSet<>();
+         this.elements = new ArrayList<>();
       }
       if (this.elements.add(value))
       {

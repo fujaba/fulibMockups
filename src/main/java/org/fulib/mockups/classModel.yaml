@@ -71,7 +71,7 @@
 
 - content_elements: 	Attribute
   clazz: 	content
-  collectionType: 	c3
+  collectionType: 	c1
   id: 	Content_elements
   modified: 	false
   name: 	elements
@@ -117,7 +117,7 @@
 
 - page_content: 	Attribute
   clazz: 	page
-  collectionType: 	c3
+  collectionType: 	c1
   id: 	Page_content
   modified: 	false
   name: 	content
@@ -145,18 +145,11 @@
 
 - webApp_content: 	Attribute
   clazz: 	webApp
-  collectionType: 	c3
+  collectionType: 	c1
   id: 	WebApp_content
   modified: 	false
   name: 	content
   propertyStyle: 	Bean
   type: 	Page
   typeSignature: 	Page
-
-- c3: 	CollectionType
-  implClass: 	class java.util.LinkedHashSet
-  implTemplate: 	"java.util.LinkedHashSet<%s>"
-  itf: 	org.fulib.classmodel.CollectionInterface.Set
-  qualifiedImplName: 	java.util.LinkedHashSet
-  simpleImplName: 	LinkedHashSet
 

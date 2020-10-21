@@ -1,11 +1,11 @@
 package org.fulib.mockups;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.Objects;
 import java.util.Collections;
 import java.util.Collection;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Page
 {
@@ -14,7 +14,7 @@ public class Page
    public static final String PROPERTY_CONTENT = "content";
    private String id;
    private String description;
-   private Set<Content> content;
+   private List<Content> content;
    protected PropertyChangeSupport listeners;
 
    public String getId()
@@ -53,16 +53,16 @@ public class Page
       return this;
    }
 
-   public Set<Content> getContent()
+   public List<Content> getContent()
    {
-      return this.content != null ? Collections.unmodifiableSet(this.content) : Collections.emptySet();
+      return this.content != null ? Collections.unmodifiableList(this.content) : Collections.emptyList();
    }
 
    public Page withContent(Content value)
    {
       if (this.content == null)
       {
-         this.content = new LinkedHashSet<>();
+         this.content = new ArrayList<>();
       }
       if (this.content.add(value))
       {
