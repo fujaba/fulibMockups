@@ -76,8 +76,7 @@ public class MockupTool
 
 	private static void writePngFile(String pngFile, String html)
 	{
-		// TODO produce svg, too
-		Configuration.browserSize = "400x600";
+		Configuration.browserSize = "640x480";
 		Configuration.headless = true;
 		Configuration.savePageSource = false;
 
