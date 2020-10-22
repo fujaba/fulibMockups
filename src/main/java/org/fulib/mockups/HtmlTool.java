@@ -66,7 +66,8 @@ public class HtmlTool
 
 	// =============== Fields ===============
 
-	private ReflectorMap reflectorMap;
+	private final Set<String> packageNames = new LinkedHashSet<>();
+	private final ReflectorMap reflectorMap = new ReflectorMap(this.packageNames);
 
 	// =============== Methods ===============
 
@@ -406,11 +407,7 @@ public class HtmlTool
 
 	private Reflector getReflector(Object root)
 	{
-		if (this.reflectorMap == null)
-		{
-			String packageName = root.getClass().getPackage().getName();
-			this.reflectorMap = new ReflectorMap(packageName);
-		}
+		this.packageNames.add(root.getClass().getPackage().getName());
 		return this.reflectorMap.getReflector(root);
 	}
 
