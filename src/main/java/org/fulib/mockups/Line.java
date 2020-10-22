@@ -1,5 +1,5 @@
 package org.fulib.mockups;
 
-public class Page extends Node
+public class Line extends Node
 {
 }
