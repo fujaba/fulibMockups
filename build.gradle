@@ -88,7 +88,6 @@ generateScenarioSource {
 generateTestScenarioSource {
 	dependsOn 'classes'
 	classpath = sourceSets.main.output
-	imports 'org.fulib.mockups.model'
 	modelDirectory = testDir
 	testDirectory = testDir
 }
