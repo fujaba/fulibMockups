@@ -4,52 +4,7 @@ page(root, content) ::= <<
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-    <style>
-        body \{
-            font-family: "Arial Narrow", Arial, sans-serif;
-        }
-
-        p \{
-            margin: 3px;
-        }
-
-        .cell \{
-          display: inline-block;
-          width: 80px;
-        }
-
-        .line \{
-            width: 98%;
-            margin: 6px;
-            padding: 4px;
-            float: left;
-            text-align: center;
-        }
-
-        .lane \{
-            width: 98%;
-            margin: 6px;
-            padding: 3px;
-            border: 1px solid black;
-            float: left;
-        }
-
-        .msgs \{
-            width: 98%;
-            margin: 6px;
-            padding: 4px;
-            float: left;
-        }
-
-        .box \{
-            position: relative;
-            margin: 6px;
-            padding: 3px;
-            float: left;
-            border: 1px solid black;
-            max-width: 200px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body id="{root}">

@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -61,9 +62,20 @@ public class MockupTool
 	private static void writeHtmlFile(String htmlFile, String html)
 	{
 		final Path path = Paths.get(htmlFile);
+		final Path parent = path.getParent();
 		try
 		{
-			Files.createDirectories(path.getParent());
+			Files.createDirectories(parent);
+
+			final Path styleCss = parent.resolve("style.css");
+			if (Files.notExists(styleCss))
+			{
+				try (final InputStream input = MockupTool.class.getResourceAsStream("style.css"))
+				{
+					Files.copy(input, styleCss);
+				}
+			}
+
 			Files.write(path, html.getBytes());
 		}
 		catch (IOException e)
