@@ -59,6 +59,7 @@ page(root, content) ::= <<
 </body>
 
 </html>
+
 >>
 
 div(type, content, offset) ::= <<
@@ -70,15 +71,16 @@ div(type, content, offset) ::= <<
 
 button(text, target) ::= <<
 <button formaction="{target}">{text}</button>
+
 >>
 
 hidden(name, value) ::= <<
-<input type="hidden" id="{name}" name="{name}" value="{value}"></input>
+<input type="hidden" id="{name}" name="{name}" value="{value}">
 
 >>
 
 input(id, prompt, value) ::= <<
-<input type="text" id="{id}" name="{id}" placeholder="{prompt}" value="{value}"></input>
+<input type="text" id="{id}" name="{id}" placeholder="{prompt}" value="{value}">
 
 >>
 
@@ -87,12 +89,12 @@ cell(text) ::= <<
 >>
 
 label(id, content) ::= <<
-<label id={id}>{content}</label>
+<label id="{id}">{content}</label>
 
 >>
 
 pre(id, content) ::= <<
-<pre id={id}>
+<pre id="{id}">
 {content}
 </pre>
 

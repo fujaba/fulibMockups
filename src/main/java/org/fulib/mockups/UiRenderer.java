@@ -74,7 +74,7 @@ public class UiRenderer
 				ST st = HTML_TEMPLATES.getInstanceOf("button");
 				st.add("text", buttonText);
 				st.add("target", target);
-				text.append(st.render()).append(" ");
+				text.append(st.render());
 			}
 			else if (elem.startsWith("hidden"))
 			{
@@ -88,7 +88,7 @@ public class UiRenderer
 				ST st = HTML_TEMPLATES.getInstanceOf("hidden");
 				st.add("name", tokens[1]);
 				st.add("value", value);
-				text.append(st.render()).append(" ");
+				text.append(st.render());
 			}
 			else if (elem.startsWith("input"))
 			{
@@ -102,7 +102,7 @@ public class UiRenderer
 				st.add("id", inputName);
 				st.add("prompt", prompt);
 				st.add("value", value);
-				text.append(st.render()).append(" ");
+				text.append(st.render());
 			}
 			else if (elem.startsWith("cell"))
 			{
@@ -110,15 +110,15 @@ public class UiRenderer
 				// cell(text)
 				ST st = HTML_TEMPLATES.getInstanceOf("cell");
 				st.add("text", tokens[1]);
-				text.append(st.render()).append(" ");
+				text.append(st.render());
 			}
 			else if (elem.startsWith("---"))
 			{
-				text.append("<hr></hr>");
+				text.append("<hr>\n");
 			}
 			else
 			{
-				text.append(elem).append(" ");
+				text.append(elem).append('\n');
 			}
 		}
 		return text.toString();
