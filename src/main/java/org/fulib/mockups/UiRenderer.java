@@ -1,6 +1,5 @@
 package org.fulib.mockups;
 
-import org.fulib.mockups.model.Ui;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 

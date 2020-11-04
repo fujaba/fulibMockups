@@ -33,5 +33,19 @@ public class GenModel implements ClassModelDecorator
 
 		mm.haveRole(node, "content", Type.MANY, node, null, 0);
 		mm.haveRole(node, "elements", Type.MANY, element, null, 0);
+
+		final Clazz parameter = mm.haveClass("Parameter", c -> {
+			c.attribute("key", Type.STRING);
+			c.attribute("value", Type.STRING);
+		});
+
+		final Clazz ui = mm.haveClass("Ui", c -> {
+			c.attribute("id", Type.STRING);
+			c.attribute("description", Type.STRING);
+		});
+
+		mm.associate(parameter, "owner", Type.ONE, ui, "parameters", Type.MANY);
+
+		mm.associate(ui, "parent", Type.ONE, ui, "content", Type.MANY);
 	}
 }

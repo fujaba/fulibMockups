@@ -1,4 +1,4 @@
-package org.fulib.mockups.model;
+package org.fulib.mockups;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

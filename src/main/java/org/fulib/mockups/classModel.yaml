@@ -1,5 +1,5 @@
 - c: 	ClassModel
-  classes: 	node 	content 	line 	section 	page 	webApp 	element
+  classes: 	node 	content 	line 	section 	page 	webApp 	element 	parameter 	ui
   defaultCollectionType: 	c1
   defaultPropertyStyle: 	Bean
   defaultRoleType: 	"java.util.ArrayList<%s>"
@@ -59,6 +59,22 @@
   propertyStyle: 	Bean
   roles: 	element_null
   superClass: 	node
+
+- parameter: 	Clazz
+  attributes: 	parameter_key 	parameter_value
+  model: 	c
+  modified: 	false
+  name: 	Parameter
+  propertyStyle: 	Bean
+  roles: 	parameter_owner
+
+- ui: 	Clazz
+  attributes: 	ui_id 	ui_description
+  model: 	c
+  modified: 	false
+  name: 	Ui
+  propertyStyle: 	Bean
+  roles: 	ui_parameters 	ui_parent 	ui_content
 
 - c1: 	CollectionType
   implClass: 	class java.util.ArrayList
@@ -175,6 +191,90 @@
   id: 	Element_null
   modified: 	false
   other: 	node_elements
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- parameter_key: 	Attribute
+  clazz: 	parameter
+  id: 	Parameter_key
+  modified: 	false
+  name: 	key
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- parameter_value: 	Attribute
+  clazz: 	parameter
+  id: 	Parameter_value
+  modified: 	false
+  name: 	value
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- parameter_owner: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	parameter
+  collectionType: 	c1
+  id: 	Parameter_owner
+  modified: 	false
+  name: 	owner
+  other: 	ui_parameters
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- ui_id: 	Attribute
+  clazz: 	ui
+  id: 	Ui_id
+  modified: 	false
+  name: 	id
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- ui_description: 	Attribute
+  clazz: 	ui
+  id: 	Ui_description
+  modified: 	false
+  name: 	description
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- ui_parameters: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	ui
+  collectionType: 	c1
+  id: 	Ui_parameters
+  modified: 	false
+  name: 	parameters
+  other: 	parameter_owner
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- ui_parent: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	ui
+  collectionType: 	c1
+  id: 	Ui_parent
+  modified: 	false
+  name: 	parent
+  other: 	ui_content
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- ui_content: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	ui
+  collectionType: 	c1
+  id: 	Ui_content
+  modified: 	false
+  name: 	content
+  other: 	ui_parent
   propertyStyle: 	Bean
   roleType: 	"java.util.ArrayList<%s>"
 

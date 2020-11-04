@@ -2,8 +2,6 @@ package org.fulib.mockups;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import org.fulib.mockups.model.Parameter;
-import org.fulib.mockups.model.Ui;
 import org.openqa.selenium.OutputType;
 
 import java.io.File;

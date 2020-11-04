@@ -1,4 +1,4 @@
-package org.fulib.mockups.model;
+package org.fulib.mockups;
 import java.util.Objects;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
