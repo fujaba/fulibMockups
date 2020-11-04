@@ -13,7 +13,7 @@ page(root, content) ::= <<
             margin: 3px;
         }
 
-        span \{
+        .cell \{
           display: inline-block;
           width: 80px;
         }
@@ -85,7 +85,7 @@ input(id, prompt, value) ::= <<
 >>
 
 cell(text) ::= <<
-<span>{text}</span>
+<span class="cell">{text}</span>
 >>
 
 label(id, content) ::= <<
