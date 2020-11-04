@@ -47,7 +47,6 @@ public class UiRenderer
 			final String text = getDivContent(div);
 			final ST st = HTML_TEMPLATES.getInstanceOf("div");
 			st.add("type", "line");
-			st.add("offset", "0");
 			st.add("content", text);
 			html.append(st.render());
 		}

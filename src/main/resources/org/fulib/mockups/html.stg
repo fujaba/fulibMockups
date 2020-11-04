@@ -62,8 +62,8 @@ page(root, content) ::= <<
 
 >>
 
-div(type, content, offset) ::= <<
-<div class="{type}" style="left: {offset}px">
+div(type, content) ::= <<
+<div class="{type}">
     {content}
 </div>
 
