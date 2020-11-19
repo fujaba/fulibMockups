@@ -14,6 +14,5 @@ src/*/scenarios/**/*.png
 src/*/scenarios/**/*.svg
 src/*/scenarios/**/*.yaml
 src/*/scenarios/**/*.html
-src/*/scenarios/**/*.css
 libs/fulib*.jar
 *.txt
