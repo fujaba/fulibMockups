@@ -1,0 +1,276 @@
+- c: 	ClassModel
+  classes: 	node 	content 	line 	section 	page 	webApp 	element 	parameter 	uI
+  defaultCollectionType: 	c1
+  defaultPropertyStyle: 	Bean
+  defaultRoleType: 	"java.util.ArrayList<%s>"
+  mainJavaDir: 	"src/main/java"
+  packageName: 	org.fulib.mockups
+  packageSrcFolder: 	"src/main/java/org/fulib/mockups"
+
+- node: 	Clazz
+  attributes: 	node_id 	node_description 	node_value 	node_action 	node_icards 	node_tables
+  model: 	c
+  modified: 	false
+  name: 	Node
+  propertyStyle: 	Bean
+  roles: 	node_content 	node_Node_content 	node_elements
+  subClasses: 	content 	line 	section 	page 	webApp 	element
+
+- content: 	Clazz
+  model: 	c
+  modified: 	false
+  name: 	Content
+  propertyStyle: 	Bean
+  superClass: 	node
+
+- line: 	Clazz
+  model: 	c
+  modified: 	false
+  name: 	Line
+  propertyStyle: 	Bean
+  superClass: 	node
+
+- section: 	Clazz
+  model: 	c
+  modified: 	false
+  name: 	Section
+  propertyStyle: 	Bean
+  superClass: 	node
+
+- page: 	Clazz
+  model: 	c
+  modified: 	false
+  name: 	Page
+  propertyStyle: 	Bean
+  superClass: 	node
+
+- webApp: 	Clazz
+  model: 	c
+  modified: 	false
+  name: 	WebApp
+  propertyStyle: 	Bean
+  superClass: 	node
+
+- element: 	Clazz
+  attributes: 	element_text
+  model: 	c
+  modified: 	false
+  name: 	Element
+  propertyStyle: 	Bean
+  roles: 	element_Node_elements
+  superClass: 	node
+
+- parameter: 	Clazz
+  attributes: 	parameter_key 	parameter_value
+  model: 	c
+  modified: 	false
+  name: 	Parameter
+  propertyStyle: 	Bean
+  roles: 	parameter_owner
+
+- uI: 	Clazz
+  attributes: 	uI_id 	uI_description
+  model: 	c
+  modified: 	false
+  name: 	UI
+  propertyStyle: 	Bean
+  roles: 	uI_parameters 	uI_parent 	uI_content
+
+- c1: 	CollectionType
+  implClass: 	class java.util.ArrayList
+  implTemplate: 	"java.util.ArrayList<%s>"
+  itf: 	org.fulib.classmodel.CollectionInterface.List
+  qualifiedImplName: 	java.util.ArrayList
+  simpleImplName: 	ArrayList
+
+- node_id: 	Attribute
+  clazz: 	node
+  id: 	Node_id
+  modified: 	false
+  name: 	id
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- node_description: 	Attribute
+  clazz: 	node
+  id: 	Node_description
+  modified: 	false
+  name: 	description
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- node_value: 	Attribute
+  clazz: 	node
+  id: 	Node_value
+  modified: 	false
+  name: 	value
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- node_action: 	Attribute
+  clazz: 	node
+  id: 	Node_action
+  modified: 	false
+  name: 	action
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- node_icards: 	Attribute
+  clazz: 	node
+  collectionType: 	c1
+  id: 	Node_icards
+  modified: 	false
+  name: 	icards
+  propertyStyle: 	Bean
+  type: 	Object
+  typeSignature: 	Object
+
+- node_tables: 	Attribute
+  clazz: 	node
+  collectionType: 	c1
+  id: 	Node_tables
+  modified: 	false
+  name: 	tables
+  propertyStyle: 	Bean
+  type: 	Object
+  typeSignature: 	Object
+
+- node_content: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	node
+  collectionType: 	c1
+  id: 	Node_content
+  modified: 	false
+  name: 	content
+  other: 	node_Node_content
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- node_Node_content: 	AssocRole
+  aggregation: 	false
+  cardinality: 	0
+  clazz: 	node
+  collectionType: 	c1
+  id: 	Node_Node_content
+  modified: 	false
+  other: 	node_content
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- node_elements: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	node
+  collectionType: 	c1
+  id: 	Node_elements
+  modified: 	false
+  name: 	elements
+  other: 	element_Node_elements
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- element_text: 	Attribute
+  clazz: 	element
+  id: 	Element_text
+  modified: 	false
+  name: 	text
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- element_Node_elements: 	AssocRole
+  aggregation: 	false
+  cardinality: 	0
+  clazz: 	element
+  collectionType: 	c1
+  id: 	Element_Node_elements
+  modified: 	false
+  other: 	node_elements
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- parameter_key: 	Attribute
+  clazz: 	parameter
+  id: 	Parameter_key
+  modified: 	false
+  name: 	key
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- parameter_value: 	Attribute
+  clazz: 	parameter
+  id: 	Parameter_value
+  modified: 	false
+  name: 	value
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- parameter_owner: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	parameter
+  id: 	Parameter_owner
+  modified: 	false
+  name: 	owner
+  other: 	uI_parameters
+  propertyStyle: 	Bean
+
+- uI_id: 	Attribute
+  clazz: 	uI
+  id: 	UI_id
+  modified: 	false
+  name: 	id
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- uI_description: 	Attribute
+  clazz: 	uI
+  id: 	UI_description
+  modified: 	false
+  name: 	description
+  propertyStyle: 	Bean
+  type: 	String
+  typeSignature: 	String
+
+- uI_parameters: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	uI
+  collectionType: 	c1
+  id: 	UI_parameters
+  modified: 	false
+  name: 	parameters
+  other: 	parameter_owner
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+
+- uI_parent: 	AssocRole
+  aggregation: 	false
+  cardinality: 	1
+  clazz: 	uI
+  id: 	UI_parent
+  modified: 	false
+  name: 	parent
+  other: 	uI_content
+  propertyStyle: 	Bean
+
+- uI_content: 	AssocRole
+  aggregation: 	false
+  cardinality: 	42
+  clazz: 	uI
+  collectionType: 	c1
+  id: 	UI_content
+  modified: 	false
+  name: 	content
+  other: 	uI_parent
+  propertyStyle: 	Bean
+  roleType: 	"java.util.ArrayList<%s>"
+

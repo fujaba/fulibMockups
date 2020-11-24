@@ -20,26 +20,21 @@ Store writes eu200 into palette of f2.
 
 We call store with palette eu333 and with place m1. 
 
-There is the object helper.
-
 There is a Line with id line-fast and with icards fast, places of fast.
 There is a Line with id line-middle and with icards middle, places of middle.
 There is a Line with id line-slow and with icards slow, places of slow.
 There is a Line with id head-line.
-We write area51 into helper.
-We add helper to icards of head-line. 
+We add area51 to icards of head-line. 
 
 There is a Section with id bricks-section and with description "<b>Bricks and Mortar</b>"
 and with content head-line, line-fast, line-middle, line-slow. 
 
 There is a Line with id products-line.
 
-We write products of Area51 into helper.
-We add helper to icards of products-line.
+We add products of Area51 to icards of products-line.
 
 There is a Line with id palettes-line.
-We write eu100, eu200, eu333 into helper.
-We add helper to icards of palettes-line.
+We add eu100, eu200, eu333 to icards of palettes-line.
 
 There is a Section with id stock-section and with description "<b>Dynamic Stock</b>"
 and with content products-line, palettes-line.
