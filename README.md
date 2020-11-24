@@ -22,7 +22,7 @@ repositories {
 ```groovy
 dependencies {
     // https://mvnrepository.com/artifact/org.fulib/fulibMockups
-    compile group: 'org.fulib', name: 'fulibMockups', version: '0.2.0'
+    compile group: 'org.fulib', name: 'fulibMockups', version: '0.3.0'
 }
 ```
 

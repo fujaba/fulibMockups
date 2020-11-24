@@ -27,3 +27,11 @@
 + Added support for `action`s.
 + Added support for `icards`.
 + Added support for `tables`.
+
+# fulibMockups v0.3.0
+
+## New Features
+
++ Added the new `UI` model and rendering functionality. #10 #11
++ Overhauled the old `Element` model with better type safety via the `Node` class. #11
++ Added `Line` and `Section` as aliases for `Node`. #11
