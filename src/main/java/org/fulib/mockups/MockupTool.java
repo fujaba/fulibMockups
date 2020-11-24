@@ -45,7 +45,7 @@ public class MockupTool
 			params.put(param.getKey(), param.getValue());
 		}
 
-		final String html = UiRenderer.render(page, params);
+		final String html = UIRenderer.render(page, params);
 
 		if (htmlFile != null)
 		{

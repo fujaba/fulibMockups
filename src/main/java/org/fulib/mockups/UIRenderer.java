@@ -5,18 +5,18 @@ import org.stringtemplate.v4.STGroupFile;
 
 import java.util.Map;
 
-public class UiRenderer
+public class UIRenderer
 {
-	private static final STGroupFile HTML_TEMPLATES = new STGroupFile(UiRenderer.class.getResource("html.stg"));
+	private static final STGroupFile HTML_TEMPLATES = new STGroupFile(UIRenderer.class.getResource("html.stg"));
 
 	private Map<String, String> params;
 
 	public static String render(UI page, Map<String, String> params)
 	{
-		return new UiRenderer().setParams(params).html(page);
+		return new UIRenderer().setParams(params).html(page);
 	}
 
-	private UiRenderer setParams(Map<String, String> params)
+	private UIRenderer setParams(Map<String, String> params)
 	{
 		this.params = params;
 		return this;
