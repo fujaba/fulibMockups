@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class MockupTool
 {
-	public void dump(String file, Ui page)
+	public void dump(String file, UI page)
 	{
 		final String htmlFile;
 		final String pngFile;

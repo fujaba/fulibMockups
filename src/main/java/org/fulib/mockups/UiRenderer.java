@@ -11,7 +11,7 @@ public class UiRenderer
 
 	private Map<String, String> params;
 
-	public static String render(Ui page, Map<String, String> params)
+	public static String render(UI page, Map<String, String> params)
 	{
 		return new UiRenderer().setParams(params).html(page);
 	}
@@ -22,7 +22,7 @@ public class UiRenderer
 		return this;
 	}
 
-	private String html(Ui page)
+	private String html(UI page)
 	{
 		final String content = getContent(page);
 
@@ -37,7 +37,7 @@ public class UiRenderer
 		return st.render();
 	}
 
-	private String getBlock(Ui currentObject)
+	private String getBlock(UI currentObject)
 	{
 		final String description = currentObject.getDescription();
 		final StringBuilder html = new StringBuilder();
@@ -123,11 +123,11 @@ public class UiRenderer
 		return text.toString();
 	}
 
-	private String getContent(Ui page)
+	private String getContent(UI page)
 	{
 		final StringBuilder buf = new StringBuilder();
 
-		for (Ui kid : page.getContent())
+		for (UI kid : page.getContent())
 		{
 			String kidHtml = getBlock(kid);
 			buf.append(kidHtml).append("\n");

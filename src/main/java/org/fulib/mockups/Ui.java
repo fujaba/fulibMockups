@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 
-public class Ui
+public class UI
 {
    public static final String PROPERTY_ID = "id";
    public static final String PROPERTY_DESCRIPTION = "description";
@@ -17,8 +17,8 @@ public class Ui
    private String id;
    private String description;
    private List<Parameter> parameters;
-   private Ui parent;
-   private List<Ui> content;
+   private UI parent;
+   private List<UI> content;
    protected PropertyChangeSupport listeners;
 
    public String getId()
@@ -26,7 +26,7 @@ public class Ui
       return this.id;
    }
 
-   public Ui setId(String value)
+   public UI setId(String value)
    {
       if (Objects.equals(value, this.id))
       {
@@ -44,7 +44,7 @@ public class Ui
       return this.description;
    }
 
-   public Ui setDescription(String value)
+   public UI setDescription(String value)
    {
       if (Objects.equals(value, this.description))
       {
@@ -62,7 +62,7 @@ public class Ui
       return this.parameters != null ? Collections.unmodifiableList(this.parameters) : Collections.emptyList();
    }
 
-   public Ui withParameters(Parameter value)
+   public UI withParameters(Parameter value)
    {
       if (this.parameters == null)
       {
@@ -77,7 +77,7 @@ public class Ui
       return this;
    }
 
-   public Ui withParameters(Parameter... value)
+   public UI withParameters(Parameter... value)
    {
       for (final Parameter item : value)
       {
@@ -86,7 +86,7 @@ public class Ui
       return this;
    }
 
-   public Ui withParameters(Collection<? extends Parameter> value)
+   public UI withParameters(Collection<? extends Parameter> value)
    {
       for (final Parameter item : value)
       {
@@ -95,7 +95,7 @@ public class Ui
       return this;
    }
 
-   public Ui withoutParameters(Parameter value)
+   public UI withoutParameters(Parameter value)
    {
       if (this.parameters != null && this.parameters.remove(value))
       {
@@ -105,7 +105,7 @@ public class Ui
       return this;
    }
 
-   public Ui withoutParameters(Parameter... value)
+   public UI withoutParameters(Parameter... value)
    {
       for (final Parameter item : value)
       {
@@ -114,7 +114,7 @@ public class Ui
       return this;
    }
 
-   public Ui withoutParameters(Collection<? extends Parameter> value)
+   public UI withoutParameters(Collection<? extends Parameter> value)
    {
       for (final Parameter item : value)
       {
@@ -123,19 +123,19 @@ public class Ui
       return this;
    }
 
-   public Ui getParent()
+   public UI getParent()
    {
       return this.parent;
    }
 
-   public Ui setParent(Ui value)
+   public UI setParent(UI value)
    {
       if (this.parent == value)
       {
          return this;
       }
 
-      final Ui oldValue = this.parent;
+      final UI oldValue = this.parent;
       if (this.parent != null)
       {
          this.parent = null;
@@ -150,12 +150,12 @@ public class Ui
       return this;
    }
 
-   public List<Ui> getContent()
+   public List<UI> getContent()
    {
       return this.content != null ? Collections.unmodifiableList(this.content) : Collections.emptyList();
    }
 
-   public Ui withContent(Ui value)
+   public UI withContent(UI value)
    {
       if (this.content == null)
       {
@@ -170,25 +170,25 @@ public class Ui
       return this;
    }
 
-   public Ui withContent(Ui... value)
+   public UI withContent(UI... value)
    {
-      for (final Ui item : value)
+      for (final UI item : value)
       {
          this.withContent(item);
       }
       return this;
    }
 
-   public Ui withContent(Collection<? extends Ui> value)
+   public UI withContent(Collection<? extends UI> value)
    {
-      for (final Ui item : value)
+      for (final UI item : value)
       {
          this.withContent(item);
       }
       return this;
    }
 
-   public Ui withoutContent(Ui value)
+   public UI withoutContent(UI value)
    {
       if (this.content != null && this.content.remove(value))
       {
@@ -198,18 +198,18 @@ public class Ui
       return this;
    }
 
-   public Ui withoutContent(Ui... value)
+   public UI withoutContent(UI... value)
    {
-      for (final Ui item : value)
+      for (final UI item : value)
       {
          this.withoutContent(item);
       }
       return this;
    }
 
-   public Ui withoutContent(Collection<? extends Ui> value)
+   public UI withoutContent(Collection<? extends UI> value)
    {
-      for (final Ui item : value)
+      for (final UI item : value)
       {
          this.withoutContent(item);
       }

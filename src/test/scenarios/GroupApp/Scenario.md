@@ -19,23 +19,23 @@ Alice has items and is owner of meat and beer.
 
 ## GUI
 
-There is a ui with id login and with description "page Group App". 
+There is a UI with id login and with description "page Group App". 
 
-There is a ui with id demo
+There is a UI with id demo
 and with description "button - gui01.html | 1 | button > gui02.html || ---".
 
-There is a ui with id title
+There is a UI with id title
 and with description "Famous Group Account".
 
 Login has content demo and title. 
 
-There is a ui with id button bar and with parent login 
+There is a UI with id button bar and with parent login 
 and with description "button login gui01.html | button items | button overview gui13.html".
 
-There is a ui with id nameIn and with parent login 
+There is a UI with id nameIn and with parent login 
 and with description "input user_name name? || input party party?".
 
-There is a ui with id loginButton and with parent login 
+There is a UI with id loginButton and with parent login 
 and with description "button ok gui04.html".
 
 ![login](gui01.html.png)
@@ -51,24 +51,24 @@ Demo has description  "button < gui02.html | 3 | button > gui04.html || ---".
 
 ![login](gui03.html.png)
 
-There is a ui with id items and with description "page Group App". 
+There is a UI with id items and with description "page Group App". 
 Items has content demo, title and button bar. 
 Title has description "SE-BBQ".
 Demo has description  "button < gui03.html | 4 | button > gui05.html || ---".
 
-There is a ui with id addItems and with parent items
+There is a UI with id addItems and with parent items
 and with description "button add gui05.html".
 
 ![items](gui04.html.png)
 
-There is a ui with id add_item and with description "page Group App". 
+There is a UI with id add_item and with description "page Group App". 
 Add_item has content demo, title and button bar. 
 Demo has description  "button < gui04.html | 5 | button > gui06.html || ---".
 
-There is a ui with id itemInputs and with parent add_item
+There is a UI with id itemInputs and with parent add_item
 and with description "input item_name item? || input price 0.00? || input owner owner?".
 
-There is a ui with id itemOK and with parent add_item
+There is a UI with id itemOK and with parent add_item
 and with description "button ok gui09.html".
 
 ![add_item](gui05.html.png)
@@ -89,7 +89,7 @@ Demo has description  "button < gui07.html | 8 | button > gui09.html || ---".
 ![add_item](gui08.html.png)
 
 AddItems has description "button add gui10.html".
-There is a ui with id beer_item and with parent items
+There is a UI with id beer_item and with parent items
 and with description "cell beer | cell 12.00 | cell Bob".
 Demo has description  "button < gui08.html | 9 | button > gui10.html || ---".
 
@@ -110,20 +110,20 @@ Demo has description  "button < gui10.html | 11 | button > gui12.html || ---".
 
 ![add_item](gui11.html.png)
 
-There is a ui with id meat_item and with parent items
+There is a UI with id meat_item and with parent items
 and with description "cell meat | cell 14.00 | cell Alice".
 Demo has description  "button < gui11.html | 12 | button > gui13.html || ---".
 
 ![items](gui12.html.png)
 
-There is a ui with id overview. 
+There is a UI with id overview. 
 Overview has content demo, title, button bar. 
 Demo has description  "button < gui12.html | 13 | button - gui13.html || ---".
 
-There is a ui with id results and with parent overview
+There is a UI with id results and with parent overview
 and with description "cell Total: | cell 26.00 || cell Share: | cell 13.00".
 
-There is a ui with id saldi and with parent overview
+There is a UI with id saldi and with parent overview
 and with description "cell Alice: | cell +1.00 || cell Bob: | cell -1.00".
 
 ![overview](gui13.html.png)

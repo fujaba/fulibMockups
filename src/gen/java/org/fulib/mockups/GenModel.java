@@ -39,7 +39,7 @@ public class GenModel implements ClassModelDecorator
 			c.attribute("value", Type.STRING);
 		});
 
-		final Clazz ui = mm.haveClass("Ui", c -> {
+		final Clazz ui = mm.haveClass("UI", c -> {
 			c.attribute("id", Type.STRING);
 			c.attribute("description", Type.STRING);
 		});

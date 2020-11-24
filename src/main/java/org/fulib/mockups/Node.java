@@ -24,10 +24,10 @@ public class Node
    private String action;
    private List<Object> icards;
    private List<Object> tables;
-   private List<Node> content;
-   private List<Element> elements;
 
    protected PropertyChangeSupport listeners;
+   private List<Node> content;
+   private List<Element> elements;
 
    public String getId()
    {

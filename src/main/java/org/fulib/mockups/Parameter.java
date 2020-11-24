@@ -10,7 +10,7 @@ public class Parameter
    public static final String PROPERTY_OWNER = "owner";
    private String key;
    private String value;
-   private Ui owner;
+   private UI owner;
    protected PropertyChangeSupport listeners;
 
    public String getKey()
@@ -49,19 +49,19 @@ public class Parameter
       return this;
    }
 
-   public Ui getOwner()
+   public UI getOwner()
    {
       return this.owner;
    }
 
-   public Parameter setOwner(Ui value)
+   public Parameter setOwner(UI value)
    {
       if (this.owner == value)
       {
          return this;
       }
 
-      final Ui oldValue = this.owner;
+      final UI oldValue = this.owner;
       if (this.owner != null)
       {
          this.owner = null;

@@ -118,25 +118,25 @@
 <text text-anchor="start" x="529" y="-171.75" font-family="Times,serif" font-size="14.00">key :String</text>
 <text text-anchor="start" x="529" y="-154.95" font-family="Times,serif" font-size="14.00">value :String</text>
 </g>
-<!-- Ui -->
+<!-- UI -->
 <g id="node9" class="node">
-<title>Ui</title>
+<title>UI</title>
 <polygon fill="none" stroke="black" points="510,-48.85 510,-70.85 619,-70.85 619,-48.85 510,-48.85"/>
-<text text-anchor="start" x="557.5" y="-55.25" font-family="Times,serif" font-size="14.00">Ui</text>
+<text text-anchor="start" x="557.12" y="-55.25" font-family="Times,serif" font-size="14.00">UI</text>
 <polygon fill="none" stroke="black" points="510,-9.85 510,-48.85 619,-48.85 619,-9.85 510,-9.85"/>
 <text text-anchor="start" x="513" y="-33.25" font-family="Times,serif" font-size="14.00">id :String</text>
 <text text-anchor="start" x="513" y="-16.45" font-family="Times,serif" font-size="14.00">description :String</text>
 </g>
-<!-- Ui&#45;&gt;Parameter -->
+<!-- UI&#45;&gt;Parameter -->
 <g id="edge4" class="edge">
-<title>Ui&#45;&gt;Parameter</title>
+<title>UI&#45;&gt;Parameter</title>
 <path fill="none" stroke="black" d="M564,-75.59C564,-96.59 564,-123.51 564,-144.52"/>
 <text text-anchor="middle" x="528.05" y="-131.92" font-family="Times,serif" font-size="14.00">parameters *</text>
 <text text-anchor="middle" x="546.51" y="-79.79" font-family="Times,serif" font-size="14.00">owner</text>
 </g>
-<!-- Ui&#45;&gt;Ui -->
+<!-- UI&#45;&gt;UI -->
 <g id="edge3" class="edge">
-<title>Ui&#45;&gt;Ui</title>
+<title>UI&#45;&gt;UI</title>
 <path fill="none" stroke="black" d="M626.78,-16.8C637.26,-20.16 644.5,-28.18 644.5,-40.85 644.5,-53.52 637.26,-61.53 626.78,-64.9"/>
 <text text-anchor="middle" x="652.63" y="-52.3" font-family="Times,serif" font-size="14.00">content *</text>
 <text text-anchor="middle" x="644.27" y="-4.2" font-family="Times,serif" font-size="14.00">parent</text>
