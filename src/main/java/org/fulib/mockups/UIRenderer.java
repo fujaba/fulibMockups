@@ -27,7 +27,7 @@ public class UIRenderer
 		final String content = this.render(page);
 
 		final ST st = HTML_TEMPLATES.getInstanceOf("page");
-		st.add("root", "root");
+		st.add("root", page.getId());
 		st.add("content", content);
 		return st.render();
 	}
