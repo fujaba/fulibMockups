@@ -13,7 +13,7 @@ public class UIRenderer
 
 	public static String render(UI page, Map<String, String> params)
 	{
-		return new UIRenderer().setParams(params).html(page);
+		return new UIRenderer().setParams(params).renderPage(page);
 	}
 
 	private UIRenderer setParams(Map<String, String> params)
@@ -22,36 +22,43 @@ public class UIRenderer
 		return this;
 	}
 
-	private String html(UI page)
+	private String renderPage(UI page)
 	{
-		final String content = getContent(page);
+		final String content = this.render(page);
 
-		return getPage(content);
-	}
-
-	private String getPage(String content)
-	{
 		final ST st = HTML_TEMPLATES.getInstanceOf("page");
 		st.add("root", "root");
 		st.add("content", content);
 		return st.render();
 	}
 
-	private String getBlock(UI currentObject)
+	private String render(UI ui)
 	{
-		final String description = currentObject.getDescription();
-		final StringBuilder html = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
+		this.render(ui, builder);
+		return builder.toString();
+	}
 
-		for (String div : description.split("\n|\\|\\|"))
+	private void render(UI ui, StringBuilder out)
+	{
+		final String description = ui.getDescription();
+		if (description != null)
 		{
-			final String text = getDivContent(div);
-			final ST st = HTML_TEMPLATES.getInstanceOf("div");
-			st.add("type", "line");
-			st.add("content", text);
-			html.append(st.render());
+			for (String descriptionItem : description.split("\n|\\|\\|"))
+			{
+				final String text = getDivContent(descriptionItem);
+				final ST st = HTML_TEMPLATES.getInstanceOf("div");
+				st.add("type", "line");
+				st.add("content", text);
+				out.append(st.render());
+			}
 		}
 
-		return html.toString();
+		for (UI kid : ui.getContent())
+		{
+			this.render(kid, out);
+			out.append("\n");
+		}
 	}
 
 	private String getDivContent(String description)
@@ -121,18 +128,5 @@ public class UIRenderer
 			}
 		}
 		return text.toString();
-	}
-
-	private String getContent(UI page)
-	{
-		final StringBuilder buf = new StringBuilder();
-
-		for (UI kid : page.getContent())
-		{
-			String kidHtml = getBlock(kid);
-			buf.append(kidHtml).append("\n");
-		}
-
-		return buf.toString();
 	}
 }
