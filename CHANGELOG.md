@@ -35,3 +35,9 @@
 + Added the new `UI` model and rendering functionality. #10 #11
 + Overhauled the old `Element` model with better type safety via the `Node` class. #11
 + Added `Line` and `Section` as aliases for `Node`. #11
+
+# fulibMockups v0.3.1
+
+## Bugfixes
+
+* Rendering no longer ignores description and children of some `UI` elements. #12
