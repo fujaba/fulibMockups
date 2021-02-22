@@ -1,6 +1,5 @@
 # fulibMockups
 
-[![Build Status](https://travis-ci.org/fujaba/fulibMockups.svg?branch=master)](https://travis-ci.org/fujaba/fulibMockups)
 [![Java CI](https://github.com/fujaba/fulibMockups/workflows/Java%20CI/badge.svg)](https://github.com/fujaba/fulibMockups/actions)
 [![Download](https://api.bintray.com/packages/clashsoft/maven/fulibMockups/images/download.svg)](https://bintray.com/clashsoft/maven/fulibMockups/_latestVersion "Download")
 [![javadoc](https://javadoc.io/badge2/org.fulib/fulibMockups/javadoc.svg)](https://javadoc.io/doc/org.fulib/fulibMockups)
