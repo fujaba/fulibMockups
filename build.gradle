@@ -50,25 +50,25 @@ repositories {
 
 dependencies {
 	// https://mvnrepository.com/artifact/org.fulib/fulibScenarios
-	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '1.6.1'
+	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '1.6.2'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibTools
-	fulibScenarios group: 'org.fulib', name: 'fulibTools', version: '1.4.0'
+	fulibScenarios group: 'org.fulib', name: 'fulibTools', version: '1.5.1'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibYaml
-	implementation group: 'org.fulib', name: 'fulibYaml', version: '1.4.0'
+	implementation group: 'org.fulib', name: 'fulibYaml', version: '1.5.0'
 
 	// https://mvnrepository.com/artifact/org.antlr/ST4
 	implementation group: 'org.antlr', name: 'ST4', version: '4.3.1'
 
 	// https://mvnrepository.com/artifact/com.codeborne/selenide
-	implementation group: 'com.codeborne', name: 'selenide', version: '5.15.1'
+	implementation group: 'com.codeborne', name: 'selenide', version: '5.18.1'
 
 	// https://mvnrepository.com/artifact/com.sparkjava/spark-core
-	implementation group: 'com.sparkjava', name: 'spark-core', version: '2.9.2'
+	implementation group: 'com.sparkjava', name: 'spark-core', version: '2.9.3'
 
 	// https://mvnrepository.com/artifact/org.fulib/fulibTools
-	testImplementation group: 'org.fulib', name: 'fulibTools', version: '1.4.0'
+	testImplementation group: 'org.fulib', name: 'fulibTools', version: '1.5.0'
 
 	// https://mvnrepository.com/artifact/junit/junit
 	testImplementation group: 'junit', name: 'junit', version: '4.13'
