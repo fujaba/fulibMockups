@@ -1,12 +1,12 @@
 plugins {
    id 'java'
    id 'maven-publish'
-   // https://plugins.gradle.org/plugin/com.jfrog.bintray
-   id 'com.jfrog.bintray' version '1.8.5'
-   // https://plugins.gradle.org/plugin/de.clashsoft.simple-publish
-   id 'de.clashsoft.simple-publish' version '0.6.0'
    // https://plugins.gradle.org/plugin/org.fulib.fulibGradle
    id 'org.fulib.fulibGradle' version '0.4.0'
+   // https://plugins.gradle.org/plugin/com.bmuschko.nexus
+   id 'com.bmuschko.nexus' version '2.3.1'
+   // https://plugins.gradle.org/plugin/io.codearte.nexus-staging
+   id 'io.codearte.nexus-staging' version '0.22.0'
 }
 
 // --------------- Info ---------------
@@ -15,26 +15,37 @@ group = 'org.fulib'
 version = "git describe --tags".execute().text[1..-2] // strip v and \n
 description = 'Tools for generating HTML mockups and Web Apps.'
 
-publishInfo {
-   websiteUrl = 'https://www.fulib.org/'
-   githubRepo = 'fujaba/fulibMockups'
-   labels = [ 'source', 'generator', 'html', 'mockups', 'webapp' ]
+modifyPom {
+   project {
+      name = project.name
+      description = project.description
+      url = 'https://github.com/fujaba/fulibMockups'
+      inceptionYear = '2019'
 
-   license {
-      name = 'BSD 3-Clause'
-      url = 'https://opensource.org/licenses/BSD-3-Clause'
-   }
+      scm {
+         url = 'https://github.com/fujaba/fulibMockups'
+      }
 
-   developer {
-      id = 'Clashsoft'
-      name = 'Adrian Kunz'
-      email = 'clashsoft@hotmail.com'
-   }
+      licenses {
+         license {
+            name = 'BSD 3-Clause'
+            url = 'https://opensource.org/licenses/BSD-3-Clause'
+         }
+      }
 
-   developer {
-      id = 'azuendorf'
-      name = 'Albert Zündorf'
-      email = 'zuendorf@uni-kassel.de'
+      developers {
+         developer {
+            id = 'Clashsoft'
+            name = 'Adrian Kunz'
+            email = 'clashsoft@hotmail.com'
+         }
+
+         developer {
+            id = 'azuendorf'
+            name = 'Albert Zündorf'
+            email = 'zuendorf@uni-kassel.de'
+         }
+      }
    }
 }
 
