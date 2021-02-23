@@ -1,145 +1,145 @@
-<svg width="686px" height="255px"
- viewBox="0.00 0.00 686.49 255.35" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0) translate(4 251.35)">
+<svg width="580px" height="325px"
+ viewBox="0.00 0.00 580.17 325.25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0) translate(4 321.25)">
 <title>org.fulib.mockups</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-251.35 682.49,-251.35 682.49,4 -4,4"/>
-<!-- Node -->
-<g id="node1" class="node">
-<title>Node</title>
-<polygon fill="none" stroke="black" points="211,-221.35 211,-243.35 320,-243.35 320,-221.35 211,-221.35"/>
-<text text-anchor="start" x="250.34" y="-227.75" font-family="Times,serif" font-size="14.00">Node</text>
-<polygon fill="none" stroke="black" points="211,-115.35 211,-221.35 320,-221.35 320,-115.35 211,-115.35"/>
-<text text-anchor="start" x="214" y="-205.75" font-family="Times,serif" font-size="14.00">id :String</text>
-<text text-anchor="start" x="214" y="-188.95" font-family="Times,serif" font-size="14.00">description :String</text>
-<text text-anchor="start" x="214" y="-172.15" font-family="Times,serif" font-size="14.00">value :String</text>
-<text text-anchor="start" x="214" y="-155.35" font-family="Times,serif" font-size="14.00">action :String</text>
-<text text-anchor="start" x="214" y="-138.55" font-family="Times,serif" font-size="14.00">icards :Object</text>
-<text text-anchor="start" x="214" y="-121.75" font-family="Times,serif" font-size="14.00">tables :Object</text>
-</g>
-<!-- Node&#45;&gt;Node -->
-<g id="edge1" class="edge">
-<title>Node&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M327.78,-155.3C338.26,-158.66 345.5,-166.68 345.5,-179.35 345.5,-192.02 338.26,-200.03 327.78,-203.4"/>
-<text text-anchor="middle" x="333.03" y="-190.8" font-family="Times,serif" font-size="14.00"> *</text>
-<text text-anchor="middle" x="353.63" y="-142.7" font-family="Times,serif" font-size="14.00">content *</text>
-</g>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-321.25 576.17,-321.25 576.17,4 -4,4"/>
 <!-- Content -->
-<g id="node2" class="node">
+<g id="node1" class="node">
 <title>Content</title>
-<polygon fill="none" stroke="black" points="8,-32.85 8,-54.85 58,-54.85 58,-32.85 8,-32.85"/>
-<text text-anchor="start" x="10.83" y="-39.25" font-family="Times,serif" font-size="14.00">Content</text>
-<polygon fill="none" stroke="black" points="8,-26.85 8,-32.85 58,-32.85 58,-26.85 8,-26.85"/>
+<polygon fill="none" stroke="black" points="8.5,-29.75 8.5,-50.75 57.5,-50.75 57.5,-29.75 8.5,-29.75"/>
+<text text-anchor="start" x="11.5" y="-36.55" font-family="Times,serif" font-size="14.00">Content</text>
+<polygon fill="none" stroke="black" points="8.5,-23.75 8.5,-29.75 57.5,-29.75 57.5,-23.75 8.5,-23.75"/>
+</g>
+<!-- Node -->
+<g id="node4" class="node">
+<title>Node</title>
+<polygon fill="none" stroke="black" points="122.5,-205.75 122.5,-226.75 242.5,-226.75 242.5,-205.75 122.5,-205.75"/>
+<text text-anchor="start" x="167.5" y="-212.55" font-family="Times,serif" font-size="14.00">Node</text>
+<polygon fill="none" stroke="black" points="122.5,-109.75 122.5,-205.75 242.5,-205.75 242.5,-109.75 122.5,-109.75"/>
+<text text-anchor="start" x="125.5" y="-191.55" font-family="Times,serif" font-size="14.00">id :String</text>
+<text text-anchor="start" x="125.5" y="-176.55" font-family="Times,serif" font-size="14.00">description :String</text>
+<text text-anchor="start" x="125.5" y="-161.55" font-family="Times,serif" font-size="14.00">value :String</text>
+<text text-anchor="start" x="125.5" y="-146.55" font-family="Times,serif" font-size="14.00">action :String</text>
+<text text-anchor="start" x="125.5" y="-131.55" font-family="Times,serif" font-size="14.00">icards :List&lt;Object&gt;</text>
+<text text-anchor="start" x="125.5" y="-116.55" font-family="Times,serif" font-size="14.00">tables :List&lt;Object&gt;</text>
 </g>
 <!-- Content&#45;&gt;Node -->
-<g id="edge7" class="edge">
+<g id="edge5" class="edge">
 <title>Content&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M52.96,-58.96C59.76,-64.46 67.54,-70.4 75,-75.35 112.63,-100.28 156.86,-124.52 193.16,-143.22"/>
-<polygon fill="none" stroke="black" points="191.72,-146.41 202.22,-147.85 194.91,-140.18 191.72,-146.41"/>
+<path fill="none" stroke="black" d="M52.42,-55.89C66.55,-68.04 86.5,-85.2 106.54,-102.43"/>
+<polygon fill="none" stroke="black" points="104.35,-105.16 114.21,-109.03 108.91,-99.86 104.35,-105.16"/>
+</g>
+<!-- Element -->
+<g id="node2" class="node">
+<title>Element</title>
+<polygon fill="none" stroke="black" points="149.5,-292.25 149.5,-313.25 216.5,-313.25 216.5,-292.25 149.5,-292.25"/>
+<text text-anchor="start" x="160" y="-299.05" font-family="Times,serif" font-size="14.00">Element</text>
+<polygon fill="none" stroke="black" points="149.5,-271.25 149.5,-292.25 216.5,-292.25 216.5,-271.25 149.5,-271.25"/>
+<text text-anchor="start" x="152.5" y="-278.05" font-family="Times,serif" font-size="14.00">text :String</text>
+</g>
+<!-- Element&#45;&gt;Node -->
+<g id="edge6" class="edge">
+<title>Element&#45;&gt;Node</title>
+<path fill="none" stroke="black" d="M188.01,-267.17C188.6,-259.58 188.98,-250.77 189.15,-241.61"/>
+<polygon fill="none" stroke="black" points="192.65,-241.61 189.25,-231.57 185.65,-241.54 192.65,-241.61"/>
 </g>
 <!-- Line -->
 <g id="node3" class="node">
 <title>Line</title>
-<polygon fill="none" stroke="black" points="96,-32.85 96,-54.85 127,-54.85 127,-32.85 96,-32.85"/>
-<text text-anchor="start" x="98.67" y="-39.25" font-family="Times,serif" font-size="14.00">Line</text>
-<polygon fill="none" stroke="black" points="96,-26.85 96,-32.85 127,-32.85 127,-26.85 96,-26.85"/>
+<polygon fill="none" stroke="black" points="95.5,-29.75 95.5,-50.75 126.5,-50.75 126.5,-29.75 95.5,-29.75"/>
+<text text-anchor="start" x="98.5" y="-36.55" font-family="Times,serif" font-size="14.00">Line</text>
+<polygon fill="none" stroke="black" points="95.5,-23.75 95.5,-29.75 126.5,-29.75 126.5,-23.75 95.5,-23.75"/>
 </g>
 <!-- Line&#45;&gt;Node -->
-<g id="edge9" class="edge">
+<g id="edge7" class="edge">
 <title>Line&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M129.21,-59.01C134.88,-64.29 141.17,-70.09 147,-75.35 162.28,-89.12 178.82,-103.74 194.56,-117.51"/>
-<polygon fill="none" stroke="black" points="192.38,-120.25 202.21,-124.19 196.98,-114.98 192.38,-120.25"/>
+<path fill="none" stroke="black" d="M120.06,-55.89C126.14,-66.77 134.45,-81.67 143.03,-97.04"/>
+<polygon fill="none" stroke="black" points="140.17,-99.09 148.1,-106.12 146.28,-95.68 140.17,-99.09"/>
 </g>
-<!-- Section -->
-<g id="node4" class="node">
-<title>Section</title>
-<polygon fill="none" stroke="black" points="165,-32.85 165,-54.85 212,-54.85 212,-32.85 165,-32.85"/>
-<text text-anchor="start" x="167.5" y="-39.25" font-family="Times,serif" font-size="14.00">Section</text>
-<polygon fill="none" stroke="black" points="165,-26.85 165,-32.85 212,-32.85 212,-26.85 165,-26.85"/>
+<!-- Node&#45;&gt;Element -->
+<g id="edge1" class="edge">
+<title>Node&#45;&gt;Element</title>
+<path fill="none" stroke="black" d="M175.75,-231.57C175.77,-244.24 176.19,-256.84 176.99,-267.17"/>
+<text text-anchor="middle" x="146.99" y="-255.97" font-family="Times,serif" font-size="14.00">elements *</text>
+<text text-anchor="middle" x="170.25" y="-235.37" font-family="Times,serif" font-size="14.00"> *</text>
 </g>
-<!-- Section&#45;&gt;Node -->
-<g id="edge8" class="edge">
-<title>Section&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M197.6,-58.86C203.96,-70.14 212.8,-85.81 221.99,-102.1"/>
-<polygon fill="none" stroke="black" points="219.15,-104.2 227.12,-111.19 225.25,-100.76 219.15,-104.2"/>
+<!-- Node&#45;&gt;Node -->
+<g id="edge2" class="edge">
+<title>Node&#45;&gt;Node</title>
+<path fill="none" stroke="black" d="M250.63,-147.79C261.26,-150.93 268.5,-157.91 268.5,-168.75 268.5,-179.6 261.26,-186.58 250.63,-189.72"/>
+<text text-anchor="middle" x="276.13" y="-178.52" font-family="Times,serif" font-size="14.00">content *</text>
+<text text-anchor="middle" x="256.13" y="-136.59" font-family="Times,serif" font-size="14.00"> *</text>
 </g>
 <!-- Page -->
 <g id="node5" class="node">
 <title>Page</title>
-<polygon fill="none" stroke="black" points="249,-32.85 249,-54.85 282,-54.85 282,-32.85 249,-32.85"/>
-<text text-anchor="start" x="251.89" y="-39.25" font-family="Times,serif" font-size="14.00">Page</text>
-<polygon fill="none" stroke="black" points="249,-26.85 249,-32.85 282,-32.85 282,-26.85 249,-26.85"/>
+<polygon fill="none" stroke="black" points="166.5,-29.75 166.5,-50.75 199.5,-50.75 199.5,-29.75 166.5,-29.75"/>
+<text text-anchor="start" x="169.5" y="-36.55" font-family="Times,serif" font-size="14.00">Page</text>
+<polygon fill="none" stroke="black" points="166.5,-23.75 166.5,-29.75 199.5,-29.75 199.5,-23.75 166.5,-23.75"/>
 </g>
 <!-- Page&#45;&gt;Node -->
-<g id="edge5" class="edge">
+<g id="edge8" class="edge">
 <title>Page&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M265,-58.86C265,-69.82 265,-84.94 265,-100.75"/>
-<polygon fill="none" stroke="black" points="261.5,-101.19 265,-111.19 268.5,-101.19 261.5,-101.19"/>
-</g>
-<!-- WebApp -->
-<g id="node6" class="node">
-<title>WebApp</title>
-<polygon fill="none" stroke="black" points="318,-32.85 318,-54.85 374,-54.85 374,-32.85 318,-32.85"/>
-<text text-anchor="start" x="320.73" y="-39.25" font-family="Times,serif" font-size="14.00">WebApp</text>
-<polygon fill="none" stroke="black" points="318,-26.85 318,-32.85 374,-32.85 374,-26.85 318,-26.85"/>
-</g>
-<!-- WebApp&#45;&gt;Node -->
-<g id="edge6" class="edge">
-<title>WebApp&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M335.91,-58.86C329.15,-70.24 319.74,-86.1 309.98,-102.55"/>
-<polygon fill="none" stroke="black" points="306.95,-100.8 304.85,-111.19 312.97,-104.38 306.95,-100.8"/>
-</g>
-<!-- Element -->
-<g id="node7" class="node">
-<title>Element</title>
-<polygon fill="none" stroke="black" points="408,-40.85 408,-62.85 476,-62.85 476,-40.85 408,-40.85"/>
-<text text-anchor="start" x="418.67" y="-47.25" font-family="Times,serif" font-size="14.00">Element</text>
-<polygon fill="none" stroke="black" points="408,-18.85 408,-40.85 476,-40.85 476,-18.85 408,-18.85"/>
-<text text-anchor="start" x="411" y="-25.25" font-family="Times,serif" font-size="14.00">text :String</text>
-</g>
-<!-- Element&#45;&gt;Node -->
-<g id="edge2" class="edge">
-<title>Element&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M404.17,-66.89C381.89,-83.13 353.23,-104.91 327.69,-124.91"/>
-<text text-anchor="middle" x="332.94" y="-112.31" font-family="Times,serif" font-size="14.00"> *</text>
-<text text-anchor="middle" x="374.04" y="-71.09" font-family="Times,serif" font-size="14.00">elements *</text>
-</g>
-<!-- Element&#45;&gt;Node -->
-<g id="edge10" class="edge">
-<title>Element&#45;&gt;Node</title>
-<path fill="none" stroke="black" d="M414.9,-66.89C393.76,-84.19 363.55,-107.79 335.75,-128.81"/>
-<polygon fill="none" stroke="black" points="333.48,-126.14 327.6,-134.96 337.69,-131.73 333.48,-126.14"/>
+<path fill="none" stroke="black" d="M182.5,-55.89C182.5,-66.47 182.5,-80.84 182.5,-95.75"/>
+<polygon fill="none" stroke="black" points="179,-96.12 182.5,-106.12 186,-96.12 179,-96.12"/>
 </g>
 <!-- Parameter -->
-<g id="node8" class="node">
+<g id="node6" class="node">
 <title>Parameter</title>
-<polygon fill="none" stroke="black" points="526,-187.35 526,-209.35 603,-209.35 603,-187.35 526,-187.35"/>
-<text text-anchor="start" x="536.13" y="-193.75" font-family="Times,serif" font-size="14.00">Parameter</text>
-<polygon fill="none" stroke="black" points="526,-148.35 526,-187.35 603,-187.35 603,-148.35 526,-148.35"/>
-<text text-anchor="start" x="529" y="-171.75" font-family="Times,serif" font-size="14.00">key :String</text>
-<text text-anchor="start" x="529" y="-154.95" font-family="Times,serif" font-size="14.00">value :String</text>
+<polygon fill="none" stroke="black" points="421.5,-175.75 421.5,-196.75 497.5,-196.75 497.5,-175.75 421.5,-175.75"/>
+<text text-anchor="start" x="431.5" y="-182.55" font-family="Times,serif" font-size="14.00">Parameter</text>
+<polygon fill="none" stroke="black" points="421.5,-139.75 421.5,-175.75 497.5,-175.75 497.5,-139.75 421.5,-139.75"/>
+<text text-anchor="start" x="424.5" y="-161.55" font-family="Times,serif" font-size="14.00">key :String</text>
+<text text-anchor="start" x="424.5" y="-146.55" font-family="Times,serif" font-size="14.00">value :String</text>
+</g>
+<!-- Section -->
+<g id="node7" class="node">
+<title>Section</title>
+<polygon fill="none" stroke="black" points="236.5,-29.75 236.5,-50.75 283.5,-50.75 283.5,-29.75 236.5,-29.75"/>
+<text text-anchor="start" x="239.5" y="-36.55" font-family="Times,serif" font-size="14.00">Section</text>
+<polygon fill="none" stroke="black" points="236.5,-23.75 236.5,-29.75 283.5,-29.75 283.5,-23.75 236.5,-23.75"/>
+</g>
+<!-- Section&#45;&gt;Node -->
+<g id="edge9" class="edge">
+<title>Section&#45;&gt;Node</title>
+<path fill="none" stroke="black" d="M249.27,-55.89C242.72,-66.87 233.72,-81.95 224.45,-97.47"/>
+<polygon fill="none" stroke="black" points="221.41,-95.74 219.29,-106.12 227.42,-99.33 221.41,-95.74"/>
 </g>
 <!-- UI -->
-<g id="node9" class="node">
+<g id="node8" class="node">
 <title>UI</title>
-<polygon fill="none" stroke="black" points="510,-48.85 510,-70.85 619,-70.85 619,-48.85 510,-48.85"/>
-<text text-anchor="start" x="557.12" y="-55.25" font-family="Times,serif" font-size="14.00">UI</text>
-<polygon fill="none" stroke="black" points="510,-9.85 510,-48.85 619,-48.85 619,-9.85 510,-9.85"/>
-<text text-anchor="start" x="513" y="-33.25" font-family="Times,serif" font-size="14.00">id :String</text>
-<text text-anchor="start" x="513" y="-16.45" font-family="Times,serif" font-size="14.00">description :String</text>
+<polygon fill="none" stroke="black" points="406.5,-44.75 406.5,-65.75 513.5,-65.75 513.5,-44.75 406.5,-44.75"/>
+<text text-anchor="start" x="452.5" y="-51.55" font-family="Times,serif" font-size="14.00">UI</text>
+<polygon fill="none" stroke="black" points="406.5,-8.75 406.5,-44.75 513.5,-44.75 513.5,-8.75 406.5,-8.75"/>
+<text text-anchor="start" x="409.5" y="-30.55" font-family="Times,serif" font-size="14.00">id :String</text>
+<text text-anchor="start" x="409.5" y="-15.55" font-family="Times,serif" font-size="14.00">description :String</text>
 </g>
 <!-- UI&#45;&gt;Parameter -->
 <g id="edge4" class="edge">
 <title>UI&#45;&gt;Parameter</title>
-<path fill="none" stroke="black" d="M564,-75.59C564,-96.59 564,-123.51 564,-144.52"/>
-<text text-anchor="middle" x="528.05" y="-131.92" font-family="Times,serif" font-size="14.00">parameters *</text>
-<text text-anchor="middle" x="546.51" y="-79.79" font-family="Times,serif" font-size="14.00">owner</text>
+<path fill="none" stroke="black" d="M459.5,-70.31C459.5,-90.3 459.5,-116.06 459.5,-136.08"/>
+<text text-anchor="middle" x="424" y="-124.88" font-family="Times,serif" font-size="14.00">parameters *</text>
+<text text-anchor="middle" x="442.5" y="-74.11" font-family="Times,serif" font-size="14.00">owner</text>
 </g>
 <!-- UI&#45;&gt;UI -->
 <g id="edge3" class="edge">
 <title>UI&#45;&gt;UI</title>
-<path fill="none" stroke="black" d="M626.78,-16.8C637.26,-20.16 644.5,-28.18 644.5,-40.85 644.5,-53.52 637.26,-61.53 626.78,-64.9"/>
-<text text-anchor="middle" x="652.63" y="-52.3" font-family="Times,serif" font-size="14.00">content *</text>
-<text text-anchor="middle" x="644.27" y="-4.2" font-family="Times,serif" font-size="14.00">parent</text>
+<path fill="none" stroke="black" d="M521.17,-15C531.7,-18.11 539,-25.69 539,-37.75 539,-49.82 531.7,-57.4 521.17,-60.51"/>
+<text text-anchor="middle" x="538.17" y="-49.31" font-family="Times,serif" font-size="14.00">parent</text>
+<text text-anchor="middle" x="546.67" y="-3.8" font-family="Times,serif" font-size="14.00">content *</text>
+</g>
+<!-- WebApp -->
+<g id="node9" class="node">
+<title>WebApp</title>
+<polygon fill="none" stroke="black" points="317.5,-29.75 317.5,-50.75 372.5,-50.75 372.5,-29.75 317.5,-29.75"/>
+<text text-anchor="start" x="320.5" y="-36.55" font-family="Times,serif" font-size="14.00">WebApp</text>
+<polygon fill="none" stroke="black" points="317.5,-23.75 317.5,-29.75 372.5,-29.75 372.5,-23.75 317.5,-23.75"/>
+</g>
+<!-- WebApp&#45;&gt;Node -->
+<g id="edge10" class="edge">
+<title>WebApp&#45;&gt;Node</title>
+<path fill="none" stroke="black" d="M322.99,-55.89C306.36,-69.12 282.29,-88.3 258.75,-107.04"/>
+<polygon fill="none" stroke="black" points="256.44,-104.4 250.79,-113.37 260.8,-109.88 256.44,-104.4"/>
 </g>
 </g>
 </svg>

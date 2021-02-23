@@ -403,6 +403,15 @@ public class Node
       return true;
    }
 
+   public PropertyChangeSupport listeners()
+   {
+      if (this.listeners == null)
+      {
+         this.listeners = new PropertyChangeSupport(this);
+      }
+      return this.listeners;
+   }
+
    @Override
    public String toString()
    {

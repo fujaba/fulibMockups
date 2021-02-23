@@ -1,7 +1,8 @@
 package org.fulib.mockups;
-import java.util.Objects;
-import java.beans.PropertyChangeSupport;
+
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Objects;
 
 public class Parameter
 {
@@ -122,6 +123,15 @@ public class Parameter
          this.listeners.removePropertyChangeListener(propertyName, listener);
       }
       return true;
+   }
+
+   public PropertyChangeSupport listeners()
+   {
+      if (this.listeners == null)
+      {
+         this.listeners = new PropertyChangeSupport(this);
+      }
+      return this.listeners;
    }
 
    @Override
