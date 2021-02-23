@@ -3,13 +3,12 @@ root = true
 [*]
 charset = utf-8
 end_of_line = lf
-indent_size = 4
-indent_style = tab
+indent_size = 3
+indent_style = space
 insert_final_newline = true
 max_line_length = 120
-tab_width = 4
+tab_width = 3
 
 [{*.json, *.yml, *.yaml}]
 indent_size = 2
-indent_style = space
 tab_width = 2

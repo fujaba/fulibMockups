@@ -1,12 +1,12 @@
 plugins {
-	id 'java'
-	id 'maven-publish'
-	// https://plugins.gradle.org/plugin/com.jfrog.bintray
-	id 'com.jfrog.bintray' version '1.8.5'
-	// https://plugins.gradle.org/plugin/de.clashsoft.simple-publish
-	id 'de.clashsoft.simple-publish' version '0.6.0'
-	// https://plugins.gradle.org/plugin/org.fulib.fulibGradle
-	id 'org.fulib.fulibGradle' version '0.4.0'
+   id 'java'
+   id 'maven-publish'
+   // https://plugins.gradle.org/plugin/com.jfrog.bintray
+   id 'com.jfrog.bintray' version '1.8.5'
+   // https://plugins.gradle.org/plugin/de.clashsoft.simple-publish
+   id 'de.clashsoft.simple-publish' version '0.6.0'
+   // https://plugins.gradle.org/plugin/org.fulib.fulibGradle
+   id 'org.fulib.fulibGradle' version '0.4.0'
 }
 
 // --------------- Info ---------------
@@ -16,26 +16,26 @@ version = "git describe --tags".execute().text[1..-2] // strip v and \n
 description = 'Tools for generating HTML mockups and Web Apps.'
 
 publishInfo {
-	websiteUrl = 'https://www.fulib.org/'
-	githubRepo = 'fujaba/fulibMockups'
-	labels = [ 'source', 'generator', 'html', 'mockups', 'webapp' ]
+   websiteUrl = 'https://www.fulib.org/'
+   githubRepo = 'fujaba/fulibMockups'
+   labels = [ 'source', 'generator', 'html', 'mockups', 'webapp' ]
 
-	license {
-		name = 'BSD 3-Clause'
-		url = 'https://opensource.org/licenses/BSD-3-Clause'
-	}
+   license {
+      name = 'BSD 3-Clause'
+      url = 'https://opensource.org/licenses/BSD-3-Clause'
+   }
 
-	developer {
-		id = 'Clashsoft'
-		name = 'Adrian Kunz'
-		email = 'clashsoft@hotmail.com'
-	}
+   developer {
+      id = 'Clashsoft'
+      name = 'Adrian Kunz'
+      email = 'clashsoft@hotmail.com'
+   }
 
-	developer {
-		id = 'azuendorf'
-		name = 'Albert Zündorf'
-		email = 'zuendorf@uni-kassel.de'
-	}
+   developer {
+      id = 'azuendorf'
+      name = 'Albert Zündorf'
+      email = 'zuendorf@uni-kassel.de'
+   }
 }
 
 sourceCompatibility = 1.8
@@ -43,35 +43,35 @@ sourceCompatibility = 1.8
 // --------------- Dependencies ---------------
 
 repositories {
-	mavenLocal()
-	mavenCentral()
-	jcenter()
+   mavenLocal()
+   mavenCentral()
+   jcenter()
 }
 
 dependencies {
-	// https://mvnrepository.com/artifact/org.fulib/fulibScenarios
-	fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '1.6.2'
+   // https://mvnrepository.com/artifact/org.fulib/fulibScenarios
+   fulibScenarios group: 'org.fulib', name: 'fulibScenarios', version: '1.6.2'
 
-	// https://mvnrepository.com/artifact/org.fulib/fulibTools
-	fulibScenarios group: 'org.fulib', name: 'fulibTools', version: '1.5.1'
+   // https://mvnrepository.com/artifact/org.fulib/fulibTools
+   fulibScenarios group: 'org.fulib', name: 'fulibTools', version: '1.5.1'
 
-	// https://mvnrepository.com/artifact/org.fulib/fulibYaml
-	implementation group: 'org.fulib', name: 'fulibYaml', version: '1.5.0'
+   // https://mvnrepository.com/artifact/org.fulib/fulibYaml
+   implementation group: 'org.fulib', name: 'fulibYaml', version: '1.5.0'
 
-	// https://mvnrepository.com/artifact/org.antlr/ST4
-	implementation group: 'org.antlr', name: 'ST4', version: '4.3.1'
+   // https://mvnrepository.com/artifact/org.antlr/ST4
+   implementation group: 'org.antlr', name: 'ST4', version: '4.3.1'
 
-	// https://mvnrepository.com/artifact/com.codeborne/selenide
-	implementation group: 'com.codeborne', name: 'selenide', version: '5.18.1'
+   // https://mvnrepository.com/artifact/com.codeborne/selenide
+   implementation group: 'com.codeborne', name: 'selenide', version: '5.18.1'
 
-	// https://mvnrepository.com/artifact/com.sparkjava/spark-core
-	implementation group: 'com.sparkjava', name: 'spark-core', version: '2.9.3'
+   // https://mvnrepository.com/artifact/com.sparkjava/spark-core
+   implementation group: 'com.sparkjava', name: 'spark-core', version: '2.9.3'
 
-	// https://mvnrepository.com/artifact/org.fulib/fulibTools
-	testImplementation group: 'org.fulib', name: 'fulibTools', version: '1.5.0'
+   // https://mvnrepository.com/artifact/org.fulib/fulibTools
+   testImplementation group: 'org.fulib', name: 'fulibTools', version: '1.5.0'
 
-	// https://mvnrepository.com/artifact/junit/junit
-	testImplementation group: 'junit', name: 'junit', version: '4.13'
+   // https://mvnrepository.com/artifact/junit/junit
+   testImplementation group: 'junit', name: 'junit', version: '4.13'
 }
 
 // --------------- FulibGradle Overrides ---------------
@@ -81,13 +81,13 @@ final File testDir = file "$project.buildDir/generated/sources/scenarios/test/"
 sourceSets.test.java.srcDir(testDir)
 
 generateScenarioSource {
-	testDirectory = testDir
-	classDiagramSVG = true
+   testDirectory = testDir
+   classDiagramSVG = true
 }
 
 generateTestScenarioSource {
-	dependsOn 'classes'
-	classpath = sourceSets.main.output
-	modelDirectory = testDir
-	testDirectory = testDir
+   dependsOn 'classes'
+   classpath = sourceSets.main.output
+   modelDirectory = testDir
+   testDirectory = testDir
 }
