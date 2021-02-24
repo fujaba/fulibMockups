@@ -12,16 +12,16 @@ with [fulibScenarios](https://github.com/fujaba/fulibScenarios).
 
 ```groovy
 repositories {
-	// ...
-	mavenCentral()
+   // ...
+   mavenCentral()
 }
 ```
 
 ```groovy
 dependencies {
-	// ...
-	// https://mvnrepository.com/artifact/org.fulib/fulibMockups
-	compile group: 'org.fulib', name: 'fulibMockups', version: '0.3.1'
+   // ...
+   // https://mvnrepository.com/artifact/org.fulib/fulibMockups
+   compile group: 'org.fulib', name: 'fulibMockups', version: '0.4.0'
 }
 ```
 

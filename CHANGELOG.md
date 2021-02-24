@@ -41,3 +41,13 @@
 ## Bugfixes
 
 * Rendering no longer ignores description and children of some `UI` elements. #12
+
+# fulibMockups v0.4.0
+
+## General
+
+* Updated external dependencies.
+
+## New Features
+
++ Added the `listeners()` method to all model classes.
