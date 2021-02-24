@@ -69,7 +69,7 @@ dependencies {
    implementation group: 'org.antlr', name: 'ST4', version: '4.3.1'
 
    // https://mvnrepository.com/artifact/com.codeborne/selenide
-   implementation group: 'com.codeborne', name: 'selenide', version: '5.18.1'
+   implementation group: 'com.codeborne', name: 'selenide', version: '5.19.0'
 
    // https://mvnrepository.com/artifact/com.sparkjava/spark-core
    implementation group: 'com.sparkjava', name: 'spark-core', version: '2.9.3'
