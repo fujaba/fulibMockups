@@ -21,7 +21,21 @@ repositories {
 dependencies {
    // ...
    // https://mvnrepository.com/artifact/org.fulib/fulibMockups
-   compile group: 'org.fulib', name: 'fulibMockups', version: '0.4.0'
+   fulibScenarios group: 'org.fulib', name: 'fulibMockups', version: '0.4.0'
+   testImplementation group: 'org.fulib', name: 'fulibMockups', version: '0.4.0'
+}
+```
+
+```groovy
+tasks.withType(org.fulib.gradle.ScenariosTask) {
+   extraArgs += [
+      '--imports', 'org.fulib.mockups',
+      '--diagram-handlers', '.html=import(org.fulib.scenarios.MockupTools).htmlTool().dumpScreen(%s, %s)',
+      '--diagram-handlers', '.html.png=import(org.fulib.scenarios.MockupTools).htmlTool().dump(%s, %s)',
+      '--diagram-handlers', '.tables.html=import(org.fulib.scenarios.MockupTools).htmlTool().dumpTables(%s, %s)',
+      '--diagram-handlers', '.mockup.html=import(org.fulib.scenarios.MockupTools).htmlTool().dumpMockup(%s)',
+      '--diagram-handlers', '.txt=import(org.fulib.scenarios.MockupTools).htmlTool().dumpToString(%s, %s)',
+   ]
 }
 ```
 
